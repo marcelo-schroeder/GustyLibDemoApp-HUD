@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UITableViewController {
     
     enum TableViewRow: Int {
-        case TextLabel, DetailText, IndeterminateProgress, DeterminateProgress, Ok, Error
+        case TextLabel, DetailText, IndeterminateProgress, DeterminateProgress, Ok, Error, UserInteraction
     }
 
     //MARK: UITableViewControllerDelegate
@@ -23,7 +23,9 @@ class ViewController: UITableViewController {
         // Text
         var text: String?
         switch indexPath.row {
-        case TableViewRow.TextLabel.rawValue...TableViewRow.Error.rawValue:
+        case TableViewRow.UserInteraction.rawValue:
+            text = "Tap to cancel"
+        case TableViewRow.TextLabel.rawValue...TableViewRow.UserInteraction.rawValue:
             text = "Text label"
         default:
             text = nil
@@ -49,8 +51,21 @@ class ViewController: UITableViewController {
             visualIndicatorMode = IFAHudVisualIndicatorMode.Success
         case TableViewRow.Error.rawValue:
             visualIndicatorMode = IFAHudVisualIndicatorMode.Error
+        case TableViewRow.UserInteraction.rawValue:
+            visualIndicatorMode = IFAHudVisualIndicatorMode.ProgressIndeterminate
         default:
             visualIndicatorMode = IFAHudVisualIndicatorMode.None
+        }
+
+        // Tap action block
+        var tapActionBlock: (() -> Void)?
+        switch indexPath.row {
+        case TableViewRow.UserInteraction.rawValue:
+            tapActionBlock = {
+                NSLog("Hello")
+            }
+        default:
+            tapActionBlock = nil
         }
 
         // Auto dismiss delay - CHANGE TO autoDismissalDelay
@@ -66,6 +81,7 @@ class ViewController: UITableViewController {
         hud.text = text
         hud.detailText = detailText
         hud.visualIndicatorMode = visualIndicatorMode
+        hud.tapActionBlock = tapActionBlock
 
         if visualIndicatorMode == IFAHudVisualIndicatorMode.ProgressDeterminate {
             hud.presentWithCompletion({[unowned self] in self.completion(hud)})
