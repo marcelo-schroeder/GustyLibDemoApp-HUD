@@ -19,7 +19,10 @@ class ViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
+
+        // Initialise HUD
+        let hud = IFAHud()
+
         // Text
         var text: String?
         switch indexPath.row {
@@ -57,34 +60,41 @@ class ViewController: UITableViewController {
             visualIndicatorMode = IFAHudVisualIndicatorMode.None
         }
 
-        // Tap action block
-        var tapActionBlock: (() -> Void)?
-        switch indexPath.row {
-        case TableViewRow.UserInteraction.rawValue:
-            tapActionBlock = {
-                NSLog("Hello")
-            }
-        default:
-            tapActionBlock = nil
-        }
-
         // Auto dismiss delay - CHANGE TO autoDismissalDelay
         var autoDismissalDelay: NSTimeInterval?
         switch indexPath.row {
         case TableViewRow.IndeterminateProgress.rawValue:
             autoDismissalDelay = 2.0
+        case TableViewRow.UserInteraction.rawValue:
+            autoDismissalDelay = 5.0
         default:
             autoDismissalDelay = 0.5
         }
-        
-        let hud = IFAHud()
+
+        // Tap action block
+        var tapActionBlock: (() -> Void)?
+        switch indexPath.row {
+        case TableViewRow.UserInteraction.rawValue:
+            tapActionBlock = {
+                [unowned hud] in
+                hud.dismissWithCompletion(nil)
+            }
+        default:
+            tapActionBlock = nil
+        }
+
+        // Configure HUD
         hud.text = text
         hud.detailText = detailText
         hud.visualIndicatorMode = visualIndicatorMode
         hud.tapActionBlock = tapActionBlock
 
+        // Present HUD
         if visualIndicatorMode == IFAHudVisualIndicatorMode.ProgressDeterminate {
-            hud.presentWithCompletion({[unowned self] in self.completion(hud)})
+            hud.presentWithCompletion({
+                [unowned self] in
+                self.completion(hud)
+            })
         } else {
             hud.presentWithAutoDismissalDelay(autoDismissalDelay!, completion: nil)
         }
