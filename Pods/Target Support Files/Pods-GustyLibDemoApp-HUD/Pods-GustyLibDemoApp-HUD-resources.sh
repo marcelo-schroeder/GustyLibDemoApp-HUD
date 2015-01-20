@@ -100,6 +100,7 @@ install_resource()
                     install_resource "../../GustyLib/GustyLib_development/GustyLib/GustyLib/CoreUI/resources/images/IFA_Icon_Add.png"
                     install_resource "../../GustyLib/GustyLib_development/GustyLib/GustyLib/CoreUI/resources/images/IFA_Icon_AddToSelection.png"
                     install_resource "../../GustyLib/GustyLib_development/GustyLib/GustyLib/CoreUI/resources/images/IFA_Icon_AddToSelection@2x.png"
+                    install_resource "../../GustyLib/GustyLib_development/GustyLib/GustyLib/CoreUI/resources/images/IFA_Icon_Check@3x.png"
                     install_resource "../../GustyLib/GustyLib_development/GustyLib/GustyLib/CoreUI/resources/images/IFA_Icon_Close.png"
                     install_resource "../../GustyLib/GustyLib_development/GustyLib/GustyLib/CoreUI/resources/images/IFA_Icon_Close@2x.png"
                     install_resource "../../GustyLib/GustyLib_development/GustyLib/GustyLib/CoreUI/resources/images/IFA_ICon_Delete.png"

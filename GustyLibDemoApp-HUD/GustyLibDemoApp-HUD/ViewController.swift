@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UITableViewController {
     
     enum TableViewRow: Int {
-        case TextLabel, DetailText, IndeterminateProgress, DeterminateProgress
+        case TextLabel, DetailText, IndeterminateProgress, DeterminateProgress, Ok, Error
     }
 
     //MARK: UITableViewControllerDelegate
@@ -23,7 +23,7 @@ class ViewController: UITableViewController {
         // Text
         var text: String?
         switch indexPath.row {
-        case TableViewRow.TextLabel.rawValue...TableViewRow.DeterminateProgress.rawValue:
+        case TableViewRow.TextLabel.rawValue...TableViewRow.Error.rawValue:
             text = "Text label"
         default:
             text = nil
@@ -38,34 +38,36 @@ class ViewController: UITableViewController {
             detailText = nil
         }
 
-        // Progress mode
-        var progressMode: IFAHudProgressMode
-        switch indexPath.row {git
+        // Visual indicator mode
+        var visualIndicatorMode: IFAHudVisualIndicatorMode
+        switch indexPath.row {
         case TableViewRow.IndeterminateProgress.rawValue:
-            progressMode = IFAHudProgressMode.Indeterminate
+            visualIndicatorMode = IFAHudVisualIndicatorMode.ProgressIndeterminate
         case TableViewRow.DeterminateProgress.rawValue:
-            progressMode = IFAHudProgressMode.Determinate
+            visualIndicatorMode = IFAHudVisualIndicatorMode.ProgressDeterminate
+        case TableViewRow.Ok.rawValue:
+            visualIndicatorMode = IFAHudVisualIndicatorMode.Ok
+        case TableViewRow.Error.rawValue:
+            visualIndicatorMode = IFAHudVisualIndicatorMode.Error
         default:
-            progressMode = IFAHudProgressMode.None
+            visualIndicatorMode = IFAHudVisualIndicatorMode.None
         }
 
         // Auto dismiss delay - CHANGE TO autoDismissalDelay
         var autoDismissalDelay: NSTimeInterval?
         switch indexPath.row {
-        case TableViewRow.TextLabel.rawValue...TableViewRow.DetailText.rawValue:
-            autoDismissalDelay = 0.5
         case TableViewRow.IndeterminateProgress.rawValue:
             autoDismissalDelay = 2.0
         default:
-            autoDismissalDelay = nil
+            autoDismissalDelay = 0.5
         }
         
         let hud = IFAHud()
         hud.text = text
         hud.detailText = detailText
-        hud.progressMode = progressMode
+        hud.visualIndicatorMode = visualIndicatorMode
 
-        if progressMode == IFAHudProgressMode.Determinate {
+        if visualIndicatorMode == IFAHudVisualIndicatorMode.ProgressDeterminate {
             hud.presentWithCompletion({[unowned self] in self.completion(hud)})
         } else {
             hud.presentWithAutoDismissalDelay(autoDismissalDelay!, completion: nil)
