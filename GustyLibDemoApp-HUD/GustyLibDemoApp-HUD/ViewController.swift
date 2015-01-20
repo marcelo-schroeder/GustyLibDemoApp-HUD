@@ -46,7 +46,7 @@ class ViewController: UITableViewController {
         case TableViewRow.DeterminateProgress.rawValue:
             visualIndicatorMode = IFAHudVisualIndicatorMode.ProgressDeterminate
         case TableViewRow.Ok.rawValue:
-            visualIndicatorMode = IFAHudVisualIndicatorMode.Ok
+            visualIndicatorMode = IFAHudVisualIndicatorMode.Success
         case TableViewRow.Error.rawValue:
             visualIndicatorMode = IFAHudVisualIndicatorMode.Error
         default:
