@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UITableViewController {
     
     enum TableViewRow: Int {
-        case TextLabel, DetailText, IndeterminateProgress, DeterminateProgress, Success, Error, UserInteraction
+        case TextLabel, DetailText, IndeterminateProgress, DeterminateProgress, Success, Error, UserInteraction, Compressed, Expanded
     }
 
     //MARK: UITableViewControllerDelegate
@@ -21,7 +21,8 @@ class ViewController: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
         // Initialise HUD
-        let hud = IFAHud()
+        let frameViewLayoutFittingMode = indexPath.row == TableViewRow.Expanded.rawValue ? IFAHudFrameViewLayoutFittingMode.Expanded : IFAHudFrameViewLayoutFittingMode.Compressed
+        let hud: IFAHud = IFAHud(frameViewLayoutFittingMode: frameViewLayoutFittingMode)
 
         // Text
         var text: String?
@@ -38,6 +39,10 @@ class ViewController: UITableViewController {
             text = "Error"
         case TableViewRow.UserInteraction.rawValue:
             text = "Tap to cancel"
+        case TableViewRow.Compressed.rawValue:
+            text = "Compressed"
+        case TableViewRow.Expanded.rawValue:
+            text = "Expanded"
         default:
             text = nil
         }
