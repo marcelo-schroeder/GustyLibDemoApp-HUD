@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UITableViewController {
     
     enum TableViewRow: Int {
-        case TextLabel, DetailText, IndeterminateProgress, DeterminateProgress, Success, Error, UserInteractionWithAutoDismissal, UserInteractionWithTapAction, Compressed, Expanded
+        case TextLabel, DetailText, IndeterminateProgress, DeterminateProgress, Success, Error, UserInteractionWithAutoDismissal, UserInteractionWithTapAction, Compressed, Expanded, CustomColours
     }
 
     //MARK: UITableViewControllerDelegate
@@ -45,6 +45,8 @@ class ViewController: UITableViewController {
             text = "Compressed"
         case TableViewRow.Expanded.rawValue:
             text = "Expanded"
+        case TableViewRow.CustomColours.rawValue:
+            text = "Custom colours"
         default:
             text = nil
         }
@@ -107,12 +109,26 @@ class ViewController: UITableViewController {
             shouldDismissOnTap = false
         }
 
+        // Custom colours
+        var frameForegroundColour: UIColor?
+        var frameBackgroundColour: UIColor?
+        switch indexPath.row {
+        case TableViewRow.CustomColours.rawValue:
+            frameForegroundColour = UIColor.yellowColor()
+            frameBackgroundColour = UIColor.blueColor()
+        default:
+            frameForegroundColour = nil
+            frameBackgroundColour = nil
+        }
+
         // Configure HUD
         hud.text = text
         hud.detailText = detailText
         hud.visualIndicatorMode = visualIndicatorMode
         hud.tapActionBlock = tapActionBlock
         hud.shouldDismissOnTap = shouldDismissOnTap
+        hud.frameForegroundColour = frameForegroundColour
+        hud.frameBackgroundColour = frameBackgroundColour
 
         // Present HUD
         if visualIndicatorMode == IFAHudVisualIndicatorMode.ProgressDeterminate {
