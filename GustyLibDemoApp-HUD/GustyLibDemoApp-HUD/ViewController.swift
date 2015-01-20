@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UITableViewController {
     
     enum TableViewRow: Int {
-        case TextLabel, DetailText, IndeterminateProgress, DeterminateProgress, Ok, Error, UserInteraction
+        case TextLabel, DetailText, IndeterminateProgress, DeterminateProgress, Success, Error, UserInteraction
     }
 
     //MARK: UITableViewControllerDelegate
@@ -26,10 +26,18 @@ class ViewController: UITableViewController {
         // Text
         var text: String?
         switch indexPath.row {
+        case TableViewRow.TextLabel.rawValue...TableViewRow.DetailText.rawValue:
+            text = "Text label"
+        case TableViewRow.IndeterminateProgress.rawValue:
+            text = "Indeterminate progress"
+        case TableViewRow.DeterminateProgress.rawValue:
+            text = "Determinate progress"
+        case TableViewRow.Success.rawValue:
+            text = "Success"
+        case TableViewRow.Error.rawValue:
+            text = "Error"
         case TableViewRow.UserInteraction.rawValue:
             text = "Tap to cancel"
-        case TableViewRow.TextLabel.rawValue...TableViewRow.UserInteraction.rawValue:
-            text = "Text label"
         default:
             text = nil
         }
@@ -37,7 +45,7 @@ class ViewController: UITableViewController {
         // Detail text
         var detailText: String?;
         switch indexPath.row {
-        case TableViewRow.DetailText.rawValue...TableViewRow.DeterminateProgress.rawValue:
+        case TableViewRow.DetailText.rawValue:
             detailText = "Detail text label"
         default:
             detailText = nil
@@ -50,7 +58,7 @@ class ViewController: UITableViewController {
             visualIndicatorMode = IFAHudVisualIndicatorMode.ProgressIndeterminate
         case TableViewRow.DeterminateProgress.rawValue:
             visualIndicatorMode = IFAHudVisualIndicatorMode.ProgressDeterminate
-        case TableViewRow.Ok.rawValue:
+        case TableViewRow.Success.rawValue:
             visualIndicatorMode = IFAHudVisualIndicatorMode.Success
         case TableViewRow.Error.rawValue:
             visualIndicatorMode = IFAHudVisualIndicatorMode.Error
