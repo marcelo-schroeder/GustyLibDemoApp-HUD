@@ -1,0 +1,490 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B6DCFF71E1AEDDE13A3194B7 /* libPods-GustyLibDemoApp-HUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71F2390A0A5D6E62A872CFB6 /* libPods-GustyLibDemoApp-HUD.a */; };
+		F79450071A6CBAB300E059A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79450061A6CBAB300E059A3 /* AppDelegate.swift */; };
+		F79450091A6CBAB300E059A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79450081A6CBAB300E059A3 /* ViewController.swift */; };
+		F794500C1A6CBAB300E059A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F794500A1A6CBAB300E059A3 /* Main.storyboard */; };
+		F794500E1A6CBAB300E059A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F794500D1A6CBAB300E059A3 /* Images.xcassets */; };
+		F79450111A6CBAB300E059A3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F794500F1A6CBAB300E059A3 /* LaunchScreen.xib */; };
+		F794501D1A6CBAB300E059A3 /* GustyLibDemoApp_HUDTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F794501C1A6CBAB300E059A3 /* GustyLibDemoApp_HUDTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F79450171A6CBAB300E059A3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F7944FF91A6CBAB300E059A3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F79450001A6CBAB300E059A3;
+			remoteInfo = "GustyLibDemoApp-HUD";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5977A1646394E0B52BADF53E /* Pods-GustyLibDemoApp-HUD.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GustyLibDemoApp-HUD.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-GustyLibDemoApp-HUD/Pods-GustyLibDemoApp-HUD.debug.xcconfig"; sourceTree = "<group>"; };
+		71F2390A0A5D6E62A872CFB6 /* libPods-GustyLibDemoApp-HUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GustyLibDemoApp-HUD.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3D39E40922E41F71D027336 /* Pods-GustyLibDemoApp-HUD.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GustyLibDemoApp-HUD.release.xcconfig"; path = "../Pods/Target Support Files/Pods-GustyLibDemoApp-HUD/Pods-GustyLibDemoApp-HUD.release.xcconfig"; sourceTree = "<group>"; };
+		F79450011A6CBAB300E059A3 /* GustyLibDemoApp-HUD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GustyLibDemoApp-HUD.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F79450051A6CBAB300E059A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F79450061A6CBAB300E059A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F79450081A6CBAB300E059A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F794500B1A6CBAB300E059A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F794500D1A6CBAB300E059A3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F79450101A6CBAB300E059A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		F79450161A6CBAB300E059A3 /* GustyLibDemoApp-HUDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GustyLibDemoApp-HUDTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F794501B1A6CBAB300E059A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F794501C1A6CBAB300E059A3 /* GustyLibDemoApp_HUDTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GustyLibDemoApp_HUDTests.swift; sourceTree = "<group>"; };
+		F7C5F09F1A6CC86600F108F4 /* GustyLibDemoApp-HUD-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GustyLibDemoApp-HUD-Bridging-Header.h"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F7944FFE1A6CBAB300E059A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6DCFF71E1AEDDE13A3194B7 /* libPods-GustyLibDemoApp-HUD.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F79450131A6CBAB300E059A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8154C6D2DECAE5F77D2E6D52 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				71F2390A0A5D6E62A872CFB6 /* libPods-GustyLibDemoApp-HUD.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F7944FF81A6CBAB300E059A3 = {
+			isa = PBXGroup;
+			children = (
+				F79450031A6CBAB300E059A3 /* GustyLibDemoApp-HUD */,
+				F79450191A6CBAB300E059A3 /* GustyLibDemoApp-HUDTests */,
+				F79450021A6CBAB300E059A3 /* Products */,
+				F87B8A9803B6F4CEB62CF348 /* Pods */,
+				8154C6D2DECAE5F77D2E6D52 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		F79450021A6CBAB300E059A3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F79450011A6CBAB300E059A3 /* GustyLibDemoApp-HUD.app */,
+				F79450161A6CBAB300E059A3 /* GustyLibDemoApp-HUDTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F79450031A6CBAB300E059A3 /* GustyLibDemoApp-HUD */ = {
+			isa = PBXGroup;
+			children = (
+				F79450061A6CBAB300E059A3 /* AppDelegate.swift */,
+				F79450081A6CBAB300E059A3 /* ViewController.swift */,
+				F794500A1A6CBAB300E059A3 /* Main.storyboard */,
+				F794500D1A6CBAB300E059A3 /* Images.xcassets */,
+				F794500F1A6CBAB300E059A3 /* LaunchScreen.xib */,
+				F79450041A6CBAB300E059A3 /* Supporting Files */,
+				F7C5F09F1A6CC86600F108F4 /* GustyLibDemoApp-HUD-Bridging-Header.h */,
+			);
+			path = "GustyLibDemoApp-HUD";
+			sourceTree = "<group>";
+		};
+		F79450041A6CBAB300E059A3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F79450051A6CBAB300E059A3 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F79450191A6CBAB300E059A3 /* GustyLibDemoApp-HUDTests */ = {
+			isa = PBXGroup;
+			children = (
+				F794501C1A6CBAB300E059A3 /* GustyLibDemoApp_HUDTests.swift */,
+				F794501A1A6CBAB300E059A3 /* Supporting Files */,
+			);
+			path = "GustyLibDemoApp-HUDTests";
+			sourceTree = "<group>";
+		};
+		F794501A1A6CBAB300E059A3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F794501B1A6CBAB300E059A3 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F87B8A9803B6F4CEB62CF348 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5977A1646394E0B52BADF53E /* Pods-GustyLibDemoApp-HUD.debug.xcconfig */,
+				D3D39E40922E41F71D027336 /* Pods-GustyLibDemoApp-HUD.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F79450001A6CBAB300E059A3 /* GustyLibDemoApp-HUD */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F79450201A6CBAB300E059A3 /* Build configuration list for PBXNativeTarget "GustyLibDemoApp-HUD" */;
+			buildPhases = (
+				E0AB4F296845AD8BC8497430 /* Check Pods Manifest.lock */,
+				F7944FFD1A6CBAB300E059A3 /* Sources */,
+				F7944FFE1A6CBAB300E059A3 /* Frameworks */,
+				F7944FFF1A6CBAB300E059A3 /* Resources */,
+				4DAD4151B4420CD956449E7D /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "GustyLibDemoApp-HUD";
+			productName = "GustyLibDemoApp-HUD";
+			productReference = F79450011A6CBAB300E059A3 /* GustyLibDemoApp-HUD.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F79450151A6CBAB300E059A3 /* GustyLibDemoApp-HUDTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F79450231A6CBAB300E059A3 /* Build configuration list for PBXNativeTarget "GustyLibDemoApp-HUDTests" */;
+			buildPhases = (
+				F79450121A6CBAB300E059A3 /* Sources */,
+				F79450131A6CBAB300E059A3 /* Frameworks */,
+				F79450141A6CBAB300E059A3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F79450181A6CBAB300E059A3 /* PBXTargetDependency */,
+			);
+			name = "GustyLibDemoApp-HUDTests";
+			productName = "GustyLibDemoApp-HUDTests";
+			productReference = F79450161A6CBAB300E059A3 /* GustyLibDemoApp-HUDTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F7944FF91A6CBAB300E059A3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "InfoAccent Pty Ltd";
+				TargetAttributes = {
+					F79450001A6CBAB300E059A3 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					F79450151A6CBAB300E059A3 = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = F79450001A6CBAB300E059A3;
+					};
+				};
+			};
+			buildConfigurationList = F7944FFC1A6CBAB300E059A3 /* Build configuration list for PBXProject "GustyLibDemoApp-HUD" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F7944FF81A6CBAB300E059A3;
+			productRefGroup = F79450021A6CBAB300E059A3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F79450001A6CBAB300E059A3 /* GustyLibDemoApp-HUD */,
+				F79450151A6CBAB300E059A3 /* GustyLibDemoApp-HUDTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F7944FFF1A6CBAB300E059A3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F794500C1A6CBAB300E059A3 /* Main.storyboard in Resources */,
+				F79450111A6CBAB300E059A3 /* LaunchScreen.xib in Resources */,
+				F794500E1A6CBAB300E059A3 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F79450141A6CBAB300E059A3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4DAD4151B4420CD956449E7D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-GustyLibDemoApp-HUD/Pods-GustyLibDemoApp-HUD-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E0AB4F296845AD8BC8497430 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F7944FFD1A6CBAB300E059A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F79450091A6CBAB300E059A3 /* ViewController.swift in Sources */,
+				F79450071A6CBAB300E059A3 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F79450121A6CBAB300E059A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F794501D1A6CBAB300E059A3 /* GustyLibDemoApp_HUDTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F79450181A6CBAB300E059A3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F79450001A6CBAB300E059A3 /* GustyLibDemoApp-HUD */;
+			targetProxy = F79450171A6CBAB300E059A3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F794500A1A6CBAB300E059A3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F794500B1A6CBAB300E059A3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F794500F1A6CBAB300E059A3 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F79450101A6CBAB300E059A3 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F794501E1A6CBAB300E059A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F794501F1A6CBAB300E059A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F79450211A6CBAB300E059A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5977A1646394E0B52BADF53E /* Pods-GustyLibDemoApp-HUD.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = "GustyLibDemoApp-HUD/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GustyLibDemoApp-HUD/GustyLibDemoApp-HUD-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F79450221A6CBAB300E059A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D3D39E40922E41F71D027336 /* Pods-GustyLibDemoApp-HUD.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = "GustyLibDemoApp-HUD/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GustyLibDemoApp-HUD/GustyLibDemoApp-HUD-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		F79450241A6CBAB300E059A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "GustyLibDemoApp-HUDTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GustyLibDemoApp-HUD.app/GustyLibDemoApp-HUD";
+			};
+			name = Debug;
+		};
+		F79450251A6CBAB300E059A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "GustyLibDemoApp-HUDTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GustyLibDemoApp-HUD.app/GustyLibDemoApp-HUD";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F7944FFC1A6CBAB300E059A3 /* Build configuration list for PBXProject "GustyLibDemoApp-HUD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F794501E1A6CBAB300E059A3 /* Debug */,
+				F794501F1A6CBAB300E059A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F79450201A6CBAB300E059A3 /* Build configuration list for PBXNativeTarget "GustyLibDemoApp-HUD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F79450211A6CBAB300E059A3 /* Debug */,
+				F79450221A6CBAB300E059A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F79450231A6CBAB300E059A3 /* Build configuration list for PBXNativeTarget "GustyLibDemoApp-HUDTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F79450241A6CBAB300E059A3 /* Debug */,
+				F79450251A6CBAB300E059A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F7944FF91A6CBAB300E059A3 /* Project object */;
+}

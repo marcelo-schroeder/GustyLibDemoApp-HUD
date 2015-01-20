@@ -1,0 +1,21 @@
+PODS:
+  - GustyLib (0.1.14):
+    - GustyLib/CoreUI (= 0.1.14)
+  - GustyLib/CoreUI (0.1.14):
+    - GustyLib/Foundation
+    - ODRefreshControl (= 1.1.0)
+  - GustyLib/Foundation (0.1.14)
+  - ODRefreshControl (1.1.0)
+
+DEPENDENCIES:
+  - GustyLib (from `/Users/mschroeder/myfiles/projects/Xcode6/GustyLib/GustyLib_development`)
+
+EXTERNAL SOURCES:
+  GustyLib:
+    :path: /Users/mschroeder/myfiles/projects/Xcode6/GustyLib/GustyLib_development
+
+SPEC CHECKSUMS:
+  GustyLib: 7e005841db0fe25cecd3283871f25d10e9f86b9e
+  ODRefreshControl: 7bc75258d9dba1f93c4e34654d1e4b5aa39529f0
+
+COCOAPODS: 0.35.0
