@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UITableViewController {
     
     enum TableViewRow: Int {
-        case TextLabel, DetailText, IndeterminateProgress, DeterminateProgress, Success, Error, UserInteraction, Compressed, Expanded
+        case TextLabel, DetailText, IndeterminateProgress, DeterminateProgress, Success, Error, UserInteractionWithAutoDismissal, UserInteractionWithTapAction, Compressed, Expanded
     }
 
     //MARK: UITableViewControllerDelegate
@@ -37,8 +37,10 @@ class ViewController: UITableViewController {
             text = "Success"
         case TableViewRow.Error.rawValue:
             text = "Error"
-        case TableViewRow.UserInteraction.rawValue:
-            text = "Tap to cancel"
+        case TableViewRow.UserInteractionWithAutoDismissal.rawValue:
+            text = "Tap to auto dismiss"
+        case TableViewRow.UserInteractionWithTapAction.rawValue:
+            text = "Tap to dismiss with action"
         case TableViewRow.Compressed.rawValue:
             text = "Compressed"
         case TableViewRow.Expanded.rawValue:
@@ -67,7 +69,7 @@ class ViewController: UITableViewController {
             visualIndicatorMode = IFAHudVisualIndicatorMode.Success
         case TableViewRow.Error.rawValue:
             visualIndicatorMode = IFAHudVisualIndicatorMode.Error
-        case TableViewRow.UserInteraction.rawValue:
+        case TableViewRow.UserInteractionWithAutoDismissal.rawValue...TableViewRow.UserInteractionWithTapAction.rawValue:
             visualIndicatorMode = IFAHudVisualIndicatorMode.ProgressIndeterminate
         default:
             visualIndicatorMode = IFAHudVisualIndicatorMode.None
@@ -78,7 +80,7 @@ class ViewController: UITableViewController {
         switch indexPath.row {
         case TableViewRow.IndeterminateProgress.rawValue:
             autoDismissalDelay = 2.0
-        case TableViewRow.UserInteraction.rawValue:
+        case TableViewRow.UserInteractionWithAutoDismissal.rawValue...TableViewRow.UserInteractionWithTapAction.rawValue:
             autoDismissalDelay = 5.0
         default:
             autoDismissalDelay = 0.5
@@ -87,7 +89,7 @@ class ViewController: UITableViewController {
         // Tap action block
         var tapActionBlock: (() -> Void)?
         switch indexPath.row {
-        case TableViewRow.UserInteraction.rawValue:
+        case TableViewRow.UserInteractionWithTapAction.rawValue:
             tapActionBlock = {
                 [unowned hud] in
                 hud.dismissWithCompletion(nil)
@@ -95,12 +97,22 @@ class ViewController: UITableViewController {
         default:
             tapActionBlock = nil
         }
+        
+        // Should dismiss on tap?
+        var shouldDismissOnTap: Bool
+        switch indexPath.row {
+        case TableViewRow.UserInteractionWithAutoDismissal.rawValue:
+            shouldDismissOnTap = true
+        default:
+            shouldDismissOnTap = false
+        }
 
         // Configure HUD
         hud.text = text
         hud.detailText = detailText
         hud.visualIndicatorMode = visualIndicatorMode
         hud.tapActionBlock = tapActionBlock
+        hud.shouldDismissOnTap = shouldDismissOnTap
 
         // Present HUD
         if visualIndicatorMode == IFAHudVisualIndicatorMode.ProgressDeterminate {
