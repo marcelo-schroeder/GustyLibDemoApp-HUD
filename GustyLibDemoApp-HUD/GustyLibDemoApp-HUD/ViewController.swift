@@ -134,11 +134,11 @@ class ViewController: UITableViewController {
         var frameBackgroundColour: UIColor?
         switch indexPath.row {
         case TableViewRow.CustomColours.rawValue:
-            frameForegroundColour = UIColor.yellowColor()
-            frameBackgroundColour = UIColor.blueColor()
+            IFAHudView.appearance().frameForegroundColour = UIColor.yellowColor()
+            IFAHudView.appearance().frameBackgroundColour = UIColor.redColor()
         default:
-            frameForegroundColour = nil
-            frameBackgroundColour = nil
+            IFAHudView.appearance().frameForegroundColour = nil
+            IFAHudView.appearance().frameBackgroundColour = nil
         }
 
         // Configure HUD
@@ -147,8 +147,6 @@ class ViewController: UITableViewController {
         hud.visualIndicatorMode = visualIndicatorMode
         hud.tapActionBlock = tapActionBlock
         hud.shouldDismissOnTap = shouldDismissOnTap
-        hud.frameForegroundColour = frameForegroundColour
-        hud.frameBackgroundColour = frameBackgroundColour
 
         // Present HUD
         switch indexPath.row {
