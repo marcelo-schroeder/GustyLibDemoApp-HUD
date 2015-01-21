@@ -130,8 +130,6 @@ class ViewController: UITableViewController {
         }
 
         // Custom colours
-        var frameForegroundColour: UIColor?
-        var frameBackgroundColour: UIColor?
         switch indexPath.row {
         case TableViewRow.CustomColours.rawValue:
             IFAHudView.appearance().overlayColour = UIColor.blueColor().colorWithAlphaComponent(0.2)
