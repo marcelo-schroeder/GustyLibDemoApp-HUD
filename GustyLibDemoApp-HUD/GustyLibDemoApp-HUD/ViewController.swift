@@ -22,7 +22,8 @@ class ViewController: UITableViewController {
         case Compressed
         case Expanded
         case CustomColours
-        case DynamicLayout
+        case DynamicLayoutWithoutAnimation
+        case DynamicLayoutWithAnimation
     }
 
     enum DynamicLayoutTextType: Int {
@@ -65,7 +66,7 @@ class ViewController: UITableViewController {
             text = "Expanded"
         case TableViewRow.CustomColours.rawValue:
             text = "Custom colours"
-        case TableViewRow.DynamicLayout.rawValue:
+        case TableViewRow.DynamicLayoutWithoutAnimation.rawValue...TableViewRow.DynamicLayoutWithAnimation.rawValue:
             text = dynamicLayoutText(fromType: DynamicLayoutTextType.Short)
         default:
             text = nil
@@ -128,6 +129,15 @@ class ViewController: UITableViewController {
         default:
             shouldDismissOnTap = false
         }
+        
+        // Should animate layout changes?
+        var shouldAnimateLayoutChanges: Bool
+        switch indexPath.row {
+        case TableViewRow.DynamicLayoutWithAnimation.rawValue:
+            shouldAnimateLayoutChanges = true
+        default:
+            shouldAnimateLayoutChanges = false
+        }
 
         // Custom colours
         switch indexPath.row {
@@ -147,14 +157,15 @@ class ViewController: UITableViewController {
         hud.visualIndicatorMode = visualIndicatorMode
         hud.tapActionBlock = tapActionBlock
         hud.shouldDismissOnTap = shouldDismissOnTap
-
+        hud.shouldAnimateLayoutChanges = shouldAnimateLayoutChanges
+        
         // Present HUD
         switch indexPath.row {
         case TableViewRow.DeterminateProgress.rawValue:
             hud.presentWithCompletion({ [unowned self] in
                 self.determinateProgressCompletion(hud: hud)
             })
-        case TableViewRow.DynamicLayout.rawValue:
+        case TableViewRow.DynamicLayoutWithoutAnimation.rawValue...TableViewRow.DynamicLayoutWithAnimation.rawValue:
             hud.presentWithCompletion({ [unowned self] in
                 self.dynamicLayoutCompletion(hud: hud, textType: DynamicLayoutTextType(rawValue: DynamicLayoutTextType.Short.rawValue + 1)!)
             })
