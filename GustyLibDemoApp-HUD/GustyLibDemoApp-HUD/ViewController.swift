@@ -9,9 +9,27 @@
 import UIKit
 
 class ViewController: UITableViewController {
-    
+
     enum TableViewRow: Int {
-        case TextLabel, DetailText, IndeterminateProgress, DeterminateProgress, Success, Error, UserInteractionWithAutoDismissal, UserInteractionWithTapAction, Compressed, Expanded, CustomColours
+        case TextLabel
+        case DetailText
+        case IndeterminateProgress
+        case DeterminateProgress
+        case Success
+        case Error
+        case UserInteractionWithAutoDismissal
+        case UserInteractionWithTapAction
+        case Compressed
+        case Expanded
+        case CustomColours
+        case DynamicLayout
+    }
+
+    enum DynamicLayoutTextType: Int {
+        case Short
+        case Medium
+        case Long
+        case End
     }
 
     //MARK: UITableViewControllerDelegate
@@ -47,6 +65,8 @@ class ViewController: UITableViewController {
             text = "Expanded"
         case TableViewRow.CustomColours.rawValue:
             text = "Custom colours"
+        case TableViewRow.DynamicLayout.rawValue:
+            text = dynamicLayoutText(fromType: DynamicLayoutTextType.Short)
         default:
             text = nil
         }
@@ -131,30 +151,62 @@ class ViewController: UITableViewController {
         hud.frameBackgroundColour = frameBackgroundColour
 
         // Present HUD
-        if visualIndicatorMode == IFAHudVisualIndicatorMode.ProgressDeterminate {
-            hud.presentWithCompletion({
-                [unowned self] in
-                self.completion(hud)
+        switch indexPath.row {
+        case TableViewRow.DeterminateProgress.rawValue:
+            hud.presentWithCompletion({ [unowned self] in
+                self.determinateProgressCompletion(hud: hud)
             })
-        } else {
+        case TableViewRow.DynamicLayout.rawValue:
+            hud.presentWithCompletion({ [unowned self] in
+                self.dynamicLayoutCompletion(hud: hud, textType: DynamicLayoutTextType(rawValue: DynamicLayoutTextType.Short.rawValue + 1)!)
+            })
+        default:
             hud.presentWithAutoDismissalDelay(autoDismissalDelay!, completion: nil)
         }
 
     }
     
     //MARK: Private
-    
-    private func completion(hud: IFAHud) {
+
+    private func determinateProgressCompletion(hud a_hud: IFAHud) {
         IFAUtils.dispatchAsyncMainThreadBlock(
-            {
-                if hud.progress == 1.0 {
-                    hud.dismissWithCompletion(nil)
-                } else {
-                    hud.progress += 0.25
-                    self.completion(hud)
-                }
+        {
+            if a_hud.progress == 1.0 {
+                a_hud.dismissWithCompletion(nil)
+            } else {
+                a_hud.progress += 0.25
+                self.determinateProgressCompletion(hud: a_hud)
             }
-            , afterDelay: 1)
+        }
+                , afterDelay: 1)
+    }
+
+    private func dynamicLayoutCompletion(hud a_hud: IFAHud, textType a_textType: DynamicLayoutTextType) {
+        IFAUtils.dispatchAsyncMainThreadBlock(
+        {
+            if a_textType == .End {
+                a_hud.dismissWithCompletion(nil)
+            } else {
+                a_hud.text = self.dynamicLayoutText(fromType: a_textType)
+                self.dynamicLayoutCompletion(hud: a_hud, textType: DynamicLayoutTextType(rawValue: a_textType.rawValue + 1)!)
+            }
+        }
+                , afterDelay: 1)
+    }
+
+    private func dynamicLayoutText(fromType a_textType: DynamicLayoutTextType) -> String {
+        var textType: String?
+        switch a_textType {
+        case .Short:
+            textType = "Short"
+        case .Medium:
+            textType = "Short followed by Medium"
+        case .Long:
+            textType = "Short followed by Medium then followed by Long"
+        default:
+            assert(false, "Unexpected text type")
+        }
+        return textType!;
     }
 
 }
