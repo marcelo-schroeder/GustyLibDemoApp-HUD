@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MenuViewController.swift
 //  GustyLibDemoApp-HUD
 //
 //  Created by Marcelo Schroeder on 19/01/2015.
@@ -24,6 +24,10 @@ class ViewController: UITableViewController {
         case CustomColours
         case DynamicLayoutWithoutAnimation
         case DynamicLayoutWithAnimation
+        case BlurStyleDark
+        case BlurStyleLight
+        case BlurAndVibrancyStyleDark
+        case BlurAndVibrancyStyleLight
     }
 
     enum DynamicLayoutTextType: Int {
@@ -37,11 +41,15 @@ class ViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
+        if (TableViewRow.BlurStyleDark.rawValue...TableViewRow.BlurAndVibrancyStyleLight.rawValue ~= indexPath.row) {
+            return            
+        }
+
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
         // Initialise HUD
-        let frameViewLayoutFittingMode = indexPath.row == TableViewRow.Expanded.rawValue ? IFAHudFrameViewLayoutFittingMode.Expanded : IFAHudFrameViewLayoutFittingMode.Compressed
-        let hud: IFAHud = IFAHud(frameViewLayoutFittingMode: frameViewLayoutFittingMode)
+        let chromeViewLayoutFittingMode = indexPath.row == TableViewRow.Expanded.rawValue ? IFAHudChromeViewLayoutFittingMode.Expanded : IFAHudChromeViewLayoutFittingMode.Compressed
+        let hud: IFAHud = IFAHud(style: IFAHudViewStyle.Plain, chromeViewLayoutFittingMode: chromeViewLayoutFittingMode)
 
         // Text
         var text: String?
@@ -143,12 +151,10 @@ class ViewController: UITableViewController {
         switch indexPath.row {
         case TableViewRow.CustomColours.rawValue:
             IFAHudView.appearance().overlayColour = UIColor.blueColor().colorWithAlphaComponent(0.2)
-            IFAHudView.appearance().frameForegroundColour = UIColor.yellowColor()
-            IFAHudView.appearance().frameBackgroundColour = UIColor.redColor().colorWithAlphaComponent(0.75)
+            IFAHudView.appearance().chromeForegroundColour = UIColor.yellowColor()
+            IFAHudView.appearance().chromeBackgroundColour = UIColor.redColor().colorWithAlphaComponent(0.75)
         default:
-            IFAHudView.appearance().overlayColour = nil
-            IFAHudView.appearance().frameForegroundColour = nil
-            IFAHudView.appearance().frameBackgroundColour = nil
+            resetAppearance()
         }
 
         // Configure HUD
@@ -174,7 +180,47 @@ class ViewController: UITableViewController {
         }
 
     }
-    
+
+    //MARK: Overrides
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+
+        let viewController = segue.destinationViewController as BlurAndVibrancyStyleViewController
+
+        resetAppearance()
+
+        let selectedRow = self.tableView.indexPathForSelectedRow()!.row
+        let tableViewRow:TableViewRow = TableViewRow(rawValue: selectedRow)!
+        
+        switch tableViewRow {
+        case .BlurStyleDark:
+            viewController.title = "Blur style - dark"
+            viewController.style = IFAHudViewStyle.Blur
+            viewController.imageName = "light"
+            IFAHudView.appearance().chromeForegroundColour = UIColor.whiteColor()
+            IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Dark
+        case .BlurStyleLight:
+            viewController.title = "Blur style - light"
+            viewController.style = IFAHudViewStyle.Blur
+            viewController.imageName = "light"
+            IFAHudView.appearance().chromeForegroundColour = UIColor.blackColor()
+            IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Light
+        case .BlurAndVibrancyStyleDark:
+            viewController.title = "Blur and vibrancy style - dark"
+            viewController.style = IFAHudViewStyle.BlurAndVibrancy
+            viewController.imageName = "light"
+            IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Dark
+        case .BlurAndVibrancyStyleLight:
+            viewController.title = "Blur and vibrancy style - light"
+            viewController.style = IFAHudViewStyle.BlurAndVibrancy
+            viewController.imageName = "dark"
+            IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Light
+        default:
+            assert(false, "Unexpected selected row")
+        }
+
+    }
+
     //MARK: Private
 
     private func determinateProgressCompletion(hud a_hud: IFAHud) {
@@ -216,6 +262,12 @@ class ViewController: UITableViewController {
             assert(false, "Unexpected text type")
         }
         return textType!;
+    }
+
+    private func resetAppearance() {
+        IFAHudView.appearance().overlayColour = nil
+        IFAHudView.appearance().chromeForegroundColour = nil
+        IFAHudView.appearance().chromeBackgroundColour = nil
     }
 
 }
