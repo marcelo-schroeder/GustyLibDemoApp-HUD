@@ -8,7 +8,7 @@ import Foundation
 class BlurAndVibrancyStyleViewController: UIViewController {
     
     var style:IFAHudViewStyle = IFAHudViewStyle.Blur
-    var imageName:String = "light"
+    var imageName:String = "windsurf"
     
     @IBOutlet private weak var imageView: UIImageView!
     
@@ -20,7 +20,7 @@ class BlurAndVibrancyStyleViewController: UIViewController {
         super.viewDidAppear(animated)
         let hudManager: IFAHudManager = IFAHudManager(style: self.style, chromeViewLayoutFittingMode: IFAHudChromeViewLayoutFittingMode.Compressed)
         hudManager.text = self.title
-        hudManager.detailText = "Photo credit: Marcelo Schroeder"
+        hudManager.detailText = "Tap for image credits"
         hudManager.presentWithAutoDismissalDelay(2.0, completion: nil)
     }
     

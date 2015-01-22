@@ -17,8 +17,10 @@ class ViewController: UITableViewController {
         case DeterminateProgress
         case Success
         case Error
-        case UserInteractionWithAutoDismissal
-        case UserInteractionWithTapAction
+        case ChromeTapWithAutoDismissal
+        case ChromeTapWithAction
+        case OverlayTapWithAutoDismissal
+        case OverlayTapWithAction
         case Compressed
         case Expanded
         case CustomColours
@@ -37,6 +39,8 @@ class ViewController: UITableViewController {
         case End
     }
 
+    var hudManager: IFAHudManager?
+
     //MARK: UITableViewControllerDelegate
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -49,7 +53,7 @@ class ViewController: UITableViewController {
 
         // Initialise HUD
         let chromeViewLayoutFittingMode = indexPath.row == TableViewRow.Expanded.rawValue ? IFAHudChromeViewLayoutFittingMode.Expanded : IFAHudChromeViewLayoutFittingMode.Compressed
-        let hudManager: IFAHudManager = IFAHudManager(style: IFAHudViewStyle.Plain, chromeViewLayoutFittingMode: chromeViewLayoutFittingMode)
+        self.hudManager = IFAHudManager(style: IFAHudViewStyle.Plain, chromeViewLayoutFittingMode: chromeViewLayoutFittingMode)
 
         // Text
         var text: String?
@@ -64,10 +68,14 @@ class ViewController: UITableViewController {
             text = "Success"
         case TableViewRow.Error.rawValue:
             text = "Error"
-        case TableViewRow.UserInteractionWithAutoDismissal.rawValue:
-            text = "Tap to auto dismiss"
-        case TableViewRow.UserInteractionWithTapAction.rawValue:
-            text = "Tap to dismiss with action"
+        case TableViewRow.ChromeTapWithAutoDismissal.rawValue:
+            text = "Tap inside to auto dismiss"
+        case TableViewRow.ChromeTapWithAction.rawValue:
+            text = "Tap inside to dismiss with action"
+        case TableViewRow.OverlayTapWithAutoDismissal.rawValue:
+            text = "Tap outside to auto dismiss"
+        case TableViewRow.OverlayTapWithAction.rawValue:
+            text = "Tap outside to dismiss with action"
         case TableViewRow.Compressed.rawValue:
             text = "Compressed"
         case TableViewRow.Expanded.rawValue:
@@ -100,42 +108,63 @@ class ViewController: UITableViewController {
             visualIndicatorMode = IFAHudVisualIndicatorMode.Success
         case TableViewRow.Error.rawValue:
             visualIndicatorMode = IFAHudVisualIndicatorMode.Error
-        case TableViewRow.UserInteractionWithAutoDismissal.rawValue...TableViewRow.UserInteractionWithTapAction.rawValue:
+        case TableViewRow.ChromeTapWithAutoDismissal.rawValue...TableViewRow.OverlayTapWithAction.rawValue:
             visualIndicatorMode = IFAHudVisualIndicatorMode.ProgressIndeterminate
         default:
             visualIndicatorMode = IFAHudVisualIndicatorMode.None
         }
 
-        // Auto dismiss delay - CHANGE TO autoDismissalDelay
+        // Auto dismissal delay
         var autoDismissalDelay: NSTimeInterval?
         switch indexPath.row {
         case TableViewRow.IndeterminateProgress.rawValue:
             autoDismissalDelay = 2.0
-        case TableViewRow.UserInteractionWithAutoDismissal.rawValue...TableViewRow.UserInteractionWithTapAction.rawValue:
-            autoDismissalDelay = 5.0
+        case TableViewRow.ChromeTapWithAutoDismissal.rawValue...TableViewRow.OverlayTapWithAction.rawValue:
+            autoDismissalDelay = 0.0
         default:
             autoDismissalDelay = 0.5
         }
 
-        // Tap action block
-        var tapActionBlock: (() -> Void)?
+        // Chrome tap action block
+        var chromeTapActionBlock: (() -> Void)?
         switch indexPath.row {
-        case TableViewRow.UserInteractionWithTapAction.rawValue:
-            tapActionBlock = {
-                [unowned hudManager] in
-                hudManager.dismissWithCompletion(nil)
+        case TableViewRow.ChromeTapWithAction.rawValue:
+            chromeTapActionBlock = {
+                [unowned self] in
+                self.hudManager!.dismissWithCompletion(nil)
             }
         default:
-            tapActionBlock = nil
+            chromeTapActionBlock = nil
         }
         
-        // Should dismiss on tap?
-        var shouldDismissOnTap: Bool
+        // Should dismiss on chrome tap?
+        var shouldDismissOnChromeTap: Bool
         switch indexPath.row {
-        case TableViewRow.UserInteractionWithAutoDismissal.rawValue:
-            shouldDismissOnTap = true
+        case TableViewRow.ChromeTapWithAutoDismissal.rawValue:
+            shouldDismissOnChromeTap = true
         default:
-            shouldDismissOnTap = false
+            shouldDismissOnChromeTap = false
+        }
+        
+        // Overlay tap action block
+        var overlayTapActionBlock: (() -> Void)?
+        switch indexPath.row {
+        case TableViewRow.OverlayTapWithAction.rawValue:
+            overlayTapActionBlock = {
+                [unowned self] in
+                self.hudManager!.dismissWithCompletion(nil)
+            }
+        default:
+            overlayTapActionBlock = nil
+        }
+        
+        // Should dismiss on overlay tap?
+        var shouldDismissOnOverlayTap: Bool
+        switch indexPath.row {
+        case TableViewRow.OverlayTapWithAutoDismissal.rawValue:
+            shouldDismissOnOverlayTap = true
+        default:
+            shouldDismissOnOverlayTap = false
         }
         
         // Should animate layout changes?
@@ -158,25 +187,27 @@ class ViewController: UITableViewController {
         }
 
         // Configure HUD
-        hudManager.text = text
-        hudManager.detailText = detailText
-        hudManager.visualIndicatorMode = visualIndicatorMode
-        hudManager.tapActionBlock = tapActionBlock
-        hudManager.shouldDismissOnTap = shouldDismissOnTap
-        hudManager.shouldAnimateLayoutChanges = shouldAnimateLayoutChanges
+        self.hudManager!.text = text
+        self.hudManager!.detailText = detailText
+        self.hudManager!.visualIndicatorMode = visualIndicatorMode
+        self.hudManager!.chromeTapActionBlock = chromeTapActionBlock
+        self.hudManager!.shouldDismissOnChromeTap = shouldDismissOnChromeTap
+        self.hudManager!.overlayTapActionBlock = overlayTapActionBlock
+        self.hudManager!.shouldDismissOnOverlayTap = shouldDismissOnOverlayTap
+        self.hudManager!.shouldAnimateLayoutChanges = shouldAnimateLayoutChanges
         
         // Present HUD
         switch indexPath.row {
         case TableViewRow.DeterminateProgress.rawValue:
-            hudManager.presentWithCompletion({ [unowned self] in
-                self.determinateProgressCompletion(hudManager: hudManager)
+            self.hudManager!.presentWithCompletion({ [unowned self] in
+                self.determinateProgressCompletion(hudManager: self.hudManager!)
             })
         case TableViewRow.DynamicLayoutWithoutAnimation.rawValue...TableViewRow.DynamicLayoutWithAnimation.rawValue:
-            hudManager.presentWithCompletion({ [unowned self] in
-                self.dynamicLayoutCompletion(hudManager: hudManager, textType: DynamicLayoutTextType(rawValue: DynamicLayoutTextType.Short.rawValue + 1)!)
+            self.hudManager!.presentWithCompletion({ [unowned self] in
+                self.dynamicLayoutCompletion(hudManager: self.hudManager!, textType: DynamicLayoutTextType(rawValue: DynamicLayoutTextType.Short.rawValue + 1)!)
             })
         default:
-            hudManager.presentWithAutoDismissalDelay(autoDismissalDelay!, completion: nil)
+            self.hudManager!.presentWithAutoDismissalDelay(autoDismissalDelay!, completion: nil)
         }
 
     }
@@ -196,24 +227,24 @@ class ViewController: UITableViewController {
         case .BlurStyleDark:
             viewController.title = "Blur style - dark"
             viewController.style = IFAHudViewStyle.Blur
-            viewController.imageName = "light"
+            viewController.imageName = "windsurf"
             IFAHudView.appearance().chromeForegroundColour = UIColor.whiteColor()
             IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Dark
         case .BlurStyleLight:
             viewController.title = "Blur style - light"
             viewController.style = IFAHudViewStyle.Blur
-            viewController.imageName = "light"
+            viewController.imageName = "windsurf"
             IFAHudView.appearance().chromeForegroundColour = UIColor.blackColor()
             IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Light
         case .BlurAndVibrancyStyleDark:
             viewController.title = "Blur and vibrancy style - dark"
             viewController.style = IFAHudViewStyle.BlurAndVibrancy
-            viewController.imageName = "light"
+            viewController.imageName = "windsurf"
             IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Dark
         case .BlurAndVibrancyStyleLight:
             viewController.title = "Blur and vibrancy style - light"
             viewController.style = IFAHudViewStyle.BlurAndVibrancy
-            viewController.imageName = "dark"
+            viewController.imageName = "planet"
             IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Light
         default:
             assert(false, "Unexpected selected row")
