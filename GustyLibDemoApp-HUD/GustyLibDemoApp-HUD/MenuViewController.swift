@@ -49,7 +49,7 @@ class ViewController: UITableViewController {
 
         // Initialise HUD
         let chromeViewLayoutFittingMode = indexPath.row == TableViewRow.Expanded.rawValue ? IFAHudChromeViewLayoutFittingMode.Expanded : IFAHudChromeViewLayoutFittingMode.Compressed
-        let hud: IFAHud = IFAHud(style: IFAHudViewStyle.Plain, chromeViewLayoutFittingMode: chromeViewLayoutFittingMode)
+        let hudManager: IFAHudManager = IFAHudManager(style: IFAHudViewStyle.Plain, chromeViewLayoutFittingMode: chromeViewLayoutFittingMode)
 
         // Text
         var text: String?
@@ -122,8 +122,8 @@ class ViewController: UITableViewController {
         switch indexPath.row {
         case TableViewRow.UserInteractionWithTapAction.rawValue:
             tapActionBlock = {
-                [unowned hud] in
-                hud.dismissWithCompletion(nil)
+                [unowned hudManager] in
+                hudManager.dismissWithCompletion(nil)
             }
         default:
             tapActionBlock = nil
@@ -158,25 +158,25 @@ class ViewController: UITableViewController {
         }
 
         // Configure HUD
-        hud.text = text
-        hud.detailText = detailText
-        hud.visualIndicatorMode = visualIndicatorMode
-        hud.tapActionBlock = tapActionBlock
-        hud.shouldDismissOnTap = shouldDismissOnTap
-        hud.shouldAnimateLayoutChanges = shouldAnimateLayoutChanges
+        hudManager.text = text
+        hudManager.detailText = detailText
+        hudManager.visualIndicatorMode = visualIndicatorMode
+        hudManager.tapActionBlock = tapActionBlock
+        hudManager.shouldDismissOnTap = shouldDismissOnTap
+        hudManager.shouldAnimateLayoutChanges = shouldAnimateLayoutChanges
         
         // Present HUD
         switch indexPath.row {
         case TableViewRow.DeterminateProgress.rawValue:
-            hud.presentWithCompletion({ [unowned self] in
-                self.determinateProgressCompletion(hud: hud)
+            hudManager.presentWithCompletion({ [unowned self] in
+                self.determinateProgressCompletion(hudManager: hudManager)
             })
         case TableViewRow.DynamicLayoutWithoutAnimation.rawValue...TableViewRow.DynamicLayoutWithAnimation.rawValue:
-            hud.presentWithCompletion({ [unowned self] in
-                self.dynamicLayoutCompletion(hud: hud, textType: DynamicLayoutTextType(rawValue: DynamicLayoutTextType.Short.rawValue + 1)!)
+            hudManager.presentWithCompletion({ [unowned self] in
+                self.dynamicLayoutCompletion(hudManager: hudManager, textType: DynamicLayoutTextType(rawValue: DynamicLayoutTextType.Short.rawValue + 1)!)
             })
         default:
-            hud.presentWithAutoDismissalDelay(autoDismissalDelay!, completion: nil)
+            hudManager.presentWithAutoDismissalDelay(autoDismissalDelay!, completion: nil)
         }
 
     }
@@ -223,27 +223,27 @@ class ViewController: UITableViewController {
 
     //MARK: Private
 
-    private func determinateProgressCompletion(hud a_hud: IFAHud) {
+    private func determinateProgressCompletion(hudManager a_hudManager: IFAHudManager) {
         IFAUtils.dispatchAsyncMainThreadBlock(
         {
-            if a_hud.progress == 1.0 {
-                a_hud.dismissWithCompletion(nil)
+            if a_hudManager.progress == 1.0 {
+                a_hudManager.dismissWithCompletion(nil)
             } else {
-                a_hud.progress += 0.25
-                self.determinateProgressCompletion(hud: a_hud)
+                a_hudManager.progress += 0.25
+                self.determinateProgressCompletion(hudManager: a_hudManager)
             }
         }
                 , afterDelay: 1)
     }
 
-    private func dynamicLayoutCompletion(hud a_hud: IFAHud, textType a_textType: DynamicLayoutTextType) {
+    private func dynamicLayoutCompletion(hudManager a_hudManager: IFAHudManager, textType a_textType: DynamicLayoutTextType) {
         IFAUtils.dispatchAsyncMainThreadBlock(
         {
             if a_textType == .End {
-                a_hud.dismissWithCompletion(nil)
+                a_hudManager.dismissWithCompletion(nil)
             } else {
-                a_hud.text = self.dynamicLayoutText(fromType: a_textType)
-                self.dynamicLayoutCompletion(hud: a_hud, textType: DynamicLayoutTextType(rawValue: a_textType.rawValue + 1)!)
+                a_hudManager.text = self.dynamicLayoutText(fromType: a_textType)
+                self.dynamicLayoutCompletion(hudManager: a_hudManager, textType: DynamicLayoutTextType(rawValue: a_textType.rawValue + 1)!)
             }
         }
                 , afterDelay: 1)
