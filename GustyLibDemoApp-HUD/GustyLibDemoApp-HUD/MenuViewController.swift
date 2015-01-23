@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UITableViewController {
+class MenuViewController: UITableViewController {
 
     enum TableViewRow: Int {
         case TextLabel
@@ -39,7 +39,7 @@ class ViewController: UITableViewController {
         case End
     }
 
-    var hudManager: IFAHudManager?
+    var hudManager: IFAHudManager!
 
     //MARK: UITableViewControllerDelegate
 
@@ -131,7 +131,7 @@ class ViewController: UITableViewController {
         case TableViewRow.ChromeTapWithAction.rawValue:
             chromeTapActionBlock = {
                 [unowned self] in
-                self.hudManager!.dismissWithCompletion(nil)
+                self.hudManager.dismissWithCompletion(nil)
             }
         default:
             chromeTapActionBlock = nil
@@ -152,7 +152,7 @@ class ViewController: UITableViewController {
         case TableViewRow.OverlayTapWithAction.rawValue:
             overlayTapActionBlock = {
                 [unowned self] in
-                self.hudManager!.dismissWithCompletion(nil)
+                self.hudManager.dismissWithCompletion(nil)
             }
         default:
             overlayTapActionBlock = nil
@@ -187,27 +187,27 @@ class ViewController: UITableViewController {
         }
 
         // Configure HUD
-        self.hudManager!.text = text
-        self.hudManager!.detailText = detailText
-        self.hudManager!.visualIndicatorMode = visualIndicatorMode
-        self.hudManager!.chromeTapActionBlock = chromeTapActionBlock
-        self.hudManager!.shouldDismissOnChromeTap = shouldDismissOnChromeTap
-        self.hudManager!.overlayTapActionBlock = overlayTapActionBlock
-        self.hudManager!.shouldDismissOnOverlayTap = shouldDismissOnOverlayTap
-        self.hudManager!.shouldAnimateLayoutChanges = shouldAnimateLayoutChanges
+        self.hudManager.text = text
+        self.hudManager.detailText = detailText
+        self.hudManager.visualIndicatorMode = visualIndicatorMode
+        self.hudManager.chromeTapActionBlock = chromeTapActionBlock
+        self.hudManager.shouldDismissOnChromeTap = shouldDismissOnChromeTap
+        self.hudManager.overlayTapActionBlock = overlayTapActionBlock
+        self.hudManager.shouldDismissOnOverlayTap = shouldDismissOnOverlayTap
+        self.hudManager.shouldAnimateLayoutChanges = shouldAnimateLayoutChanges
         
         // Present HUD
         switch indexPath.row {
         case TableViewRow.DeterminateProgress.rawValue:
-            self.hudManager!.presentWithCompletion({ [unowned self] in
-                self.determinateProgressCompletion(hudManager: self.hudManager!)
+            self.hudManager.presentWithCompletion({ [unowned self] in
+                self.determinateProgressCompletion(hudManager: self.hudManager)
             })
         case TableViewRow.DynamicLayoutWithoutAnimation.rawValue...TableViewRow.DynamicLayoutWithAnimation.rawValue:
-            self.hudManager!.presentWithCompletion({ [unowned self] in
-                self.dynamicLayoutCompletion(hudManager: self.hudManager!, textType: DynamicLayoutTextType(rawValue: DynamicLayoutTextType.Short.rawValue + 1)!)
+            self.hudManager.presentWithCompletion({ [unowned self] in
+                self.dynamicLayoutCompletion(hudManager: self.hudManager, textType: DynamicLayoutTextType(rawValue: DynamicLayoutTextType.Short.rawValue + 1)!)
             })
         default:
-            self.hudManager!.presentWithAutoDismissalDelay(autoDismissalDelay!, completion: nil)
+            self.hudManager.presentWithAutoDismissalDelay(autoDismissalDelay!, completion: nil)
         }
 
     }
@@ -215,39 +215,43 @@ class ViewController: UITableViewController {
     //MARK: Overrides
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-
-        let viewController = segue.destinationViewController as BlurAndVibrancyStyleViewController
-
-        resetAppearance()
-
-        let selectedRow = self.tableView.indexPathForSelectedRow()!.row
-        let tableViewRow:TableViewRow = TableViewRow(rawValue: selectedRow)!
         
-        switch tableViewRow {
-        case .BlurStyleDark:
-            viewController.title = "Blur style - dark"
-            viewController.style = IFAHudViewStyle.Blur
-            viewController.imageName = "windsurf"
-            IFAHudView.appearance().chromeForegroundColour = UIColor.whiteColor()
-            IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Dark
-        case .BlurStyleLight:
-            viewController.title = "Blur style - light"
-            viewController.style = IFAHudViewStyle.Blur
-            viewController.imageName = "windsurf"
-            IFAHudView.appearance().chromeForegroundColour = UIColor.blackColor()
-            IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Light
-        case .BlurAndVibrancyStyleDark:
-            viewController.title = "Blur and vibrancy style - dark"
-            viewController.style = IFAHudViewStyle.BlurAndVibrancy
-            viewController.imageName = "windsurf"
-            IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Dark
-        case .BlurAndVibrancyStyleLight:
-            viewController.title = "Blur and vibrancy style - light"
-            viewController.style = IFAHudViewStyle.BlurAndVibrancy
-            viewController.imageName = "planet"
-            IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Light
-        default:
-            assert(false, "Unexpected selected row")
+        if (segue.destinationViewController is BlurAndVibrancyStyleViewController) {
+            
+            let viewController = segue.destinationViewController as BlurAndVibrancyStyleViewController
+            
+            resetAppearance()
+            
+            let selectedRow = self.tableView.indexPathForSelectedRow()!.row
+            let tableViewRow:TableViewRow = TableViewRow(rawValue: selectedRow)!
+            
+            switch tableViewRow {
+            case .BlurStyleDark:
+                viewController.text = "Blur style - dark"
+                viewController.style = IFAHudViewStyle.Blur
+                viewController.imageName = "windsurf"
+                IFAHudView.appearance().chromeForegroundColour = UIColor.whiteColor()
+                IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Dark
+            case .BlurStyleLight:
+                viewController.text = "Blur style - light"
+                viewController.style = IFAHudViewStyle.Blur
+                viewController.imageName = "windsurf"
+                IFAHudView.appearance().chromeForegroundColour = UIColor.blackColor()
+                IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Light
+            case .BlurAndVibrancyStyleDark:
+                viewController.text = "Blur and vibrancy style - dark"
+                viewController.style = IFAHudViewStyle.BlurAndVibrancy
+                viewController.imageName = "windsurf"
+                IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Dark
+            case .BlurAndVibrancyStyleLight:
+                viewController.text = "Blur and vibrancy style - light"
+                viewController.style = IFAHudViewStyle.BlurAndVibrancy
+                viewController.imageName = "planet"
+                IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Light
+            default:
+                assert(false, "Unexpected selected row")
+            }
+            
         }
 
     }
