@@ -39,7 +39,7 @@ class MenuViewController: UITableViewController {
         case End
     }
 
-    var hudManager: IFAHudManager!
+    var hudViewController: IFAHudViewController!
 
     //MARK: UITableViewControllerDelegate
 
@@ -52,8 +52,8 @@ class MenuViewController: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
         // Initialise HUD
-        let chromeViewLayoutFittingMode = indexPath.row == TableViewRow.Expanded.rawValue ? IFAHudChromeViewLayoutFittingMode.Expanded : IFAHudChromeViewLayoutFittingMode.Compressed
-        self.hudManager = IFAHudManager(style: IFAHudViewStyle.Plain, chromeViewLayoutFittingMode: chromeViewLayoutFittingMode)
+        let chromeViewLayoutFittingMode = indexPath.row == TableViewRow.Expanded.rawValue ? IFAHudViewChromeViewLayoutFittingMode.Expanded : IFAHudViewChromeViewLayoutFittingMode.Compressed
+        self.hudViewController = IFAHudViewController(style: IFAHudViewStyle.Plain, chromeViewLayoutFittingMode: chromeViewLayoutFittingMode)
 
         // Text
         var text: String?
@@ -98,24 +98,24 @@ class MenuViewController: UITableViewController {
         }
 
         // Visual indicator mode
-        var visualIndicatorMode: IFAHudVisualIndicatorMode
+        var visualIndicatorMode: IFAHudViewVisualIndicatorMode
         switch indexPath.row {
         case TableViewRow.IndeterminateProgress.rawValue:
-            visualIndicatorMode = IFAHudVisualIndicatorMode.ProgressIndeterminate
+            visualIndicatorMode = IFAHudViewVisualIndicatorMode.ProgressIndeterminate
         case TableViewRow.DeterminateProgress.rawValue:
-            visualIndicatorMode = IFAHudVisualIndicatorMode.ProgressDeterminate
+            visualIndicatorMode = IFAHudViewVisualIndicatorMode.ProgressDeterminate
         case TableViewRow.Success.rawValue:
-            visualIndicatorMode = IFAHudVisualIndicatorMode.Success
+            visualIndicatorMode = IFAHudViewVisualIndicatorMode.Success
         case TableViewRow.Error.rawValue:
-            visualIndicatorMode = IFAHudVisualIndicatorMode.Error
+            visualIndicatorMode = IFAHudViewVisualIndicatorMode.Error
         case TableViewRow.ChromeTapWithAutoDismissal.rawValue...TableViewRow.OverlayTapWithAction.rawValue:
-            visualIndicatorMode = IFAHudVisualIndicatorMode.ProgressIndeterminate
+            visualIndicatorMode = IFAHudViewVisualIndicatorMode.ProgressIndeterminate
         default:
-            visualIndicatorMode = IFAHudVisualIndicatorMode.None
+            visualIndicatorMode = IFAHudViewVisualIndicatorMode.None
         }
 
         // Auto dismissal delay
-        var autoDismissalDelay: NSTimeInterval?
+        var autoDismissalDelay: NSTimeInterval
         switch indexPath.row {
         case TableViewRow.IndeterminateProgress.rawValue:
             autoDismissalDelay = 2.0
@@ -131,7 +131,7 @@ class MenuViewController: UITableViewController {
         case TableViewRow.ChromeTapWithAction.rawValue:
             chromeTapActionBlock = {
                 [unowned self] in
-                self.hudManager.dismissWithCompletion(nil)
+                self.dismissViewControllerAnimated(true, completion: nil)   //wip: review
             }
         default:
             chromeTapActionBlock = nil
@@ -152,7 +152,7 @@ class MenuViewController: UITableViewController {
         case TableViewRow.OverlayTapWithAction.rawValue:
             overlayTapActionBlock = {
                 [unowned self] in
-                self.hudManager.dismissWithCompletion(nil)
+                self.dismissViewControllerAnimated(true, completion: nil)   //wip: review
             }
         default:
             overlayTapActionBlock = nil
@@ -187,28 +187,33 @@ class MenuViewController: UITableViewController {
         }
 
         // Configure HUD
-        self.hudManager.text = text
-        self.hudManager.detailText = detailText
-        self.hudManager.visualIndicatorMode = visualIndicatorMode
-        self.hudManager.chromeTapActionBlock = chromeTapActionBlock
-        self.hudManager.shouldDismissOnChromeTap = shouldDismissOnChromeTap
-        self.hudManager.overlayTapActionBlock = overlayTapActionBlock
-        self.hudManager.shouldDismissOnOverlayTap = shouldDismissOnOverlayTap
-        self.hudManager.shouldAnimateLayoutChanges = shouldAnimateLayoutChanges
+        self.hudViewController.text = text
+        self.hudViewController.detailText = detailText
+        self.hudViewController.visualIndicatorMode = visualIndicatorMode
+        self.hudViewController.chromeTapActionBlock = chromeTapActionBlock
+        self.hudViewController.shouldDismissOnChromeTap = shouldDismissOnChromeTap
+        self.hudViewController.overlayTapActionBlock = overlayTapActionBlock
+        self.hudViewController.shouldDismissOnOverlayTap = shouldDismissOnOverlayTap
+        self.hudViewController.shouldAnimateLayoutChanges = shouldAnimateLayoutChanges
+        self.hudViewController.autoDismissalDelay = autoDismissalDelay
         
-        // Present HUD
+        // Presentation completion closure
+        var presentationCompletion: (() -> Void)?
         switch indexPath.row {
         case TableViewRow.DeterminateProgress.rawValue:
-            self.hudManager.presentWithCompletion({ [unowned self] in
-                self.determinateProgressCompletion(hudManager: self.hudManager)
-            })
+            presentationCompletion = { [unowned self] in   //wip: review
+                self.determinateProgressCompletion(hudViewController: self.hudViewController)
+            }
         case TableViewRow.DynamicLayoutWithoutAnimation.rawValue...TableViewRow.DynamicLayoutWithAnimation.rawValue:
-            self.hudManager.presentWithCompletion({ [unowned self] in
-                self.dynamicLayoutCompletion(hudManager: self.hudManager, textType: DynamicLayoutTextType(rawValue: DynamicLayoutTextType.Short.rawValue + 1)!)
-            })
+            presentationCompletion = { [unowned self] in   //wip: review
+                self.dynamicLayoutCompletion(hudViewController: self.hudViewController, textType: DynamicLayoutTextType(rawValue: DynamicLayoutTextType.Short.rawValue + 1)!)
+            }
         default:
-            self.hudManager.presentWithAutoDismissalDelay(autoDismissalDelay!, completion: nil)
+            presentationCompletion = nil
         }
+
+        // Present HUD
+        self.presentViewController(self.hudViewController, animated: true, completion: nil) //wip: review this (e.g. it is always animating - is that ok?)
 
     }
 
@@ -258,27 +263,27 @@ class MenuViewController: UITableViewController {
 
     //MARK: Private
 
-    private func determinateProgressCompletion(hudManager a_hudManager: IFAHudManager) {
+    private func determinateProgressCompletion(hudViewController a_hudViewController: IFAHudViewController) {
         IFAUtils.dispatchAsyncMainThreadBlock(
         {
-            if a_hudManager.progress == 1.0 {
-                a_hudManager.dismissWithCompletion(nil)
+            if a_hudViewController.progress == 1.0 {
+                self.dismissViewControllerAnimated(true, completion: nil)   //wip: review
             } else {
-                a_hudManager.progress += 0.25
-                self.determinateProgressCompletion(hudManager: a_hudManager)
+                a_hudViewController.progress += 0.25
+                self.determinateProgressCompletion(hudViewController: a_hudViewController)
             }
         }
                 , afterDelay: 1)
     }
 
-    private func dynamicLayoutCompletion(hudManager a_hudManager: IFAHudManager, textType a_textType: DynamicLayoutTextType) {
+    private func dynamicLayoutCompletion(hudViewController a_hudViewController: IFAHudViewController, textType a_textType: DynamicLayoutTextType) {
         IFAUtils.dispatchAsyncMainThreadBlock(
         {
             if a_textType == .End {
-                a_hudManager.dismissWithCompletion(nil)
+                self.dismissViewControllerAnimated(true, completion: nil)   //wip: review
             } else {
-                a_hudManager.text = self.dynamicLayoutText(fromType: a_textType)
-                self.dynamicLayoutCompletion(hudManager: a_hudManager, textType: DynamicLayoutTextType(rawValue: a_textType.rawValue + 1)!)
+                a_hudViewController.text = self.dynamicLayoutText(fromType: a_textType)
+                self.dynamicLayoutCompletion(hudViewController: a_hudViewController, textType: DynamicLayoutTextType(rawValue: a_textType.rawValue + 1)!)
             }
         }
                 , afterDelay: 1)

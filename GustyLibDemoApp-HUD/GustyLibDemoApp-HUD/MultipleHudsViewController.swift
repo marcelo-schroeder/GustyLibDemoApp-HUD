@@ -12,13 +12,13 @@ class MultipleHudsViewController: UIViewController {
     
     @IBOutlet weak var containerView1: UIView!
 
-    var hudManager: IFAHudManager!
+    var hudViewController: IFAHudViewController!
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.hudManager = IFAHudManager(style: IFAHudViewStyle.Plain, chromeViewLayoutFittingMode: IFAHudChromeViewLayoutFittingMode.Compressed)
-        self.hudManager.text = "Test"
-        self.hudManager.presentWithCompletion(nil)
+        self.hudViewController = IFAHudViewController(style: IFAHudViewStyle.Plain, chromeViewLayoutFittingMode: IFAHudViewChromeViewLayoutFittingMode.Compressed)
+        self.hudViewController.text = "Test"
+        self.presentViewController(self.hudViewController, animated: true, completion: nil) //wip: review
     }
 
 }
