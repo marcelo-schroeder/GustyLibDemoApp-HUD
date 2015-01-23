@@ -46,201 +46,24 @@ class MenuViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
-        if (TableViewRow.BlurStyleDark.rawValue...TableViewRow.BlurAndVibrancyStyleLight.rawValue ~= indexPath.row || indexPath.row == TableViewRow.MultipleHuds.rawValue) {
-            return            
-        }
-
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
-        // Initialise HUD
-        self.hudViewController = IFAHudViewController()
+        let tableViewRow = indexPath.tableViewRow()
 
-        // Text
-        var text: String?
-        switch indexPath.tableViewRow() {
-        case .Text:
+        switch tableViewRow {
+        case .BlurStyleDark:
             fallthrough
-        case .DetailText:
-            text = "Text label"
-        case .IndeterminateProgress:
-            text = "Indeterminate progress"
-        case .DeterminateProgress:
-            text = "Determinate progress"
-        case .Success:
-            text = "Success"
-        case .Error:
-            text = "Error"
-        case .ChromeTapWithAutoDismissal:
-            text = "Tap inside to auto dismiss"
-        case .ChromeTapWithAction:
-            text = "Tap inside to dismiss with action"
-        case .OverlayTapWithAutoDismissal:
-            text = "Tap outside to auto dismiss"
-        case .OverlayTapWithAction:
-            text = "Tap outside to dismiss with action"
-        case .Compressed:
-            text = "Compressed"
-        case .Expanded:
-            text = "Expanded"
-        case .CustomColours:
-            text = "Custom colours"
-        case .DynamicLayoutWithoutAnimation:
+        case .BlurStyleLight:
             fallthrough
-        case .DynamicLayoutWithAnimation:
-            text = dynamicLayoutText(fromType: DynamicLayoutTextType.Short)
-        default:
-            text = nil
-        }
-        
-        // Detail text
-        var detailText: String?;
-        switch indexPath.tableViewRow() {
-        case .DetailText:
-            detailText = "Detail text label"
-        default:
-            detailText = nil
-        }
-
-        // Visual indicator mode
-        var visualIndicatorMode: IFAHudViewVisualIndicatorMode
-        switch indexPath.tableViewRow() {
-        case .IndeterminateProgress:
-            visualIndicatorMode = IFAHudViewVisualIndicatorMode.ProgressIndeterminate
-        case .DeterminateProgress:
-            visualIndicatorMode = IFAHudViewVisualIndicatorMode.ProgressDeterminate
-        case .Success:
-            visualIndicatorMode = IFAHudViewVisualIndicatorMode.Success
-        case .Error:
-            visualIndicatorMode = IFAHudViewVisualIndicatorMode.Error
-        case .ChromeTapWithAutoDismissal:
+        case .BlurAndVibrancyStyleDark:
             fallthrough
-        case .ChromeTapWithAction:
+        case .BlurAndVibrancyStyleLight:
             fallthrough
-        case .OverlayTapWithAutoDismissal:
-            fallthrough
-        case .OverlayTapWithAction:
-            visualIndicatorMode = IFAHudViewVisualIndicatorMode.ProgressIndeterminate
+        case .MultipleHuds:
+            return
         default:
-            visualIndicatorMode = IFAHudViewVisualIndicatorMode.None
+            self.handleNonSegueCase(forSelectedTableViewRow: tableViewRow)
         }
-
-        // Auto dismissal delay
-        var autoDismissalDelay: NSTimeInterval
-        switch indexPath.tableViewRow() {
-        case .IndeterminateProgress:
-            autoDismissalDelay = 2.0
-        case .DeterminateProgress:
-            autoDismissalDelay = 0.0
-        case .ChromeTapWithAutoDismissal:
-            fallthrough
-        case .ChromeTapWithAction:
-            fallthrough
-        case .OverlayTapWithAutoDismissal:
-            fallthrough
-        case .OverlayTapWithAction:
-            autoDismissalDelay = 0.0
-        case .DynamicLayoutWithoutAnimation:
-            fallthrough
-        case .DynamicLayoutWithAnimation:
-            autoDismissalDelay = 0.0
-        default:
-            autoDismissalDelay = 0.5
-        }
-
-        // Chrome tap action block
-        var chromeTapActionBlock: (() -> Void)?
-        switch indexPath.tableViewRow() {
-        case .ChromeTapWithAction:
-            chromeTapActionBlock = {
-                [unowned self] in
-                self.dismissViewControllerAnimated(true, completion: nil)   //wip: review
-            }
-        default:
-            chromeTapActionBlock = nil
-        }
-        
-        // Should dismiss on chrome tap?
-        var shouldDismissOnChromeTap: Bool
-        switch indexPath.tableViewRow() {
-        case .ChromeTapWithAutoDismissal:
-            shouldDismissOnChromeTap = true
-        default:
-            shouldDismissOnChromeTap = false
-        }
-        
-        // Overlay tap action block
-        var overlayTapActionBlock: (() -> Void)?
-        switch indexPath.tableViewRow() {
-        case .OverlayTapWithAction:
-            overlayTapActionBlock = {
-                [unowned self] in
-                self.dismissViewControllerAnimated(true, completion: nil)   //wip: review
-            }
-        default:
-            overlayTapActionBlock = nil
-        }
-        
-        // Should dismiss on overlay tap?
-        var shouldDismissOnOverlayTap: Bool
-        switch indexPath.tableViewRow() {
-        case .OverlayTapWithAutoDismissal:
-            shouldDismissOnOverlayTap = true
-        default:
-            shouldDismissOnOverlayTap = false
-        }
-        
-        // Should animate layout changes?
-        var shouldAnimateLayoutChanges: Bool
-        switch indexPath.tableViewRow() {
-        case .DynamicLayoutWithAnimation:
-            shouldAnimateLayoutChanges = true
-        default:
-            shouldAnimateLayoutChanges = false
-        }
-
-        // Appearance
-        switch indexPath.tableViewRow() {
-        case .Expanded:
-            resetAppearance()
-            IFAHudView.appearance().chromeViewLayoutFittingSize = UILayoutFittingExpandedSize
-        case .CustomColours:
-            IFAHudView.appearance().overlayColour = UIColor.blueColor().colorWithAlphaComponent(0.2)
-            IFAHudView.appearance().chromeForegroundColour = UIColor.yellowColor()
-            IFAHudView.appearance().chromeBackgroundColour = UIColor.redColor().colorWithAlphaComponent(0.75)
-        default:
-            resetAppearance()
-        }
-
-        // Configure HUD
-        self.hudViewController.text = text
-        self.hudViewController.detailText = detailText
-        self.hudViewController.visualIndicatorMode = visualIndicatorMode
-        self.hudViewController.chromeTapActionBlock = chromeTapActionBlock
-        self.hudViewController.shouldDismissOnChromeTap = shouldDismissOnChromeTap
-        self.hudViewController.overlayTapActionBlock = overlayTapActionBlock
-        self.hudViewController.shouldDismissOnOverlayTap = shouldDismissOnOverlayTap
-        self.hudViewController.shouldAnimateLayoutChanges = shouldAnimateLayoutChanges
-        self.hudViewController.autoDismissalDelay = autoDismissalDelay
-        
-        // Presentation completion closure
-        var presentationCompletion: (() -> Void)?
-        switch indexPath.tableViewRow() {
-        case .DeterminateProgress:
-            presentationCompletion = { [unowned self] in   //wip: review
-                self.determinateProgressCompletion(hudViewController: self.hudViewController)
-            }
-        case .DynamicLayoutWithoutAnimation:
-            fallthrough
-        case .DynamicLayoutWithAnimation:
-            presentationCompletion = { [unowned self] in   //wip: review
-                self.dynamicLayoutCompletion(hudViewController: self.hudViewController, textType: DynamicLayoutTextType(rawValue: DynamicLayoutTextType.Short.rawValue + 1)!)
-            }
-        default:
-            presentationCompletion = nil
-        }
-
-        // Present HUD
-        self.presentViewController(self.hudViewController, animated: true, completion: presentationCompletion) //wip: review this (e.g. it is always animating - is that ok?)
 
     }
 
@@ -288,6 +111,200 @@ class MenuViewController: UITableViewController {
     }
 
     //MARK: Private
+
+    private func handleNonSegueCase(forSelectedTableViewRow tableViewRow: TableViewRow) {
+
+        // Initialise HUD
+        self.hudViewController = IFAHudViewController()
+
+        // Text
+        var text: String?
+        switch tableViewRow {
+        case .Text:
+            fallthrough
+        case .DetailText:
+            text = "Text label"
+        case .IndeterminateProgress:
+            text = "Indeterminate progress"
+        case .DeterminateProgress:
+            text = "Determinate progress"
+        case .Success:
+            text = "Success"
+        case .Error:
+            text = "Error"
+        case .ChromeTapWithAutoDismissal:
+            text = "Tap inside to auto dismiss"
+        case .ChromeTapWithAction:
+            text = "Tap inside to dismiss with action"
+        case .OverlayTapWithAutoDismissal:
+            text = "Tap outside to auto dismiss"
+        case .OverlayTapWithAction:
+            text = "Tap outside to dismiss with action"
+        case .Compressed:
+            text = "Compressed"
+        case .Expanded:
+            text = "Expanded"
+        case .CustomColours:
+            text = "Custom colours"
+        case .DynamicLayoutWithoutAnimation:
+            fallthrough
+        case .DynamicLayoutWithAnimation:
+            text = dynamicLayoutText(fromType: DynamicLayoutTextType.Short)
+        default:
+            text = nil
+        }
+
+        // Detail text
+        var detailText: String?;
+        switch tableViewRow {
+        case .DetailText:
+            detailText = "Detail text label"
+        default:
+            detailText = nil
+        }
+
+        // Visual indicator mode
+        var visualIndicatorMode: IFAHudViewVisualIndicatorMode
+        switch tableViewRow {
+        case .IndeterminateProgress:
+            visualIndicatorMode = IFAHudViewVisualIndicatorMode.ProgressIndeterminate
+        case .DeterminateProgress:
+            visualIndicatorMode = IFAHudViewVisualIndicatorMode.ProgressDeterminate
+        case .Success:
+            visualIndicatorMode = IFAHudViewVisualIndicatorMode.Success
+        case .Error:
+            visualIndicatorMode = IFAHudViewVisualIndicatorMode.Error
+        case .ChromeTapWithAutoDismissal:
+            fallthrough
+        case .ChromeTapWithAction:
+            fallthrough
+        case .OverlayTapWithAutoDismissal:
+            fallthrough
+        case .OverlayTapWithAction:
+            visualIndicatorMode = IFAHudViewVisualIndicatorMode.ProgressIndeterminate
+        default:
+            visualIndicatorMode = IFAHudViewVisualIndicatorMode.None
+        }
+
+        // Auto dismissal delay
+        var autoDismissalDelay: NSTimeInterval
+        switch tableViewRow {
+        case .IndeterminateProgress:
+            autoDismissalDelay = 2.0
+        case .DeterminateProgress:
+            autoDismissalDelay = 0.0
+        case .ChromeTapWithAutoDismissal:
+            fallthrough
+        case .ChromeTapWithAction:
+            fallthrough
+        case .OverlayTapWithAutoDismissal:
+            fallthrough
+        case .OverlayTapWithAction:
+            autoDismissalDelay = 0.0
+        case .DynamicLayoutWithoutAnimation:
+            fallthrough
+        case .DynamicLayoutWithAnimation:
+            autoDismissalDelay = 0.0
+        default:
+            autoDismissalDelay = 0.5
+        }
+
+        // Chrome tap action block
+        var chromeTapActionBlock: (() -> Void)?
+        switch tableViewRow {
+        case .ChromeTapWithAction:
+            chromeTapActionBlock = {
+                [unowned self] in
+                self.dismissViewControllerAnimated(true, completion: nil)   //wip: review
+            }
+        default:
+            chromeTapActionBlock = nil
+        }
+
+        // Should dismiss on chrome tap?
+        var shouldDismissOnChromeTap: Bool
+        switch tableViewRow {
+        case .ChromeTapWithAutoDismissal:
+            shouldDismissOnChromeTap = true
+        default:
+            shouldDismissOnChromeTap = false
+        }
+
+        // Overlay tap action block
+        var overlayTapActionBlock: (() -> Void)?
+        switch tableViewRow {
+        case .OverlayTapWithAction:
+            overlayTapActionBlock = {
+                [unowned self] in
+                self.dismissViewControllerAnimated(true, completion: nil)   //wip: review
+            }
+        default:
+            overlayTapActionBlock = nil
+        }
+
+        // Should dismiss on overlay tap?
+        var shouldDismissOnOverlayTap: Bool
+        switch tableViewRow {
+        case .OverlayTapWithAutoDismissal:
+            shouldDismissOnOverlayTap = true
+        default:
+            shouldDismissOnOverlayTap = false
+        }
+
+        // Should animate layout changes?
+        var shouldAnimateLayoutChanges: Bool
+        switch tableViewRow {
+        case .DynamicLayoutWithAnimation:
+            shouldAnimateLayoutChanges = true
+        default:
+            shouldAnimateLayoutChanges = false
+        }
+
+        // Appearance
+        switch tableViewRow {
+        case .Expanded:
+            resetAppearance()
+            IFAHudView.appearance().chromeViewLayoutFittingSize = UILayoutFittingExpandedSize
+        case .CustomColours:
+            IFAHudView.appearance().overlayColour = UIColor.blueColor().colorWithAlphaComponent(0.2)
+            IFAHudView.appearance().chromeForegroundColour = UIColor.yellowColor()
+            IFAHudView.appearance().chromeBackgroundColour = UIColor.redColor().colorWithAlphaComponent(0.75)
+        default:
+            resetAppearance()
+        }
+
+        // Configure HUD
+        self.hudViewController.text = text
+        self.hudViewController.detailText = detailText
+        self.hudViewController.visualIndicatorMode = visualIndicatorMode
+        self.hudViewController.chromeTapActionBlock = chromeTapActionBlock
+        self.hudViewController.shouldDismissOnChromeTap = shouldDismissOnChromeTap
+        self.hudViewController.overlayTapActionBlock = overlayTapActionBlock
+        self.hudViewController.shouldDismissOnOverlayTap = shouldDismissOnOverlayTap
+        self.hudViewController.shouldAnimateLayoutChanges = shouldAnimateLayoutChanges
+        self.hudViewController.autoDismissalDelay = autoDismissalDelay
+
+        // Presentation completion closure
+        var presentationCompletion: (() -> Void)?
+        switch tableViewRow {
+        case .DeterminateProgress:
+            presentationCompletion = { [unowned self] in   //wip: review
+                self.determinateProgressCompletion(hudViewController: self.hudViewController)
+            }
+        case .DynamicLayoutWithoutAnimation:
+            fallthrough
+        case .DynamicLayoutWithAnimation:
+            presentationCompletion = { [unowned self] in   //wip: review
+                self.dynamicLayoutCompletion(hudViewController: self.hudViewController, textType: DynamicLayoutTextType(rawValue: DynamicLayoutTextType.Short.rawValue + 1)!)
+            }
+        default:
+            presentationCompletion = nil
+        }
+
+        // Present HUD
+        self.presentViewController(self.hudViewController, animated: true, completion: presentationCompletion) //wip: review this (e.g. it is always animating - is that ok?)
+
+    }
 
     private func determinateProgressCompletion(hudViewController a_hudViewController: IFAHudViewController) {
         IFAUtils.dispatchAsyncMainThreadBlock(

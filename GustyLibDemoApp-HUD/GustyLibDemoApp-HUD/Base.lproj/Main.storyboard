@@ -450,9 +450,9 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="LS2-3Q-zej"/>
                                         <exclude reference="bAo-lX-mfk"/>
                                         <exclude reference="qMc-H8-5oZ"/>
-                                        <exclude reference="LS2-3Q-zej"/>
                                     </mask>
                                 </variation>
                                 <connections>
@@ -469,8 +469,8 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="ZH1-jL-oGp"/>
-                                        <exclude reference="gK8-J5-VaQ"/>
                                         <exclude reference="ZaW-gK-6Je"/>
+                                        <exclude reference="gK8-J5-VaQ"/>
                                     </mask>
                                 </variation>
                                 <connections>
@@ -542,7 +542,7 @@
                         <viewControllerLayoutGuide type="bottom" id="oYF-QU-QSe"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="hJS-I7-Kvt">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="179"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -558,6 +558,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="caP-0J-gfP"/>
-        <segue reference="gug-Ng-sLA"/>
+        <segue reference="BtB-gU-b1u"/>
     </inferredMetricsTieBreakers>
 </document>
