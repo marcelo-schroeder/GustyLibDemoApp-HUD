@@ -340,14 +340,25 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="windsurf" translatesAutoresizingMaskIntoConstraints="NO" id="sdh-Gk-W4z" userLabel="Image View">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
+                            <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PGv-Yo-CK8">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="tBQ-1w-OrS" kind="embed" id="gug-Ng-sLA"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="2Bb-mo-IFy" firstAttribute="top" secondItem="sdh-Gk-W4z" secondAttribute="bottom" id="2hw-1K-C69"/>
+                            <constraint firstItem="2Bb-mo-IFy" firstAttribute="top" secondItem="PGv-Yo-CK8" secondAttribute="bottom" id="2rG-Se-6At"/>
                             <constraint firstItem="sdh-Gk-W4z" firstAttribute="leading" secondItem="5RZ-I5-yMi" secondAttribute="leadingMargin" constant="-16" id="DLJ-AN-PA1"/>
                             <constraint firstItem="sdh-Gk-W4z" firstAttribute="bottom" secondItem="5RZ-I5-yMi" secondAttribute="bottomMargin" id="TZJ-2q-wje"/>
                             <constraint firstItem="sdh-Gk-W4z" firstAttribute="top" secondItem="HFb-nw-hBI" secondAttribute="bottom" id="WWF-pM-lUp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="sdh-Gk-W4z" secondAttribute="trailing" constant="-16" id="eGm-9q-Qrm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="PGv-Yo-CK8" secondAttribute="trailing" constant="-16" id="iTg-CF-PYm"/>
+                            <constraint firstItem="PGv-Yo-CK8" firstAttribute="leading" secondItem="5RZ-I5-yMi" secondAttribute="leadingMargin" constant="-16" id="pMF-a8-XcV"/>
+                            <constraint firstItem="PGv-Yo-CK8" firstAttribute="top" secondItem="HFb-nw-hBI" secondAttribute="bottom" id="t5k-88-KZU"/>
                             <constraint firstItem="sdh-Gk-W4z" firstAttribute="top" secondItem="5RZ-I5-yMi" secondAttribute="topMargin" id="tsF-K0-Cjl"/>
                         </constraints>
                         <variation key="default">
@@ -499,7 +510,7 @@
                         <viewControllerLayoutGuide type="bottom" id="oYF-QU-QSe"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="hJS-I7-Kvt">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="178"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -507,7 +518,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wSd-xf-mpT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2626" y="651.5"/>
+            <point key="canvasLocation" x="2550" y="305"/>
         </scene>
     </scenes>
     <resources>
@@ -515,6 +526,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="caP-0J-gfP"/>
-        <segue reference="vya-gc-cXS"/>
+        <segue reference="gug-Ng-sLA"/>
     </inferredMetricsTieBreakers>
 </document>

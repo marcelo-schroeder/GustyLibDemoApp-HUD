@@ -10,8 +10,6 @@ import Foundation
 
 //wip: memory profile
 class MultipleHudsViewController: UIViewController {
-    
-    @IBOutlet weak var containerView1: UIView!
 
     //MARK: Overrides
     
