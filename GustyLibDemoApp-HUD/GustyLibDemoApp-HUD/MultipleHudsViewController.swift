@@ -8,17 +8,23 @@
 
 import Foundation
 
+//wip: memory profile
 class MultipleHudsViewController: UIViewController {
     
     @IBOutlet weak var containerView1: UIView!
 
-    var hudViewController: IFAHudViewController!
+    //MARK: Overrides
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        self.hudViewController = IFAHudViewController(style: IFAHudViewStyle.Plain, chromeViewLayoutFittingMode: IFAHudViewChromeViewLayoutFittingMode.Compressed)
-        self.hudViewController.text = "Test"
-        self.presentViewController(self.hudViewController, animated: true, completion: nil) //wip: review
+        if (segue.destinationViewController is IFAHudViewController) {
+
+            let viewController = segue.destinationViewController as IFAHudViewController
+            viewController.text = segue.identifier
+            viewController.visualIndicatorMode = IFAHudViewVisualIndicatorMode.ProgressIndeterminate
+
+        }
+        
     }
 
 }

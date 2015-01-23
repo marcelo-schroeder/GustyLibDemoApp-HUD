@@ -30,6 +30,7 @@ class MenuViewController: UITableViewController {
         case BlurStyleLight
         case BlurAndVibrancyStyleDark
         case BlurAndVibrancyStyleLight
+        case MultipleHuds
     }
 
     enum DynamicLayoutTextType: Int {
@@ -45,7 +46,7 @@ class MenuViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
-        if (TableViewRow.BlurStyleDark.rawValue...TableViewRow.BlurAndVibrancyStyleLight.rawValue ~= indexPath.row) {
+        if (TableViewRow.BlurStyleDark.rawValue...TableViewRow.BlurAndVibrancyStyleLight.rawValue ~= indexPath.row || indexPath.row == TableViewRow.MultipleHuds.rawValue) {
             return            
         }
 
