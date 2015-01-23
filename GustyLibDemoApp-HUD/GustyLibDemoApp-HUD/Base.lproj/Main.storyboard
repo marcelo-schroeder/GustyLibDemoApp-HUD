@@ -388,10 +388,22 @@
                                     <constraint firstAttribute="width" constant="80" id="w7K-Jl-8Xa"/>
                                 </constraints>
                             </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hde-gR-8hp">
+                                <rect key="frame" x="65" y="236" width="229" height="229"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="229" id="5jz-Ef-HYx"/>
+                                    <constraint firstAttribute="width" constant="229" id="it5-1w-xu6"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="tBQ-1w-OrS" kind="embed" id="v0w-Ah-JLT"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Hde-gR-8hp" firstAttribute="leading" secondItem="r1e-Ej-hwq" secondAttribute="leadingMargin" constant="49" id="50Y-97-FFS"/>
                             <constraint firstItem="3Zo-Ay-qdm" firstAttribute="top" secondItem="WKd-fb-eDY" secondAttribute="bottom" constant="45" id="OKn-y5-osD"/>
+                            <constraint firstItem="Hde-gR-8hp" firstAttribute="top" secondItem="3Zo-Ay-qdm" secondAttribute="bottom" constant="47" id="esx-35-Zek"/>
                             <constraint firstItem="3Zo-Ay-qdm" firstAttribute="leading" secondItem="r1e-Ej-hwq" secondAttribute="leadingMargin" constant="49" id="wXe-uj-SUU"/>
                         </constraints>
                     </view>
@@ -418,6 +430,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hvn-Mc-tRB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-285" y="473"/>
+        </scene>
+        <!--Hud View Controller-->
+        <scene sceneID="GeG-yj-aZJ">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="tBQ-1w-OrS" customClass="IFAHudViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pZG-bA-9qb"/>
+                        <viewControllerLayoutGuide type="bottom" id="oYF-QU-QSe"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="hJS-I7-Kvt">
+                        <rect key="frame" x="0.0" y="0.0" width="229" height="229"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wSd-xf-mpT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1766" y="1692"/>
         </scene>
     </scenes>
     <resources>

@@ -119,7 +119,11 @@ class MenuViewController: UITableViewController {
         switch indexPath.row {
         case TableViewRow.IndeterminateProgress.rawValue:
             autoDismissalDelay = 2.0
+        case TableViewRow.DeterminateProgress.rawValue:
+            autoDismissalDelay = 0.0
         case TableViewRow.ChromeTapWithAutoDismissal.rawValue...TableViewRow.OverlayTapWithAction.rawValue:
+            autoDismissalDelay = 0.0
+        case TableViewRow.DynamicLayoutWithoutAnimation.rawValue...TableViewRow.DynamicLayoutWithAnimation.rawValue:
             autoDismissalDelay = 0.0
         default:
             autoDismissalDelay = 0.5
@@ -213,7 +217,7 @@ class MenuViewController: UITableViewController {
         }
 
         // Present HUD
-        self.presentViewController(self.hudViewController, animated: true, completion: nil) //wip: review this (e.g. it is always animating - is that ok?)
+        self.presentViewController(self.hudViewController, animated: true, completion: presentationCompletion) //wip: review this (e.g. it is always animating - is that ok?)
 
     }
 
