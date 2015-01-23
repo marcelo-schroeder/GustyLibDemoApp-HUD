@@ -53,8 +53,7 @@ class MenuViewController: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
         // Initialise HUD
-        let chromeViewLayoutFittingMode = indexPath.row == TableViewRow.Expanded.rawValue ? IFAHudViewChromeViewLayoutFittingMode.Expanded : IFAHudViewChromeViewLayoutFittingMode.Compressed
-        self.hudViewController = IFAHudViewController(style: IFAHudViewStyle.Plain, chromeViewLayoutFittingMode: chromeViewLayoutFittingMode)
+        self.hudViewController = IFAHudViewController()
 
         // Text
         var text: String?
@@ -181,8 +180,11 @@ class MenuViewController: UITableViewController {
             shouldAnimateLayoutChanges = false
         }
 
-        // Custom colours
+        // Appearance
         switch indexPath.row {
+        case TableViewRow.Expanded.rawValue:
+            resetAppearance()
+            IFAHudView.appearance().chromeViewLayoutFittingSize = UILayoutFittingExpandedSize
         case TableViewRow.CustomColours.rawValue:
             IFAHudView.appearance().overlayColour = UIColor.blueColor().colorWithAlphaComponent(0.2)
             IFAHudView.appearance().chromeForegroundColour = UIColor.yellowColor()
@@ -313,6 +315,7 @@ class MenuViewController: UITableViewController {
         IFAHudView.appearance().overlayColour = nil
         IFAHudView.appearance().chromeForegroundColour = nil
         IFAHudView.appearance().chromeBackgroundColour = nil
+        IFAHudView.appearance().chromeViewLayoutFittingSize = UILayoutFittingCompressedSize
     }
 
 }

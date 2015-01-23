@@ -23,7 +23,8 @@ class BlurAndVibrancyStyleViewController: UIViewController {
     //wip: fix the case where touches are now allowed wheren there is no animation
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.hudViewController = IFAHudViewController(style: self.style, chromeViewLayoutFittingMode: IFAHudViewChromeViewLayoutFittingMode.Compressed)
+        self.hudViewController = IFAHudViewController()
+        self.hudViewController.style = self.style
         self.hudViewController.text = self.text
         self.hudViewController.detailText = "Enjoy the view!"
         self.hudViewController.presentationTransitionDuration = 3
