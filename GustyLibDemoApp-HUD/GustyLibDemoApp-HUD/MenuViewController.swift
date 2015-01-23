@@ -8,30 +8,30 @@
 
 import UIKit
 
-class MenuViewController: UITableViewController {
+private enum TableViewRow: Int {
+    case Text
+    case DetailText
+    case IndeterminateProgress
+    case DeterminateProgress
+    case Success
+    case Error
+    case ChromeTapWithAutoDismissal
+    case ChromeTapWithAction
+    case OverlayTapWithAutoDismissal
+    case OverlayTapWithAction
+    case Compressed
+    case Expanded
+    case CustomColours
+    case DynamicLayoutWithoutAnimation
+    case DynamicLayoutWithAnimation
+    case BlurStyleDark
+    case BlurStyleLight
+    case BlurAndVibrancyStyleDark
+    case BlurAndVibrancyStyleLight
+    case MultipleHuds
+}
 
-    enum TableViewRow: Int {
-        case TextLabel
-        case DetailText
-        case IndeterminateProgress
-        case DeterminateProgress
-        case Success
-        case Error
-        case ChromeTapWithAutoDismissal
-        case ChromeTapWithAction
-        case OverlayTapWithAutoDismissal
-        case OverlayTapWithAction
-        case Compressed
-        case Expanded
-        case CustomColours
-        case DynamicLayoutWithoutAnimation
-        case DynamicLayoutWithAnimation
-        case BlurStyleDark
-        case BlurStyleLight
-        case BlurAndVibrancyStyleDark
-        case BlurAndVibrancyStyleLight
-        case MultipleHuds
-    }
+class MenuViewController: UITableViewController {
 
     enum DynamicLayoutTextType: Int {
         case Short
@@ -57,32 +57,36 @@ class MenuViewController: UITableViewController {
 
         // Text
         var text: String?
-        switch indexPath.row {
-        case TableViewRow.TextLabel.rawValue...TableViewRow.DetailText.rawValue:
+        switch indexPath.tableViewRow() {
+        case .Text:
+            fallthrough
+        case .DetailText:
             text = "Text label"
-        case TableViewRow.IndeterminateProgress.rawValue:
+        case .IndeterminateProgress:
             text = "Indeterminate progress"
-        case TableViewRow.DeterminateProgress.rawValue:
+        case .DeterminateProgress:
             text = "Determinate progress"
-        case TableViewRow.Success.rawValue:
+        case .Success:
             text = "Success"
-        case TableViewRow.Error.rawValue:
+        case .Error:
             text = "Error"
-        case TableViewRow.ChromeTapWithAutoDismissal.rawValue:
+        case .ChromeTapWithAutoDismissal:
             text = "Tap inside to auto dismiss"
-        case TableViewRow.ChromeTapWithAction.rawValue:
+        case .ChromeTapWithAction:
             text = "Tap inside to dismiss with action"
-        case TableViewRow.OverlayTapWithAutoDismissal.rawValue:
+        case .OverlayTapWithAutoDismissal:
             text = "Tap outside to auto dismiss"
-        case TableViewRow.OverlayTapWithAction.rawValue:
+        case .OverlayTapWithAction:
             text = "Tap outside to dismiss with action"
-        case TableViewRow.Compressed.rawValue:
+        case .Compressed:
             text = "Compressed"
-        case TableViewRow.Expanded.rawValue:
+        case .Expanded:
             text = "Expanded"
-        case TableViewRow.CustomColours.rawValue:
+        case .CustomColours:
             text = "Custom colours"
-        case TableViewRow.DynamicLayoutWithoutAnimation.rawValue...TableViewRow.DynamicLayoutWithAnimation.rawValue:
+        case .DynamicLayoutWithoutAnimation:
+            fallthrough
+        case .DynamicLayoutWithAnimation:
             text = dynamicLayoutText(fromType: DynamicLayoutTextType.Short)
         default:
             text = nil
@@ -90,8 +94,8 @@ class MenuViewController: UITableViewController {
         
         // Detail text
         var detailText: String?;
-        switch indexPath.row {
-        case TableViewRow.DetailText.rawValue:
+        switch indexPath.tableViewRow() {
+        case .DetailText:
             detailText = "Detail text label"
         default:
             detailText = nil
@@ -99,16 +103,22 @@ class MenuViewController: UITableViewController {
 
         // Visual indicator mode
         var visualIndicatorMode: IFAHudViewVisualIndicatorMode
-        switch indexPath.row {
-        case TableViewRow.IndeterminateProgress.rawValue:
+        switch indexPath.tableViewRow() {
+        case .IndeterminateProgress:
             visualIndicatorMode = IFAHudViewVisualIndicatorMode.ProgressIndeterminate
-        case TableViewRow.DeterminateProgress.rawValue:
+        case .DeterminateProgress:
             visualIndicatorMode = IFAHudViewVisualIndicatorMode.ProgressDeterminate
-        case TableViewRow.Success.rawValue:
+        case .Success:
             visualIndicatorMode = IFAHudViewVisualIndicatorMode.Success
-        case TableViewRow.Error.rawValue:
+        case .Error:
             visualIndicatorMode = IFAHudViewVisualIndicatorMode.Error
-        case TableViewRow.ChromeTapWithAutoDismissal.rawValue...TableViewRow.OverlayTapWithAction.rawValue:
+        case .ChromeTapWithAutoDismissal:
+            fallthrough
+        case .ChromeTapWithAction:
+            fallthrough
+        case .OverlayTapWithAutoDismissal:
+            fallthrough
+        case .OverlayTapWithAction:
             visualIndicatorMode = IFAHudViewVisualIndicatorMode.ProgressIndeterminate
         default:
             visualIndicatorMode = IFAHudViewVisualIndicatorMode.None
@@ -116,14 +126,22 @@ class MenuViewController: UITableViewController {
 
         // Auto dismissal delay
         var autoDismissalDelay: NSTimeInterval
-        switch indexPath.row {
-        case TableViewRow.IndeterminateProgress.rawValue:
+        switch indexPath.tableViewRow() {
+        case .IndeterminateProgress:
             autoDismissalDelay = 2.0
-        case TableViewRow.DeterminateProgress.rawValue:
+        case .DeterminateProgress:
             autoDismissalDelay = 0.0
-        case TableViewRow.ChromeTapWithAutoDismissal.rawValue...TableViewRow.OverlayTapWithAction.rawValue:
+        case .ChromeTapWithAutoDismissal:
+            fallthrough
+        case .ChromeTapWithAction:
+            fallthrough
+        case .OverlayTapWithAutoDismissal:
+            fallthrough
+        case .OverlayTapWithAction:
             autoDismissalDelay = 0.0
-        case TableViewRow.DynamicLayoutWithoutAnimation.rawValue...TableViewRow.DynamicLayoutWithAnimation.rawValue:
+        case .DynamicLayoutWithoutAnimation:
+            fallthrough
+        case .DynamicLayoutWithAnimation:
             autoDismissalDelay = 0.0
         default:
             autoDismissalDelay = 0.5
@@ -131,8 +149,8 @@ class MenuViewController: UITableViewController {
 
         // Chrome tap action block
         var chromeTapActionBlock: (() -> Void)?
-        switch indexPath.row {
-        case TableViewRow.ChromeTapWithAction.rawValue:
+        switch indexPath.tableViewRow() {
+        case .ChromeTapWithAction:
             chromeTapActionBlock = {
                 [unowned self] in
                 self.dismissViewControllerAnimated(true, completion: nil)   //wip: review
@@ -143,8 +161,8 @@ class MenuViewController: UITableViewController {
         
         // Should dismiss on chrome tap?
         var shouldDismissOnChromeTap: Bool
-        switch indexPath.row {
-        case TableViewRow.ChromeTapWithAutoDismissal.rawValue:
+        switch indexPath.tableViewRow() {
+        case .ChromeTapWithAutoDismissal:
             shouldDismissOnChromeTap = true
         default:
             shouldDismissOnChromeTap = false
@@ -152,8 +170,8 @@ class MenuViewController: UITableViewController {
         
         // Overlay tap action block
         var overlayTapActionBlock: (() -> Void)?
-        switch indexPath.row {
-        case TableViewRow.OverlayTapWithAction.rawValue:
+        switch indexPath.tableViewRow() {
+        case .OverlayTapWithAction:
             overlayTapActionBlock = {
                 [unowned self] in
                 self.dismissViewControllerAnimated(true, completion: nil)   //wip: review
@@ -164,8 +182,8 @@ class MenuViewController: UITableViewController {
         
         // Should dismiss on overlay tap?
         var shouldDismissOnOverlayTap: Bool
-        switch indexPath.row {
-        case TableViewRow.OverlayTapWithAutoDismissal.rawValue:
+        switch indexPath.tableViewRow() {
+        case .OverlayTapWithAutoDismissal:
             shouldDismissOnOverlayTap = true
         default:
             shouldDismissOnOverlayTap = false
@@ -173,19 +191,19 @@ class MenuViewController: UITableViewController {
         
         // Should animate layout changes?
         var shouldAnimateLayoutChanges: Bool
-        switch indexPath.row {
-        case TableViewRow.DynamicLayoutWithAnimation.rawValue:
+        switch indexPath.tableViewRow() {
+        case .DynamicLayoutWithAnimation:
             shouldAnimateLayoutChanges = true
         default:
             shouldAnimateLayoutChanges = false
         }
 
         // Appearance
-        switch indexPath.row {
-        case TableViewRow.Expanded.rawValue:
+        switch indexPath.tableViewRow() {
+        case .Expanded:
             resetAppearance()
             IFAHudView.appearance().chromeViewLayoutFittingSize = UILayoutFittingExpandedSize
-        case TableViewRow.CustomColours.rawValue:
+        case .CustomColours:
             IFAHudView.appearance().overlayColour = UIColor.blueColor().colorWithAlphaComponent(0.2)
             IFAHudView.appearance().chromeForegroundColour = UIColor.yellowColor()
             IFAHudView.appearance().chromeBackgroundColour = UIColor.redColor().colorWithAlphaComponent(0.75)
@@ -206,12 +224,14 @@ class MenuViewController: UITableViewController {
         
         // Presentation completion closure
         var presentationCompletion: (() -> Void)?
-        switch indexPath.row {
-        case TableViewRow.DeterminateProgress.rawValue:
+        switch indexPath.tableViewRow() {
+        case .DeterminateProgress:
             presentationCompletion = { [unowned self] in   //wip: review
                 self.determinateProgressCompletion(hudViewController: self.hudViewController)
             }
-        case TableViewRow.DynamicLayoutWithoutAnimation.rawValue...TableViewRow.DynamicLayoutWithAnimation.rawValue:
+        case .DynamicLayoutWithoutAnimation:
+            fallthrough
+        case .DynamicLayoutWithAnimation:
             presentationCompletion = { [unowned self] in   //wip: review
                 self.dynamicLayoutCompletion(hudViewController: self.hudViewController, textType: DynamicLayoutTextType(rawValue: DynamicLayoutTextType.Short.rawValue + 1)!)
             }
@@ -234,10 +254,9 @@ class MenuViewController: UITableViewController {
             
             resetAppearance()
             
-            let selectedRow = self.tableView.indexPathForSelectedRow()!.row
-            let tableViewRow:TableViewRow = TableViewRow(rawValue: selectedRow)!
+            let selectedRowIndexPath = self.tableView.indexPathForSelectedRow()!
             
-            switch tableViewRow {
+            switch selectedRowIndexPath.tableViewRow() {
             case .BlurStyleDark:
                 viewController.text = "Blur style - dark"
                 viewController.style = IFAHudViewStyle.Blur
@@ -319,3 +338,55 @@ class MenuViewController: UITableViewController {
     }
 
 }
+
+private extension NSIndexPath {
+    
+    func tableViewRow() -> TableViewRow {
+        switch (self.section, self.row) {
+        case (0, 0):
+            return TableViewRow.Text
+        case (0, 1):
+            return TableViewRow.DetailText
+        case (1, 0):
+            return TableViewRow.IndeterminateProgress
+        case (1, 1):
+            return TableViewRow.DeterminateProgress
+        case (2, 0):
+            return TableViewRow.Success
+        case (2, 1):
+            return TableViewRow.Error
+        case (3, 0):
+            return TableViewRow.ChromeTapWithAutoDismissal
+        case (3, 1):
+            return TableViewRow.ChromeTapWithAction
+        case (3, 2):
+            return TableViewRow.OverlayTapWithAutoDismissal
+        case (3, 3):
+            return TableViewRow.OverlayTapWithAction
+        case (4, 0):
+            return TableViewRow.Compressed
+        case (4, 1):
+            return TableViewRow.Expanded
+        case (5, 0):
+            return TableViewRow.CustomColours
+        case (6, 0):
+            return TableViewRow.DynamicLayoutWithoutAnimation
+        case (6, 1):
+            return TableViewRow.DynamicLayoutWithAnimation
+        case (7, 0):
+            return TableViewRow.BlurStyleDark
+        case (7, 1):
+            return TableViewRow.BlurStyleLight
+        case (7, 2):
+            return TableViewRow.BlurAndVibrancyStyleDark
+        case (7, 3):
+            return TableViewRow.BlurAndVibrancyStyleLight
+        case (8, 0):
+            return TableViewRow.MultipleHuds
+        default:
+            assert(false, "Unexpected section and row")
+        }
+    }
+   
+}
+
