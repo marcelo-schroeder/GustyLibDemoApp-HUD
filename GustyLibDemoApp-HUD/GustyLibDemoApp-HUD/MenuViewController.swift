@@ -8,6 +8,9 @@
 
 import UIKit
 
+//wip: add image credits
+//wip: shorten the app's display name on the home screen
+
 private enum TableViewRow: Int {
     case Text
     case DetailText
@@ -89,7 +92,7 @@ class MenuViewController: UITableViewController {
             case .BlurStyleLight:
                 viewController.text = "Blur style - light"
                 viewController.style = IFAHudViewStyle.Blur
-                viewController.imageName = "windsurf"
+                viewController.imageName = "planet"
                 IFAHudView.appearance().chromeForegroundColour = UIColor.blackColor()
                 IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Light
             case .BlurAndVibrancyStyleDark:
