@@ -52,6 +52,8 @@ class MenuViewController: UITableViewController {
 
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
+        resetAppearance()
+
         let tableViewRow = indexPath.tableViewRow()
 
         switch tableViewRow {
@@ -64,7 +66,7 @@ class MenuViewController: UITableViewController {
         case .BlurAndVibrancyStyleLight:
             fallthrough
         case .MultipleHuds:
-            return
+            return  // handled as segue
         default:
             self.handleNonSegueCase(forSelectedTableViewRow: tableViewRow)
         }
@@ -78,8 +80,6 @@ class MenuViewController: UITableViewController {
         if (segue.destinationViewController is BlurAndVibrancyStyleViewController) {
             
             let viewController = segue.destinationViewController as BlurAndVibrancyStyleViewController
-            
-            resetAppearance()
             
             let selectedRowIndexPath = self.tableView.indexPathForSelectedRow()!
             
@@ -267,14 +267,14 @@ class MenuViewController: UITableViewController {
         // Appearance
         switch tableViewRow {
         case .Expanded:
-            resetAppearance()
             IFAHudView.appearance().chromeViewLayoutFittingSize = UILayoutFittingExpandedSize
         case .CustomColours:
+            IFAHudView.appearance().style = IFAHudViewStyle.Plain
             IFAHudView.appearance().overlayColour = UIColor.blueColor().colorWithAlphaComponent(0.2)
             IFAHudView.appearance().chromeForegroundColour = UIColor.yellowColor()
             IFAHudView.appearance().chromeBackgroundColour = UIColor.redColor().colorWithAlphaComponent(0.75)
         default:
-            resetAppearance()
+            break   // does nothing
         }
 
         // Configure HUD
@@ -352,10 +352,13 @@ class MenuViewController: UITableViewController {
     }
 
     private func resetAppearance() {
+        IFAHudView.appearance().style = IFAHudViewStyle.Blur
+        IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Dark
         IFAHudView.appearance().overlayColour = nil
         IFAHudView.appearance().chromeForegroundColour = nil
         IFAHudView.appearance().chromeBackgroundColour = nil
         IFAHudView.appearance().chromeViewLayoutFittingSize = UILayoutFittingCompressedSize
+        IFAHudView.appearance().shouldAnimateLayoutChanges = true
     }
 
 }
