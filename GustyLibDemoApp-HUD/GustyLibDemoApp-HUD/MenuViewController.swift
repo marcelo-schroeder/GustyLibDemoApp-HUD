@@ -25,9 +25,10 @@ private enum TableViewRow: Int {
     case OverlayTapWithAction
     case Compressed
     case Expanded
-    case CustomColours
     case DynamicLayoutWithoutAnimation
     case DynamicLayoutWithAnimation
+    case PlainStyleOldSchool
+    case PlainStyleCustomColours
     case BlurStyleDark
     case BlurStyleLight
     case BlurAndVibrancyStyleDark
@@ -51,8 +52,6 @@ class MenuViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-
-        resetAppearance()
 
         let tableViewRow = indexPath.tableViewRow()
 
@@ -82,7 +81,8 @@ class MenuViewController: UITableViewController {
             let viewController = segue.destinationViewController as BlurAndVibrancyStyleViewController
             
             let selectedRowIndexPath = self.tableView.indexPathForSelectedRow()!
-            
+
+            resetAppearance()
             switch selectedRowIndexPath.tableViewRow() {
             case .BlurStyleDark:
                 viewController.text = "Blur style - dark"
@@ -148,8 +148,10 @@ class MenuViewController: UITableViewController {
             text = "Compressed"
         case .Expanded:
             text = "Expanded"
-        case .CustomColours:
-            text = "Custom colours"
+        case .PlainStyleOldSchool:
+            text = "Plain - old school"
+        case .PlainStyleCustomColours:
+            text = "Plain - custom colours"
         case .DynamicLayoutWithoutAnimation:
             fallthrough
         case .DynamicLayoutWithAnimation:
@@ -265,10 +267,14 @@ class MenuViewController: UITableViewController {
         }
 
         // Appearance
+        resetAppearance()
         switch tableViewRow {
         case .Expanded:
             IFAHudView.appearance().chromeViewLayoutFittingSize = UILayoutFittingExpandedSize
-        case .CustomColours:
+        case .PlainStyleOldSchool:
+            IFAHudView.appearance().style = IFAHudViewStyle.Plain
+            IFAHudView.appearance().chromeBackgroundColour = UIColor.blackColor().colorWithAlphaComponent(0.75)
+        case .PlainStyleCustomColours:
             IFAHudView.appearance().style = IFAHudViewStyle.Plain
             IFAHudView.appearance().overlayColour = UIColor.blueColor().colorWithAlphaComponent(0.2)
             IFAHudView.appearance().chromeForegroundColour = UIColor.yellowColor()
@@ -392,20 +398,22 @@ private extension NSIndexPath {
         case (4, 1):
             return TableViewRow.Expanded
         case (5, 0):
-            return TableViewRow.CustomColours
-        case (6, 0):
             return TableViewRow.DynamicLayoutWithoutAnimation
-        case (6, 1):
+        case (5, 1):
             return TableViewRow.DynamicLayoutWithAnimation
-        case (7, 0):
+        case (6, 0):
+            return TableViewRow.PlainStyleOldSchool
+        case (6, 1):
+            return TableViewRow.PlainStyleCustomColours
+        case (6, 2):
             return TableViewRow.BlurStyleDark
-        case (7, 1):
+        case (6, 3):
             return TableViewRow.BlurStyleLight
-        case (7, 2):
+        case (6, 4):
             return TableViewRow.BlurAndVibrancyStyleDark
-        case (7, 3):
+        case (6, 5):
             return TableViewRow.BlurAndVibrancyStyleLight
-        case (8, 0):
+        case (7, 0):
             return TableViewRow.MultipleHuds
         default:
             assert(false, "Unexpected section and row")
