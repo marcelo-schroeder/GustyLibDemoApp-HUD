@@ -10,6 +10,7 @@
 		107387C712DB081348241728 /* BlurAndVibrancyStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10738EDB1D5FD501BBDAFFC1 /* BlurAndVibrancyStyleViewController.swift */; };
 		B6DCFF71E1AEDDE13A3194B7 /* libPods-GustyLibDemoApp-HUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71F2390A0A5D6E62A872CFB6 /* libPods-GustyLibDemoApp-HUD.a */; };
 		F732C9E81A71C0AF00F20C44 /* MultipleHudsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F732C9E71A71C0AF00F20C44 /* MultipleHudsViewController.swift */; };
+		F76588AA1A7709E800E95B69 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76588A91A7709E800E95B69 /* TableViewCell.swift */; };
 		F79450071A6CBAB300E059A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79450061A6CBAB300E059A3 /* AppDelegate.swift */; };
 		F79450091A6CBAB300E059A3 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79450081A6CBAB300E059A3 /* MenuViewController.swift */; };
 		F794500C1A6CBAB300E059A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F794500A1A6CBAB300E059A3 /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 		71F2390A0A5D6E62A872CFB6 /* libPods-GustyLibDemoApp-HUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GustyLibDemoApp-HUD.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3D39E40922E41F71D027336 /* Pods-GustyLibDemoApp-HUD.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GustyLibDemoApp-HUD.release.xcconfig"; path = "../Pods/Target Support Files/Pods-GustyLibDemoApp-HUD/Pods-GustyLibDemoApp-HUD.release.xcconfig"; sourceTree = "<group>"; };
 		F732C9E71A71C0AF00F20C44 /* MultipleHudsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipleHudsViewController.swift; sourceTree = "<group>"; };
+		F76588A91A7709E800E95B69 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		F79450011A6CBAB300E059A3 /* GustyLibDemoApp-HUD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GustyLibDemoApp-HUD.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F79450051A6CBAB300E059A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F79450061A6CBAB300E059A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				F7C5F09F1A6CC86600F108F4 /* GustyLibDemoApp-HUD-Bridging-Header.h */,
 				10738EDB1D5FD501BBDAFFC1 /* BlurAndVibrancyStyleViewController.swift */,
 				F732C9E71A71C0AF00F20C44 /* MultipleHudsViewController.swift */,
+				F76588A91A7709E800E95B69 /* TableViewCell.swift */,
 			);
 			path = "GustyLibDemoApp-HUD";
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F76588AA1A7709E800E95B69 /* TableViewCell.swift in Sources */,
 				F732C9E81A71C0AF00F20C44 /* MultipleHudsViewController.swift in Sources */,
 				F79450091A6CBAB300E059A3 /* MenuViewController.swift in Sources */,
 				F79450071A6CBAB300E059A3 /* AppDelegate.swift in Sources */,

@@ -46,6 +46,7 @@ class MenuViewController: UITableViewController {
     }
 
     var hudViewController: IFAHudViewController!
+    var contentSizeCategoryChangeObserver: NSObjectProtocol?
 
     //MARK: UITableViewControllerDelegate
 
@@ -74,7 +75,30 @@ class MenuViewController: UITableViewController {
 
     //MARK: Overrides
 
+    override func viewDidLoad() {
+
+        super.viewDidLoad()
+        
+//        self.tableView.rowHeight = UITableViewAutomaticDimension
+//        self.tableView.estimatedRowHeight = 44
+//
+//        let contentSizeCategoryChangeObserverClosure: (NSNotification!) -> Void = {(NSNotification) -> Void in self.tableView.reloadData()}
+//        self.contentSizeCategoryChangeObserver = NSNotificationCenter.defaultCenter().addObserverForName(UIContentSizeCategoryDidChangeNotification, object: nil, queue: nil, usingBlock: contentSizeCategoryChangeObserverClosure)
+
+    }
+    
+//    deinit {
+//        NSNotificationCenter.defaultCenter().removeObserver(self.contentSizeCategoryChangeObserver!)
+//    }
+
+//    override func viewDidAppear(animated: Bool) {
+//        super.viewDidAppear(animated)
+//        self.tableView.reloadData()
+//    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        super.prepareForSegue(segue, sender: sender)
         
         if (segue.destinationViewController is BlurAndVibrancyStyleViewController) {
             
