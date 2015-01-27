@@ -80,14 +80,15 @@ class MenuViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         super.prepareForSegue(segue, sender: sender)
-        
+
+        resetAppearance()
+
         if (segue.destinationViewController is BlurAndVibrancyStyleViewController) {
             
             let viewController = segue.destinationViewController as BlurAndVibrancyStyleViewController
             
             let selectedRowIndexPath = self.tableView.indexPathForSelectedRow()!
 
-            resetAppearance()
             switch selectedRowIndexPath.tableViewRow() {
             case .BlurStyleDark:
                 viewController.text = "Blur style - dark"
@@ -426,6 +427,7 @@ private extension NSIndexPath {
             return TableViewRow.MultipleHuds
         default:
             assert(false, "Unexpected section and row")
+            return TableViewRow.Text
         }
     }
    
