@@ -25,9 +25,10 @@ class BlurAndVibrancyStyleViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if (segue.destinationViewController is IFAHudViewController) {
-            
+
+            IFAHudView.appearance().style = self.style
+
             let viewController = segue.destinationViewController as IFAHudViewController
-            viewController.style = self.style
             viewController.text = self.text
             viewController.detailText = "Enjoy the view!"
             

@@ -27,6 +27,8 @@ private enum TableViewRow: Int {
     case Expanded
     case DynamicLayoutWithoutAnimation
     case DynamicLayoutWithAnimation
+    case FontTextStyleCustomisation
+    case FontCustomisation
     case PlainStyleOldSchool
     case PlainStyleCustomColours
     case BlurStyleDark
@@ -75,27 +77,6 @@ class MenuViewController: UITableViewController {
 
     //MARK: Overrides
 
-    override func viewDidLoad() {
-
-        super.viewDidLoad()
-        
-//        self.tableView.rowHeight = UITableViewAutomaticDimension
-//        self.tableView.estimatedRowHeight = 44
-//
-//        let contentSizeCategoryChangeObserverClosure: (NSNotification!) -> Void = {(NSNotification) -> Void in self.tableView.reloadData()}
-//        self.contentSizeCategoryChangeObserver = NSNotificationCenter.defaultCenter().addObserverForName(UIContentSizeCategoryDidChangeNotification, object: nil, queue: nil, usingBlock: contentSizeCategoryChangeObserverClosure)
-
-    }
-    
-//    deinit {
-//        NSNotificationCenter.defaultCenter().removeObserver(self.contentSizeCategoryChangeObserver!)
-//    }
-
-//    override func viewDidAppear(animated: Bool) {
-//        super.viewDidAppear(animated)
-//        self.tableView.reloadData()
-//    }
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         super.prepareForSegue(segue, sender: sender)
@@ -172,6 +153,10 @@ class MenuViewController: UITableViewController {
             text = "Compressed"
         case .Expanded:
             text = "Expanded"
+        case .FontTextStyleCustomisation:
+            text = "Text style customisation"
+        case .FontCustomisation:
+            text = "Font customisation"
         case .PlainStyleOldSchool:
             text = "Plain - old school"
         case .PlainStyleCustomColours:
@@ -188,6 +173,10 @@ class MenuViewController: UITableViewController {
         var detailText: String?;
         switch tableViewRow {
         case .DetailText:
+            fallthrough
+        case .FontTextStyleCustomisation:
+            fallthrough
+        case .FontCustomisation:
             detailText = "Detail text label"
         default:
             detailText = nil
@@ -281,20 +270,19 @@ class MenuViewController: UITableViewController {
             shouldDismissOnOverlayTap = false
         }
 
-        // Should animate layout changes?
-        var shouldAnimateLayoutChanges: Bool
-        switch tableViewRow {
-        case .DynamicLayoutWithAnimation:
-            shouldAnimateLayoutChanges = true
-        default:
-            shouldAnimateLayoutChanges = false
-        }
-
         // Appearance
         resetAppearance()
         switch tableViewRow {
         case .Expanded:
             IFAHudView.appearance().chromeViewLayoutFittingSize = UILayoutFittingExpandedSize
+        case .DynamicLayoutWithAnimation:
+            IFAHudView.appearance().shouldAnimateLayoutChanges = true
+        case .FontTextStyleCustomisation:
+            IFAHudView.appearance().textLabelFontTextStyle = UIFontTextStyleBody
+            IFAHudView.appearance().detailTextLabelFontTextStyle = UIFontTextStyleFootnote
+        case .FontCustomisation:
+            IFAHudView.appearance().textLabelFont = UIFont(name: "Chalkduster", size: 20)
+            IFAHudView.appearance().detailTextLabelFont = UIFont(name: "ChalkboardSE-Light", size: 14)
         case .PlainStyleOldSchool:
             IFAHudView.appearance().style = IFAHudViewStyle.Plain
             IFAHudView.appearance().chromeBackgroundColour = UIColor.blackColor().colorWithAlphaComponent(0.75)
@@ -315,7 +303,6 @@ class MenuViewController: UITableViewController {
         self.hudViewController.shouldDismissOnChromeTap = shouldDismissOnChromeTap
         self.hudViewController.overlayTapActionBlock = overlayTapActionBlock
         self.hudViewController.shouldDismissOnOverlayTap = shouldDismissOnOverlayTap
-        self.hudViewController.shouldAnimateLayoutChanges = shouldAnimateLayoutChanges
         self.hudViewController.autoDismissalDelay = autoDismissalDelay
 
         // Presentation completion closure
@@ -382,13 +369,7 @@ class MenuViewController: UITableViewController {
     }
 
     private func resetAppearance() {
-        IFAHudView.appearance().style = IFAHudViewStyle.Blur
-        IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Dark
-        IFAHudView.appearance().overlayColour = nil
-        IFAHudView.appearance().chromeForegroundColour = nil
-        IFAHudView.appearance().chromeBackgroundColour = nil
-        IFAHudView.appearance().chromeViewLayoutFittingSize = UILayoutFittingCompressedSize
-        IFAHudView.appearance().shouldAnimateLayoutChanges = true
+        IFAHudView.resetAppearanceForHudView(IFAHudView.appearance())
     }
 
 }
@@ -426,18 +407,22 @@ private extension NSIndexPath {
         case (5, 1):
             return TableViewRow.DynamicLayoutWithAnimation
         case (6, 0):
-            return TableViewRow.PlainStyleOldSchool
+            return TableViewRow.FontTextStyleCustomisation
         case (6, 1):
-            return TableViewRow.PlainStyleCustomColours
-        case (6, 2):
-            return TableViewRow.BlurStyleDark
-        case (6, 3):
-            return TableViewRow.BlurStyleLight
-        case (6, 4):
-            return TableViewRow.BlurAndVibrancyStyleDark
-        case (6, 5):
-            return TableViewRow.BlurAndVibrancyStyleLight
+            return TableViewRow.FontCustomisation
         case (7, 0):
+            return TableViewRow.PlainStyleOldSchool
+        case (7, 1):
+            return TableViewRow.PlainStyleCustomColours
+        case (7, 2):
+            return TableViewRow.BlurStyleDark
+        case (7, 3):
+            return TableViewRow.BlurStyleLight
+        case (7, 4):
+            return TableViewRow.BlurAndVibrancyStyleDark
+        case (7, 5):
+            return TableViewRow.BlurAndVibrancyStyleLight
+        case (8, 0):
             return TableViewRow.MultipleHuds
         default:
             assert(false, "Unexpected section and row")
