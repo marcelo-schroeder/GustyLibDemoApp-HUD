@@ -126,6 +126,31 @@ class MenuViewController: UITableViewController {
         // Initialise HUD
         self.hudViewController = IFAHudViewController()
 
+        // Appearance
+        resetAppearance()
+        switch tableViewRow {
+        case .Expanded:
+            IFAHudView.appearance().chromeViewLayoutFittingSize = UILayoutFittingExpandedSize
+        case .DynamicLayoutWithAnimation:
+            IFAHudView.appearance().shouldAnimateLayoutChanges = true
+        case .FontTextStyleCustomisation:
+            IFAHudView.appearance().textLabelFontTextStyle = UIFontTextStyleBody
+            IFAHudView.appearance().detailTextLabelFontTextStyle = UIFontTextStyleFootnote
+        case .FontCustomisation:
+            IFAHudView.appearance().textLabelFont = UIFont(name: "Chalkduster", size: 20)
+            IFAHudView.appearance().detailTextLabelFont = UIFont(name: "ChalkboardSE-Light", size: 14)
+        case .PlainStyleOldSchool:
+            IFAHudView.appearance().style = IFAHudViewStyle.Plain
+            IFAHudView.appearance().chromeBackgroundColour = UIColor.blackColor().colorWithAlphaComponent(0.75)
+        case .PlainStyleCustomColours:
+            IFAHudView.appearance().style = IFAHudViewStyle.Plain
+            IFAHudView.appearance().overlayColour = UIColor.blueColor().colorWithAlphaComponent(0.2)
+            IFAHudView.appearance().chromeForegroundColour = UIColor.yellowColor()
+            IFAHudView.appearance().chromeBackgroundColour = UIColor.redColor().colorWithAlphaComponent(0.75)
+        default:
+            break   // does nothing
+        }
+
         // Text
         var text: String?
         switch tableViewRow {
@@ -268,31 +293,6 @@ class MenuViewController: UITableViewController {
             shouldDismissOnOverlayTap = true
         default:
             shouldDismissOnOverlayTap = false
-        }
-
-        // Appearance
-        resetAppearance()
-        switch tableViewRow {
-        case .Expanded:
-            IFAHudView.appearance().chromeViewLayoutFittingSize = UILayoutFittingExpandedSize
-        case .DynamicLayoutWithAnimation:
-            IFAHudView.appearance().shouldAnimateLayoutChanges = true
-        case .FontTextStyleCustomisation:
-            IFAHudView.appearance().textLabelFontTextStyle = UIFontTextStyleBody
-            IFAHudView.appearance().detailTextLabelFontTextStyle = UIFontTextStyleFootnote
-        case .FontCustomisation:
-            IFAHudView.appearance().textLabelFont = UIFont(name: "Chalkduster", size: 20)
-            IFAHudView.appearance().detailTextLabelFont = UIFont(name: "ChalkboardSE-Light", size: 14)
-        case .PlainStyleOldSchool:
-            IFAHudView.appearance().style = IFAHudViewStyle.Plain
-            IFAHudView.appearance().chromeBackgroundColour = UIColor.blackColor().colorWithAlphaComponent(0.75)
-        case .PlainStyleCustomColours:
-            IFAHudView.appearance().style = IFAHudViewStyle.Plain
-            IFAHudView.appearance().overlayColour = UIColor.blueColor().colorWithAlphaComponent(0.2)
-            IFAHudView.appearance().chromeForegroundColour = UIColor.yellowColor()
-            IFAHudView.appearance().chromeBackgroundColour = UIColor.redColor().colorWithAlphaComponent(0.75)
-        default:
-            break   // does nothing
         }
 
         // Configure HUD
