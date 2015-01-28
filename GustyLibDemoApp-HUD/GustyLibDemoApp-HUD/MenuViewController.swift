@@ -11,6 +11,8 @@ import UIKit
 //wip: add image credits
 //wip: shorten the app's display name on the home screen
 //wip: need to do some Git merging
+//wip: add custom view to demo
+//wip: add padding and inter space customisation
 
 private enum TableViewRow: Int {
     case Text
@@ -36,6 +38,8 @@ private enum TableViewRow: Int {
     case BlurAndVibrancyStyleDark
     case BlurAndVibrancyStyleLight
     case MultipleHuds
+    case OrderDefault
+    case OrderCustomised
 }
 
 class MenuViewController: UITableViewController {
@@ -191,6 +195,10 @@ class MenuViewController: UITableViewController {
             fallthrough
         case .DynamicLayoutWithAnimation:
             text = dynamicLayoutText(fromType: DynamicLayoutTextType.Short)
+        case .OrderDefault:
+            text = "Text label at the top"
+        case .OrderCustomised:
+            text = "Text label is second"
         default:
             text = nil
         }
@@ -204,6 +212,10 @@ class MenuViewController: UITableViewController {
             fallthrough
         case .FontCustomisation:
             detailText = "Detail text label"
+        case .OrderDefault:
+            detailText = "Detail text label at the bottom"
+        case .OrderCustomised:
+            detailText = "Detail text label at the top"
         default:
             detailText = nil
         }
@@ -211,14 +223,18 @@ class MenuViewController: UITableViewController {
         // Visual indicator mode
         var visualIndicatorMode: IFAHudViewVisualIndicatorMode
         switch tableViewRow {
-        case .IndeterminateProgress:
-            visualIndicatorMode = IFAHudViewVisualIndicatorMode.ProgressIndeterminate
         case .DeterminateProgress:
             visualIndicatorMode = IFAHudViewVisualIndicatorMode.ProgressDeterminate
         case .Success:
             visualIndicatorMode = IFAHudViewVisualIndicatorMode.Success
         case .Error:
             visualIndicatorMode = IFAHudViewVisualIndicatorMode.Error
+        case .IndeterminateProgress:
+            fallthrough
+        case .OrderDefault:
+            fallthrough
+        case .OrderCustomised:
+            fallthrough
         case .ChromeTapWithAutoDismissal:
             fallthrough
         case .ChromeTapWithAction:
@@ -234,10 +250,8 @@ class MenuViewController: UITableViewController {
         // Auto dismissal delay
         var autoDismissalDelay: NSTimeInterval
         switch tableViewRow {
-        case .IndeterminateProgress:
-            autoDismissalDelay = 2.0
         case .DeterminateProgress:
-            autoDismissalDelay = 0.0
+            fallthrough
         case .ChromeTapWithAutoDismissal:
             fallthrough
         case .ChromeTapWithAction:
@@ -245,11 +259,17 @@ class MenuViewController: UITableViewController {
         case .OverlayTapWithAutoDismissal:
             fallthrough
         case .OverlayTapWithAction:
-            autoDismissalDelay = 0.0
+            fallthrough
         case .DynamicLayoutWithoutAnimation:
             fallthrough
         case .DynamicLayoutWithAnimation:
             autoDismissalDelay = 0.0
+        case .OrderDefault:
+            fallthrough
+        case .OrderCustomised:
+            fallthrough
+        case .IndeterminateProgress:
+            autoDismissalDelay = 2.0
         default:
             autoDismissalDelay = 0.5
         }
@@ -305,6 +325,18 @@ class MenuViewController: UITableViewController {
         self.hudViewController.overlayTapActionBlock = overlayTapActionBlock
         self.hudViewController.shouldDismissOnOverlayTap = shouldDismissOnOverlayTap
         self.hudViewController.autoDismissalDelay = autoDismissalDelay
+
+        // Content subview order
+        switch tableViewRow {
+        case .OrderCustomised:
+            let hudView = self.hudViewController.hudView
+            hudView.contentSubviewVerticalOrder.removeAllObjects()
+            hudView.contentSubviewVerticalOrder.addObject(IFAHudContentSubviewId.DetailTextLabel.rawValue)
+            hudView.contentSubviewVerticalOrder.addObject(IFAHudContentSubviewId.TextLabel.rawValue)
+            hudView.contentSubviewVerticalOrder.addObject(IFAHudContentSubviewId.ActivityIndicatorView.rawValue)
+        default:
+            break
+        }
 
         // Presentation completion closure
         var presentationCompletion: (() -> Void)?
@@ -425,6 +457,10 @@ private extension NSIndexPath {
             return TableViewRow.BlurAndVibrancyStyleLight
         case (8, 0):
             return TableViewRow.MultipleHuds
+        case (9, 0):
+            return TableViewRow.OrderDefault
+        case (9, 1):
+            return TableViewRow.OrderCustomised
         default:
             assert(false, "Unexpected section and row")
             return TableViewRow.Text
