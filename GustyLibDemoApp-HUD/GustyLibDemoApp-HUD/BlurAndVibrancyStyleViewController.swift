@@ -11,6 +11,10 @@ class BlurAndVibrancyStyleViewController: UIViewController {
     var text:String?
     var imageName:String = "windsurf"
 
+    var imageTitle: String!
+    var imageAuthor: String!
+    var imageUrl: String!
+
     var hudViewController: IFAHudViewController!
 
     @IBOutlet private weak var imageView: UIImageView!
@@ -30,6 +34,13 @@ class BlurAndVibrancyStyleViewController: UIViewController {
             let viewController = segue.destinationViewController as IFAHudViewController
             viewController.text = self.text
             viewController.detailText = "Enjoy the view!"
+            
+        } else if (segue.destinationViewController is ImageCreditsViewController) {
+
+            let viewController = segue.destinationViewController as ImageCreditsViewController
+            viewController.imageTitle = self.imageTitle
+            viewController.imageAuthor = self.imageAuthor
+            viewController.imageUrl = self.imageUrl
             
         }
         

@@ -8,7 +8,6 @@
 
 import UIKit
 
-//wip: add image credits
 //wip: shorten the app's display name on the home screen
 //wip: need to do some Git merging
 
@@ -117,6 +116,24 @@ class MenuViewController: UITableViewController {
                 viewController.style = IFAHudViewStyle.BlurAndVibrancy
                 viewController.imageName = "planet"
                 IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Light
+            default:
+                assert(false, "Unexpected selected row")
+            }
+            
+            // Image credits
+            switch selectedRowIndexPath.tableViewRow() {
+            case .BlurStyleDark:
+                fallthrough
+            case .BlurAndVibrancyStyleDark:
+                viewController.imageTitle = "Windsurf surf"
+                viewController.imageAuthor = "Kanaka Menehune"
+                viewController.imageUrl = "https://flic.kr/p/5eYAzL"
+            case .BlurStyleLight:
+                fallthrough
+            case .BlurAndVibrancyStyleLight:
+                viewController.imageTitle = "* Planet *"
+                viewController.imageAuthor = "Parée"
+                viewController.imageUrl = "https://flic.kr/p/5WBkp9"
             default:
                 assert(false, "Unexpected selected row")
             }

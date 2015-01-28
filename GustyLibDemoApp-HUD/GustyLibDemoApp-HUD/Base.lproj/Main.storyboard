@@ -513,7 +513,11 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="ogV-Om-Tj7">
-                        <barButtonItem key="rightBarButtonItem" title="Credits" id="qZc-mq-Dvd"/>
+                        <barButtonItem key="rightBarButtonItem" title="Credits" id="qZc-mq-Dvd">
+                            <connections>
+                                <segue destination="FaV-3G-TKV" kind="show" id="LMy-Ge-PEt"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="imageView" destination="sdh-Gk-W4z" id="WDy-Al-3on"/>
@@ -645,6 +649,50 @@
             </objects>
             <point key="canvasLocation" x="-285" y="473"/>
         </scene>
+        <!--Image Credits View Controller-->
+        <scene sceneID="sJ5-VW-9qe">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="FaV-3G-TKV" customClass="ImageCreditsViewController" customModule="GustyLibDemoApp_HUD" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pEb-Pd-ces"/>
+                        <viewControllerLayoutGuide type="bottom" id="bcs-2Q-b5w"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3cq-wF-D0w">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Text View" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="4cQ-q4-5OA">
+                                <rect key="frame" x="10" y="74" width="580" height="516"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="4cQ-q4-5OA" secondAttribute="trailing" constant="10" id="Fux-dj-y3e"/>
+                            <constraint firstAttribute="centerX" secondItem="4cQ-q4-5OA" secondAttribute="centerX" id="JT9-9D-d00"/>
+                            <constraint firstItem="bcs-2Q-b5w" firstAttribute="top" secondItem="4cQ-q4-5OA" secondAttribute="bottom" constant="10" id="M6y-XH-baE"/>
+                            <constraint firstItem="4cQ-q4-5OA" firstAttribute="leading" secondItem="3cq-wF-D0w" secondAttribute="leading" constant="10" id="OBU-Nu-D8k"/>
+                            <constraint firstAttribute="centerY" secondItem="4cQ-q4-5OA" secondAttribute="centerY" id="tUu-91-meu"/>
+                            <constraint firstItem="4cQ-q4-5OA" firstAttribute="top" secondItem="pEb-Pd-ces" secondAttribute="bottom" constant="10" id="ygL-lV-3aD"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="JT9-9D-d00"/>
+                                <exclude reference="tUu-91-meu"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="4cQ-q4-5OA" id="dWZ-2r-Ok2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ufb-TJ-OG1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2550" y="-382"/>
+        </scene>
         <!--Hud View Controller-->
         <scene sceneID="GeG-yj-aZJ">
             <objects>
@@ -654,7 +702,7 @@
                         <viewControllerLayoutGuide type="bottom" id="oYF-QU-QSe"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="hJS-I7-Kvt">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="178"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -670,6 +718,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="zbT-kn-QQZ"/>
-        <segue reference="vya-gc-cXS"/>
+        <segue reference="gug-Ng-sLA"/>
     </inferredMetricsTieBreakers>
 </document>
