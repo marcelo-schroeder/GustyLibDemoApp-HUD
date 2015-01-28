@@ -25,8 +25,10 @@ private enum TableViewRow: Int {
     case ChromeTapWithAction
     case OverlayTapWithAutoDismissal
     case OverlayTapWithAction
-    case Compressed
-    case Expanded
+    case LayoutCompressed
+    case LayoutExpanded
+    case LayoutPadding
+    case LayoutInteritemSpacing
     case DynamicLayoutWithoutAnimation
     case DynamicLayoutWithAnimation
     case FontTextStyleCustomisation
@@ -134,8 +136,13 @@ class MenuViewController: UITableViewController {
         // Appearance
         resetAppearance()
         switch tableViewRow {
-        case .Expanded:
+        case .LayoutExpanded:
             IFAHudView.appearance().chromeViewLayoutFittingSize = UILayoutFittingExpandedSize
+        case .LayoutPadding:
+            IFAHudView.appearance().chromeHorizontalPadding = 30
+            IFAHudView.appearance().chromeVerticalPadding = 20
+        case .LayoutInteritemSpacing:
+            IFAHudView.appearance().chromeVerticalInteritemSpacing = 30
         case .DynamicLayoutWithAnimation:
             IFAHudView.appearance().shouldAnimateLayoutChanges = true
         case .FontTextStyleCustomisation:
@@ -179,10 +186,14 @@ class MenuViewController: UITableViewController {
             text = "Tap outside to auto dismiss"
         case .OverlayTapWithAction:
             text = "Tap outside to dismiss with action"
-        case .Compressed:
+        case .LayoutCompressed:
             text = "Compressed"
-        case .Expanded:
+        case .LayoutExpanded:
             text = "Expanded"
+        case .LayoutPadding:
+            text = "Padding"
+        case .LayoutInteritemSpacing:
+            text = "Inter-item spacing"
         case .FontTextStyleCustomisation:
             text = "Text style customisation"
         case .FontCustomisation:
@@ -209,6 +220,10 @@ class MenuViewController: UITableViewController {
         case .DetailText:
             fallthrough
         case .FontTextStyleCustomisation:
+            fallthrough
+        case .LayoutPadding:
+            fallthrough
+        case .LayoutInteritemSpacing:
             fallthrough
         case .FontCustomisation:
             detailText = "Detail text label"
@@ -241,6 +256,10 @@ class MenuViewController: UITableViewController {
             fallthrough
         case .OverlayTapWithAutoDismissal:
             fallthrough
+        case .LayoutPadding:
+            fallthrough
+        case .LayoutInteritemSpacing:
+            fallthrough
         case .OverlayTapWithAction:
             visualIndicatorMode = IFAHudViewVisualIndicatorMode.ProgressIndeterminate
         default:
@@ -267,6 +286,10 @@ class MenuViewController: UITableViewController {
         case .OrderDefault:
             fallthrough
         case .OrderCustomised:
+            fallthrough
+        case .LayoutPadding:
+            fallthrough
+        case .LayoutInteritemSpacing:
             fallthrough
         case .IndeterminateProgress:
             autoDismissalDelay = 2.0
@@ -315,7 +338,7 @@ class MenuViewController: UITableViewController {
         default:
             shouldDismissOnOverlayTap = false
         }
-
+        
         // Configure HUD
         self.hudViewController.text = text
         self.hudViewController.detailText = detailText
@@ -432,9 +455,13 @@ private extension NSIndexPath {
         case (3, 3):
             return TableViewRow.OverlayTapWithAction
         case (4, 0):
-            return TableViewRow.Compressed
+            return TableViewRow.LayoutCompressed
         case (4, 1):
-            return TableViewRow.Expanded
+            return TableViewRow.LayoutExpanded
+        case (4, 2):
+            return TableViewRow.LayoutPadding
+        case (4, 3):
+            return TableViewRow.LayoutInteritemSpacing
         case (5, 0):
             return TableViewRow.DynamicLayoutWithoutAnimation
         case (5, 1):
