@@ -8,6 +8,7 @@
 
 import UIKit
 
+//wip: add presentation/dismissal examples to the demo (would that be together with containment?)
 //wip: shorten the app's display name on the home screen
 //wip: need to do some Git merging
 
@@ -326,7 +327,7 @@ class MenuViewController: UITableViewController {
         case .ChromeTapWithAction:
             chromeTapActionBlock = {
                 [unowned self] in
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.hudViewController.dismissHudViewControllerWithAnimated(true, completion: nil)
             }
         default:
             chromeTapActionBlock = nil
@@ -347,7 +348,7 @@ class MenuViewController: UITableViewController {
         case .OverlayTapWithAction:
             overlayTapActionBlock = {
                 [unowned self] in
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.hudViewController.dismissHudViewControllerWithAnimated(true, completion: nil)
             }
         default:
             overlayTapActionBlock = nil
@@ -386,16 +387,16 @@ class MenuViewController: UITableViewController {
         }
 
         // Presentation completion closure
-        var presentationCompletion: (() -> Void)?
+        var presentationCompletion: ((a_finished: Bool) -> Void)?
         switch tableViewRow {
         case .VisualIndicatorDeterminateProgress:
-            presentationCompletion = { [unowned self] in
+            presentationCompletion = { [unowned self] (a_finished: Bool) -> Void in
                 self.determinateProgressCompletion(hudViewController: self.hudViewController)
             }
         case .DynamicLayoutWithoutAnimation:
             fallthrough
         case .DynamicLayoutWithAnimation:
-            presentationCompletion = { [unowned self] in
+            presentationCompletion = { [unowned self] (a_finished: Bool) -> Void in
                 self.dynamicLayoutCompletion(hudViewController: self.hudViewController, textType: DynamicLayoutTextType(rawValue: DynamicLayoutTextType.Short.rawValue + 1)!)
             }
         default:
@@ -403,7 +404,7 @@ class MenuViewController: UITableViewController {
         }
 
         // Present HUD
-        self.presentViewController(self.hudViewController, animated: true, completion: presentationCompletion)
+        hudViewController.presentHudViewControllerWithParentViewController(nil, parentView: nil, animated: true, completion: presentationCompletion)
 
     }
 
@@ -411,7 +412,7 @@ class MenuViewController: UITableViewController {
         IFAUtils.dispatchAsyncMainThreadBlock(
         {
             if a_hudViewController.progress == 1.0 {
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.hudViewController.dismissHudViewControllerWithAnimated(true, completion: nil)
             } else {
                 a_hudViewController.progress += 0.25
                 self.determinateProgressCompletion(hudViewController: a_hudViewController)
@@ -424,7 +425,7 @@ class MenuViewController: UITableViewController {
         IFAUtils.dispatchAsyncMainThreadBlock(
         {
             if a_textType == .End {
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.hudViewController.dismissHudViewControllerWithAnimated(true, completion: nil)
             } else {
                 a_hudViewController.text = self.dynamicLayoutText(fromType: a_textType)
                 self.dynamicLayoutCompletion(hudViewController: a_hudViewController, textType: DynamicLayoutTextType(rawValue: a_textType.rawValue + 1)!)
