@@ -38,7 +38,10 @@ private enum TableViewRow: Int {
     case BlurStyleLight
     case BlurAndVibrancyStyleDark
     case BlurAndVibrancyStyleLight
-    case MultipleHuds
+    case ContainmentDedicatedWindow
+    case ContainmentParentViewController
+    case ContainmentParentViewControllerSubview
+    case ContainmentMultipleHuds
     case OrderDefault
     case OrderCustomised
 }
@@ -72,7 +75,11 @@ class MenuViewController: UITableViewController {
             fallthrough
         case .BlurAndVibrancyStyleLight:
             fallthrough
-        case .MultipleHuds:
+        case .ContainmentParentViewController:
+            fallthrough
+        case .ContainmentParentViewControllerSubview:
+            fallthrough
+        case .ContainmentMultipleHuds:
             return  // handled as segue
         default:
             self.handleNonSegueCase(forSelectedTableViewRow: tableViewRow)
@@ -510,7 +517,13 @@ private extension NSIndexPath {
         case (6, 5):
             return TableViewRow.BlurAndVibrancyStyleLight
         case (7, 0):
-            return TableViewRow.MultipleHuds
+            return TableViewRow.ContainmentDedicatedWindow
+        case (7, 1):
+            return TableViewRow.ContainmentParentViewController
+        case (7, 2):
+            return TableViewRow.ContainmentParentViewControllerSubview
+        case (7, 3):
+            return TableViewRow.ContainmentMultipleHuds
         case (8, 0):
             return TableViewRow.OrderDefault
         case (8, 1):

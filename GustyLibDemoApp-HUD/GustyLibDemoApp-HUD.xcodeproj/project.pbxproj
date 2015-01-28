@@ -12,6 +12,8 @@
 		F7206CA61A78954E00294C58 /* ImageCreditsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7206CA51A78954E00294C58 /* ImageCreditsViewController.swift */; };
 		F732C9E81A71C0AF00F20C44 /* MultipleHudsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F732C9E71A71C0AF00F20C44 /* MultipleHudsViewController.swift */; };
 		F76588AA1A7709E800E95B69 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76588A91A7709E800E95B69 /* TableViewCell.swift */; };
+		F7876BC81A79A87700AD5972 /* ContainmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7876BC71A79A87700AD5972 /* ContainmentViewController.swift */; };
+		F7876BCA1A79A8F700AD5972 /* ContainmentChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7876BC91A79A8F700AD5972 /* ContainmentChildViewController.swift */; };
 		F79450071A6CBAB300E059A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79450061A6CBAB300E059A3 /* AppDelegate.swift */; };
 		F79450091A6CBAB300E059A3 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79450081A6CBAB300E059A3 /* MenuViewController.swift */; };
 		F794500C1A6CBAB300E059A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F794500A1A6CBAB300E059A3 /* Main.storyboard */; };
@@ -38,6 +40,8 @@
 		F7206CA51A78954E00294C58 /* ImageCreditsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCreditsViewController.swift; sourceTree = "<group>"; };
 		F732C9E71A71C0AF00F20C44 /* MultipleHudsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipleHudsViewController.swift; sourceTree = "<group>"; };
 		F76588A91A7709E800E95B69 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		F7876BC71A79A87700AD5972 /* ContainmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainmentViewController.swift; sourceTree = "<group>"; };
+		F7876BC91A79A8F700AD5972 /* ContainmentChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainmentChildViewController.swift; sourceTree = "<group>"; };
 		F79450011A6CBAB300E059A3 /* GustyLibDemoApp-HUD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GustyLibDemoApp-HUD.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F79450051A6CBAB300E059A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F79450061A6CBAB300E059A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +116,8 @@
 				F732C9E71A71C0AF00F20C44 /* MultipleHudsViewController.swift */,
 				F76588A91A7709E800E95B69 /* TableViewCell.swift */,
 				F7206CA51A78954E00294C58 /* ImageCreditsViewController.swift */,
+				F7876BC71A79A87700AD5972 /* ContainmentViewController.swift */,
+				F7876BC91A79A8F700AD5972 /* ContainmentChildViewController.swift */,
 			);
 			path = "GustyLibDemoApp-HUD";
 			sourceTree = "<group>";
@@ -286,6 +292,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7206CA61A78954E00294C58 /* ImageCreditsViewController.swift in Sources */,
+				F7876BC81A79A87700AD5972 /* ContainmentViewController.swift in Sources */,
+				F7876BCA1A79A8F700AD5972 /* ContainmentChildViewController.swift in Sources */,
 				F76588AA1A7709E800E95B69 /* TableViewCell.swift in Sources */,
 				F732C9E81A71C0AF00F20C44 /* MultipleHudsViewController.swift in Sources */,
 				F79450091A6CBAB300E059A3 /* MenuViewController.swift in Sources */,

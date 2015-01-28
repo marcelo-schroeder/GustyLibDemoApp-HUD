@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--GustyLib HUD Demo-->
@@ -404,14 +405,14 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Containment" id="QS6-G7-uCv">
+                            <tableViewSection headerTitle="View Controller Containment" id="QS6-G7-uCv">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="F7j-pe-FDD" style="IBUITableViewCellStyleDefault" id="tZM-bi-PbX" customClass="TableViewCell" customModule="GustyLibDemoApp_HUD" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tZM-bi-PbX" id="lVA-Xq-hsI">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Multiple HUD's" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="F7j-pe-FDD">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Dedicated window" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="F7j-pe-FDD">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -422,6 +423,54 @@
                                         <connections>
                                             <segue destination="wcB-Vi-PZI" kind="show" id="uEk-pb-GuG"/>
                                         </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="WNn-Gf-Oby" style="IBUITableViewCellStyleDefault" id="cae-Yq-YQ4" customClass="TableViewCell" customModule="GustyLibDemoApp_HUD" customModuleProvider="target">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cae-Yq-YQ4" id="tSB-9n-dWn">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Parent view controller" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WNn-Gf-Oby">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="zcI-R6-WY0" kind="show" id="yZG-D9-YBa"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Hz4-oV-Fkk" style="IBUITableViewCellStyleDefault" id="NCQ-Ee-L0l" customClass="TableViewCell" customModule="GustyLibDemoApp_HUD" customModuleProvider="target">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NCQ-Ee-L0l" id="IVm-dZ-cAh">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Parent view controller's subview" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Hz4-oV-Fkk">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="zcI-R6-WY0" kind="show" id="UAE-Ma-ae2"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="2Ml-Xs-GcH" style="IBUITableViewCellStyleDefault" id="gCW-ew-wZD" customClass="TableViewCell" customModule="GustyLibDemoApp_HUD" customModuleProvider="target">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gCW-ew-wZD" id="c19-QL-P47">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Multiple HUD's with storyboard" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2Ml-Xs-GcH">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -525,7 +574,40 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nIm-PY-Fa3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1698" y="-43"/>
+            <point key="canvasLocation" x="1698" y="-413"/>
+        </scene>
+        <!--Containment View Controller-->
+        <scene sceneID="Lei-PM-VUm">
+            <objects>
+                <viewController id="zcI-R6-WY0" customClass="ContainmentViewController" customModule="GustyLibDemoApp_HUD" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="J0o-wE-n6D"/>
+                        <viewControllerLayoutGuide type="bottom" id="NfB-bW-91E"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fRB-sI-PuJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e7u-yH-x00">
+                                <rect key="frame" x="150" y="150" width="300" height="300"/>
+                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <segue destination="X5r-CR-NHa" kind="embed" id="wWX-0I-Ljg"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="e7u-yH-x00" secondAttribute="centerX" id="8Az-qJ-WUZ"/>
+                            <constraint firstItem="e7u-yH-x00" firstAttribute="width" secondItem="fRB-sI-PuJ" secondAttribute="width" multiplier="0.5" id="9wt-eG-WV2"/>
+                            <constraint firstAttribute="centerY" secondItem="e7u-yH-x00" secondAttribute="centerY" id="QWN-7S-mN2"/>
+                            <constraint firstItem="e7u-yH-x00" firstAttribute="height" secondItem="fRB-sI-PuJ" secondAttribute="height" multiplier="0.5" id="kPt-9H-znC"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3tQ-eo-tMe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1698" y="1344"/>
         </scene>
         <!--Multiple HUD's-->
         <scene sceneID="PUz-Ez-0Lp">
@@ -634,7 +716,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nHh-oY-909" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1698" y="667"/>
+            <point key="canvasLocation" x="1698" y="473"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Vl6-5n-tIG">
@@ -694,7 +776,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ufb-TJ-OG1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2550" y="-382"/>
+            <point key="canvasLocation" x="2630" y="-413"/>
         </scene>
         <!--Hud View Controller-->
         <scene sceneID="GeG-yj-aZJ">
@@ -713,14 +795,49 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wSd-xf-mpT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2550" y="305"/>
+            <point key="canvasLocation" x="2630" y="262"/>
+        </scene>
+        <!--Containment Child View Controller-->
+        <scene sceneID="llr-af-jwn">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="X5r-CR-NHa" customClass="ContainmentChildViewController" customModule="GustyLibDemoApp_HUD" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XUB-RS-zNL"/>
+                        <viewControllerLayoutGuide type="bottom" id="WLN-zh-gH6"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="lDL-e4-qRh">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hf8-6C-sdO">
+                                <rect key="frame" x="75" y="125" width="150" height="150"/>
+                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="hf8-6C-sdO" secondAttribute="centerY" multiplier="0.75" id="Gtv-uL-Kpo"/>
+                            <constraint firstItem="hf8-6C-sdO" firstAttribute="width" secondItem="lDL-e4-qRh" secondAttribute="width" multiplier="0.5" id="Xmd-b9-Bgo"/>
+                            <constraint firstItem="hf8-6C-sdO" firstAttribute="height" secondItem="lDL-e4-qRh" secondAttribute="height" multiplier="0.5" id="lL0-u1-A3t"/>
+                            <constraint firstAttribute="centerX" secondItem="hf8-6C-sdO" secondAttribute="centerX" id="ouJ-5E-KTh"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <connections>
+                        <outlet property="hudContainerView" destination="hf8-6C-sdO" id="DYk-Wh-Q6m"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z28-MO-bIO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2480" y="1344"/>
         </scene>
     </scenes>
     <resources>
         <image name="windsurf" width="2056" height="2570"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zbT-kn-QQZ"/>
         <segue reference="vya-gc-cXS"/>
+        <segue reference="zbT-kn-QQZ"/>
+        <segue reference="yZG-D9-YBa"/>
     </inferredMetricsTieBreakers>
 </document>
