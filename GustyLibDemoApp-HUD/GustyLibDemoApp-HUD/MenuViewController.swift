@@ -11,15 +11,15 @@ import UIKit
 //wip: add image credits
 //wip: shorten the app's display name on the home screen
 //wip: need to do some Git merging
-//wip: add custom view to demo
 
 private enum TableViewRow: Int {
     case Text
     case DetailText
-    case IndeterminateProgress
-    case DeterminateProgress
-    case Success
-    case Error
+    case VisualIndicatorIndeterminateProgress
+    case VisualIndicatorDeterminateProgress
+    case VisualIndicatorSuccess
+    case VisualIndicatorError
+    case VisualIndicatorCustomView
     case ChromeTapWithAutoDismissal
     case ChromeTapWithAction
     case OverlayTapWithAutoDismissal
@@ -169,14 +169,16 @@ class MenuViewController: UITableViewController {
             fallthrough
         case .DetailText:
             text = "Text label"
-        case .IndeterminateProgress:
+        case .VisualIndicatorIndeterminateProgress:
             text = "Indeterminate progress"
-        case .DeterminateProgress:
+        case .VisualIndicatorDeterminateProgress:
             text = "Determinate progress"
-        case .Success:
+        case .VisualIndicatorSuccess:
             text = "Success"
-        case .Error:
+        case .VisualIndicatorError:
             text = "Error"
+        case .VisualIndicatorCustomView:
+            text = "Custom view"
         case .ChromeTapWithAutoDismissal:
             text = "Tap inside to auto dismiss"
         case .ChromeTapWithAction:
@@ -235,15 +237,20 @@ class MenuViewController: UITableViewController {
         }
 
         // Visual indicator mode
+        var customVisualIndicatorView: UIView?
         var visualIndicatorMode: IFAHudViewVisualIndicatorMode
         switch tableViewRow {
-        case .DeterminateProgress:
+        case .VisualIndicatorDeterminateProgress:
             visualIndicatorMode = IFAHudViewVisualIndicatorMode.ProgressDeterminate
-        case .Success:
+        case .VisualIndicatorSuccess:
             visualIndicatorMode = IFAHudViewVisualIndicatorMode.Success
-        case .Error:
+        case .VisualIndicatorError:
             visualIndicatorMode = IFAHudViewVisualIndicatorMode.Error
-        case .IndeterminateProgress:
+        case .VisualIndicatorCustomView:
+            visualIndicatorMode = IFAHudViewVisualIndicatorMode.Custom
+            let image = UIImage(named: "hand-like")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate) // Rendering mode is set to template so that the chrome's foreground colour is automatically used
+            customVisualIndicatorView = UIImageView(image: image)
+        case .VisualIndicatorIndeterminateProgress:
             fallthrough
         case .OrderDefault:
             fallthrough
@@ -268,7 +275,7 @@ class MenuViewController: UITableViewController {
         // Auto dismissal delay
         var autoDismissalDelay: NSTimeInterval
         switch tableViewRow {
-        case .DeterminateProgress:
+        case .VisualIndicatorDeterminateProgress:
             fallthrough
         case .ChromeTapWithAutoDismissal:
             fallthrough
@@ -290,7 +297,7 @@ class MenuViewController: UITableViewController {
             fallthrough
         case .LayoutInteritemSpacing:
             fallthrough
-        case .IndeterminateProgress:
+        case .VisualIndicatorIndeterminateProgress:
             autoDismissalDelay = 2.0
         default:
             autoDismissalDelay = 0.5
@@ -341,12 +348,13 @@ class MenuViewController: UITableViewController {
         // Configure HUD
         self.hudViewController.text = text
         self.hudViewController.detailText = detailText
-        self.hudViewController.visualIndicatorMode = visualIndicatorMode
         self.hudViewController.chromeTapActionBlock = chromeTapActionBlock
         self.hudViewController.shouldDismissOnChromeTap = shouldDismissOnChromeTap
         self.hudViewController.overlayTapActionBlock = overlayTapActionBlock
         self.hudViewController.shouldDismissOnOverlayTap = shouldDismissOnOverlayTap
         self.hudViewController.autoDismissalDelay = autoDismissalDelay
+        self.hudViewController.customVisualIndicatorView = customVisualIndicatorView
+        self.hudViewController.visualIndicatorMode = visualIndicatorMode
 
         // Content subview order
         switch tableViewRow {
@@ -363,7 +371,7 @@ class MenuViewController: UITableViewController {
         // Presentation completion closure
         var presentationCompletion: (() -> Void)?
         switch tableViewRow {
-        case .DeterminateProgress:
+        case .VisualIndicatorDeterminateProgress:
             presentationCompletion = { [unowned self] in
                 self.determinateProgressCompletion(hudViewController: self.hudViewController)
             }
@@ -438,54 +446,56 @@ private extension NSIndexPath {
         case (0, 1):
             return TableViewRow.DetailText
         case (1, 0):
-            return TableViewRow.IndeterminateProgress
+            return TableViewRow.VisualIndicatorIndeterminateProgress
         case (1, 1):
-            return TableViewRow.DeterminateProgress
+            return TableViewRow.VisualIndicatorDeterminateProgress
+        case (1, 2):
+            return TableViewRow.VisualIndicatorSuccess
+        case (1, 3):
+            return TableViewRow.VisualIndicatorError
+        case (1, 4):
+            return TableViewRow.VisualIndicatorCustomView
         case (2, 0):
-            return TableViewRow.Success
-        case (2, 1):
-            return TableViewRow.Error
-        case (3, 0):
             return TableViewRow.ChromeTapWithAutoDismissal
-        case (3, 1):
+        case (2, 1):
             return TableViewRow.ChromeTapWithAction
-        case (3, 2):
+        case (2, 2):
             return TableViewRow.OverlayTapWithAutoDismissal
-        case (3, 3):
+        case (2, 3):
             return TableViewRow.OverlayTapWithAction
-        case (4, 0):
+        case (3, 0):
             return TableViewRow.LayoutCompressed
-        case (4, 1):
+        case (3, 1):
             return TableViewRow.LayoutExpanded
-        case (4, 2):
+        case (3, 2):
             return TableViewRow.LayoutPadding
-        case (4, 3):
+        case (3, 3):
             return TableViewRow.LayoutInteritemSpacing
-        case (5, 0):
+        case (4, 0):
             return TableViewRow.DynamicLayoutWithoutAnimation
-        case (5, 1):
+        case (4, 1):
             return TableViewRow.DynamicLayoutWithAnimation
-        case (6, 0):
+        case (5, 0):
             return TableViewRow.FontTextStyleCustomisation
-        case (6, 1):
+        case (5, 1):
             return TableViewRow.FontCustomisation
-        case (7, 0):
+        case (6, 0):
             return TableViewRow.PlainStyleOldSchool
-        case (7, 1):
+        case (6, 1):
             return TableViewRow.PlainStyleCustomColours
-        case (7, 2):
+        case (6, 2):
             return TableViewRow.BlurStyleDark
-        case (7, 3):
+        case (6, 3):
             return TableViewRow.BlurStyleLight
-        case (7, 4):
+        case (6, 4):
             return TableViewRow.BlurAndVibrancyStyleDark
-        case (7, 5):
+        case (6, 5):
             return TableViewRow.BlurAndVibrancyStyleLight
-        case (8, 0):
+        case (7, 0):
             return TableViewRow.MultipleHuds
-        case (9, 0):
+        case (8, 0):
             return TableViewRow.OrderDefault
-        case (9, 1):
+        case (8, 1):
             return TableViewRow.OrderCustomised
         default:
             assert(false, "Unexpected section and row")
