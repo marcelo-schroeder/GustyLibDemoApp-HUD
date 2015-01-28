@@ -5,7 +5,6 @@
 
 import Foundation
 
-//wip: clean up
 class BlurAndVibrancyStyleViewController: UIViewController {
     
     var style:IFAHudViewStyle = IFAHudViewStyle.Blur

@@ -12,7 +12,6 @@ import UIKit
 //wip: shorten the app's display name on the home screen
 //wip: need to do some Git merging
 //wip: add custom view to demo
-//wip: add padding and inter space customisation
 
 private enum TableViewRow: Int {
     case Text
@@ -303,7 +302,7 @@ class MenuViewController: UITableViewController {
         case .ChromeTapWithAction:
             chromeTapActionBlock = {
                 [unowned self] in
-                self.dismissViewControllerAnimated(true, completion: nil)   //wip: review
+                self.dismissViewControllerAnimated(true, completion: nil)
             }
         default:
             chromeTapActionBlock = nil
@@ -324,7 +323,7 @@ class MenuViewController: UITableViewController {
         case .OverlayTapWithAction:
             overlayTapActionBlock = {
                 [unowned self] in
-                self.dismissViewControllerAnimated(true, completion: nil)   //wip: review
+                self.dismissViewControllerAnimated(true, completion: nil)
             }
         default:
             overlayTapActionBlock = nil
@@ -365,13 +364,13 @@ class MenuViewController: UITableViewController {
         var presentationCompletion: (() -> Void)?
         switch tableViewRow {
         case .DeterminateProgress:
-            presentationCompletion = { [unowned self] in   //wip: review
+            presentationCompletion = { [unowned self] in
                 self.determinateProgressCompletion(hudViewController: self.hudViewController)
             }
         case .DynamicLayoutWithoutAnimation:
             fallthrough
         case .DynamicLayoutWithAnimation:
-            presentationCompletion = { [unowned self] in   //wip: review
+            presentationCompletion = { [unowned self] in
                 self.dynamicLayoutCompletion(hudViewController: self.hudViewController, textType: DynamicLayoutTextType(rawValue: DynamicLayoutTextType.Short.rawValue + 1)!)
             }
         default:
@@ -379,7 +378,7 @@ class MenuViewController: UITableViewController {
         }
 
         // Present HUD
-        self.presentViewController(self.hudViewController, animated: true, completion: presentationCompletion) //wip: review this (e.g. it is always animating - is that ok?)
+        self.presentViewController(self.hudViewController, animated: true, completion: presentationCompletion)
 
     }
 
@@ -387,7 +386,7 @@ class MenuViewController: UITableViewController {
         IFAUtils.dispatchAsyncMainThreadBlock(
         {
             if a_hudViewController.progress == 1.0 {
-                self.dismissViewControllerAnimated(true, completion: nil)   //wip: review
+                self.dismissViewControllerAnimated(true, completion: nil)
             } else {
                 a_hudViewController.progress += 0.25
                 self.determinateProgressCompletion(hudViewController: a_hudViewController)
@@ -400,7 +399,7 @@ class MenuViewController: UITableViewController {
         IFAUtils.dispatchAsyncMainThreadBlock(
         {
             if a_textType == .End {
-                self.dismissViewControllerAnimated(true, completion: nil)   //wip: review
+                self.dismissViewControllerAnimated(true, completion: nil)
             } else {
                 a_hudViewController.text = self.dynamicLayoutText(fromType: a_textType)
                 self.dynamicLayoutCompletion(hudViewController: a_hudViewController, textType: DynamicLayoutTextType(rawValue: a_textType.rawValue + 1)!)

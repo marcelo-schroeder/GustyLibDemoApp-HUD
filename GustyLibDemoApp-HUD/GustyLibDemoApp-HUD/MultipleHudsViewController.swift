@@ -8,7 +8,6 @@
 
 import Foundation
 
-//wip: memory profile
 class MultipleHudsViewController: UIViewController {
 
     //MARK: Overrides
