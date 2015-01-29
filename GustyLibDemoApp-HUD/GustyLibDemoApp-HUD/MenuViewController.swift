@@ -8,7 +8,6 @@
 
 import UIKit
 
-//wip: add presentation/dismissal examples to the demo (would that be together with containment?)
 //wip: shorten the app's display name on the home screen
 //wip: need to do some Git merging
 
