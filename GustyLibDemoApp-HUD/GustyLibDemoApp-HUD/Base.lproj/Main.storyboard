@@ -420,9 +420,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="wcB-Vi-PZI" kind="show" id="uEk-pb-GuG"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="WNn-Gf-Oby" style="IBUITableViewCellStyleDefault" id="cae-Yq-YQ4" customClass="TableViewCell" customModule="GustyLibDemoApp_HUD" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -471,6 +468,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="wcB-Vi-PZI" kind="show" id="Xnl-Ol-VGz"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -585,11 +585,11 @@
                         <viewControllerLayoutGuide type="bottom" id="NfB-bW-91E"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="fRB-sI-PuJ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e7u-yH-x00">
-                                <rect key="frame" x="150" y="150" width="300" height="300"/>
+                                <rect key="frame" x="30" y="94" width="540" height="476"/>
                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <segue destination="X5r-CR-NHa" kind="embed" id="wWX-0I-Ljg"/>
@@ -598,11 +598,23 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="NfB-bW-91E" firstAttribute="top" secondItem="e7u-yH-x00" secondAttribute="bottom" constant="30" id="3Qr-ua-kJh"/>
                             <constraint firstAttribute="centerX" secondItem="e7u-yH-x00" secondAttribute="centerX" id="8Az-qJ-WUZ"/>
-                            <constraint firstItem="e7u-yH-x00" firstAttribute="width" secondItem="fRB-sI-PuJ" secondAttribute="width" multiplier="0.5" id="9wt-eG-WV2"/>
+                            <constraint firstItem="e7u-yH-x00" firstAttribute="width" secondItem="fRB-sI-PuJ" secondAttribute="width" multiplier="0.75" id="9wt-eG-WV2"/>
+                            <constraint firstAttribute="trailing" secondItem="e7u-yH-x00" secondAttribute="trailing" constant="30" id="A6d-de-eXs"/>
+                            <constraint firstItem="e7u-yH-x00" firstAttribute="top" secondItem="J0o-wE-n6D" secondAttribute="bottom" constant="30" id="Ce4-gh-0i8"/>
                             <constraint firstAttribute="centerY" secondItem="e7u-yH-x00" secondAttribute="centerY" id="QWN-7S-mN2"/>
-                            <constraint firstItem="e7u-yH-x00" firstAttribute="height" secondItem="fRB-sI-PuJ" secondAttribute="height" multiplier="0.5" id="kPt-9H-znC"/>
+                            <constraint firstItem="e7u-yH-x00" firstAttribute="leading" secondItem="fRB-sI-PuJ" secondAttribute="leading" constant="30" id="jSX-lC-8Yn"/>
+                            <constraint firstItem="e7u-yH-x00" firstAttribute="height" secondItem="fRB-sI-PuJ" secondAttribute="height" multiplier="0.75" id="kPt-9H-znC"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="8Az-qJ-WUZ"/>
+                                <exclude reference="9wt-eG-WV2"/>
+                                <exclude reference="QWN-7S-mN2"/>
+                                <exclude reference="kPt-9H-znC"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3tQ-eo-tMe" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -806,19 +818,19 @@
                         <viewControllerLayoutGuide type="bottom" id="WLN-zh-gH6"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="lDL-e4-qRh">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="476"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hf8-6C-sdO">
-                                <rect key="frame" x="75" y="125" width="150" height="150"/>
+                                <rect key="frame" x="54" y="306" width="432" height="143"/>
                                 <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerY" secondItem="hf8-6C-sdO" secondAttribute="centerY" multiplier="0.75" id="Gtv-uL-Kpo"/>
-                            <constraint firstItem="hf8-6C-sdO" firstAttribute="width" secondItem="lDL-e4-qRh" secondAttribute="width" multiplier="0.5" id="Xmd-b9-Bgo"/>
-                            <constraint firstItem="hf8-6C-sdO" firstAttribute="height" secondItem="lDL-e4-qRh" secondAttribute="height" multiplier="0.5" id="lL0-u1-A3t"/>
+                            <constraint firstAttribute="centerY" secondItem="hf8-6C-sdO" secondAttribute="centerY" multiplier="0.63" id="Gtv-uL-Kpo"/>
+                            <constraint firstItem="hf8-6C-sdO" firstAttribute="width" secondItem="lDL-e4-qRh" secondAttribute="width" multiplier="0.8" id="Xmd-b9-Bgo"/>
+                            <constraint firstItem="hf8-6C-sdO" firstAttribute="height" secondItem="lDL-e4-qRh" secondAttribute="height" multiplier="0.3" id="lL0-u1-A3t"/>
                             <constraint firstAttribute="centerX" secondItem="hf8-6C-sdO" secondAttribute="centerX" id="ouJ-5E-KTh"/>
                         </constraints>
                     </view>
@@ -837,7 +849,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="vya-gc-cXS"/>
+        <segue reference="UAE-Ma-ae2"/>
         <segue reference="zbT-kn-QQZ"/>
-        <segue reference="yZG-D9-YBa"/>
     </inferredMetricsTieBreakers>
 </document>

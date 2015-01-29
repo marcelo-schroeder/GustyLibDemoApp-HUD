@@ -87,19 +87,17 @@ class MenuViewController: UITableViewController {
 
     }
 
-    //MARK: Overrides
-
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         super.prepareForSegue(segue, sender: sender)
 
         resetAppearance()
+        
+        let selectedRowIndexPath = self.tableView.indexPathForSelectedRow()!
 
         if (segue.destinationViewController is BlurAndVibrancyStyleViewController) {
             
             let viewController = segue.destinationViewController as BlurAndVibrancyStyleViewController
-            
-            let selectedRowIndexPath = self.tableView.indexPathForSelectedRow()!
 
             switch selectedRowIndexPath.tableViewRow() {
             case .BlurStyleDark:
@@ -142,6 +140,19 @@ class MenuViewController: UITableViewController {
                 viewController.imageTitle = "* Planet *"
                 viewController.imageAuthor = "Parée"
                 viewController.imageUrl = "https://flic.kr/p/5WBkp9"
+            default:
+                assert(false, "Unexpected selected row")
+            }
+            
+        } else if (segue.destinationViewController is ContainmentViewController) {
+            
+            let viewController = segue.destinationViewController as ContainmentViewController
+
+            switch selectedRowIndexPath.tableViewRow() {
+            case .ContainmentParentViewController:
+                viewController.shouldTargetSubview = false
+            case .ContainmentParentViewControllerSubview:
+                viewController.shouldTargetSubview = true
             default:
                 assert(false, "Unexpected selected row")
             }
@@ -232,6 +243,8 @@ class MenuViewController: UITableViewController {
             fallthrough
         case .DynamicLayoutWithAnimation:
             text = dynamicLayoutText(fromType: DynamicLayoutTextType.Short)
+        case .ContainmentDedicatedWindow:
+            text = "Shown in its own window"
         case .OrderDefault:
             text = "Text label at the top"
         case .OrderCustomised:
@@ -322,6 +335,8 @@ class MenuViewController: UITableViewController {
             fallthrough
         case .LayoutInteritemSpacing:
             fallthrough
+        case .ContainmentDedicatedWindow:
+            fallthrough
         case .VisualIndicatorIndeterminateProgress:
             autoDismissalDelay = 2.0
         default:
@@ -410,7 +425,7 @@ class MenuViewController: UITableViewController {
             presentationCompletion = nil
         }
 
-        // Present HUD
+        // Present HUD in its own dedicated window
         hudViewController.presentHudViewControllerWithParentViewController(nil, parentView: nil, animated: true, completion: presentationCompletion)
 
     }
