@@ -90,8 +90,6 @@ class MenuViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         super.prepareForSegue(segue, sender: sender)
-
-        resetAppearance()
         
         let selectedRowIndexPath = self.tableView.indexPathForSelectedRow()!
 
@@ -104,24 +102,24 @@ class MenuViewController: UITableViewController {
                 viewController.text = "Blur style - dark"
                 viewController.style = IFAHudViewStyle.Blur
                 viewController.imageName = "windsurf"
-                IFAHudView.appearance().chromeForegroundColour = UIColor.whiteColor()
-                IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Dark
+                viewController.chromeForegroundColour = UIColor.whiteColor()
+                viewController.blurEffectStyle = UIBlurEffectStyle.Dark
             case .BlurStyleLight:
                 viewController.text = "Blur style - light"
                 viewController.style = IFAHudViewStyle.Blur
                 viewController.imageName = "planet"
-                IFAHudView.appearance().chromeForegroundColour = UIColor.blackColor()
-                IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Light
+                viewController.chromeForegroundColour = UIColor.blackColor()
+                viewController.blurEffectStyle = UIBlurEffectStyle.Light
             case .BlurAndVibrancyStyleDark:
                 viewController.text = "Blur and vibrancy style - dark"
                 viewController.style = IFAHudViewStyle.BlurAndVibrancy
                 viewController.imageName = "windsurf"
-                IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Dark
+                viewController.blurEffectStyle = UIBlurEffectStyle.Dark
             case .BlurAndVibrancyStyleLight:
                 viewController.text = "Blur and vibrancy style - light"
                 viewController.style = IFAHudViewStyle.BlurAndVibrancy
                 viewController.imageName = "planet"
-                IFAHudView.appearance().blurEffectStyle = UIBlurEffectStyle.Light
+                viewController.blurEffectStyle = UIBlurEffectStyle.Light
             default:
                 assert(false, "Unexpected selected row")
             }
@@ -167,33 +165,33 @@ class MenuViewController: UITableViewController {
 
         // Initialise HUD
         self.hudViewController = IFAHudViewController()
+        let hudView = self.hudViewController.hudView
 
         // Appearance
-        resetAppearance()
         switch tableViewRow {
         case .LayoutExpanded:
-            IFAHudView.appearance().chromeViewLayoutFittingSize = UILayoutFittingExpandedSize
+            hudView.chromeViewLayoutFittingSize = UILayoutFittingExpandedSize
         case .LayoutPadding:
-            IFAHudView.appearance().chromeHorizontalPadding = 30
-            IFAHudView.appearance().chromeVerticalPadding = 20
+            hudView.chromeHorizontalPadding = 30
+            hudView.chromeVerticalPadding = 20
         case .LayoutInteritemSpacing:
-            IFAHudView.appearance().chromeVerticalInteritemSpacing = 30
+            hudView.chromeVerticalInteritemSpacing = 30
         case .DynamicLayoutWithAnimation:
-            IFAHudView.appearance().shouldAnimateLayoutChanges = true
+            hudView.shouldAnimateLayoutChanges = true
         case .FontTextStyleCustomisation:
-            IFAHudView.appearance().textLabelFontTextStyle = UIFontTextStyleBody
-            IFAHudView.appearance().detailTextLabelFontTextStyle = UIFontTextStyleFootnote
+            hudView.textLabelFontTextStyle = UIFontTextStyleBody
+            hudView.detailTextLabelFontTextStyle = UIFontTextStyleFootnote
         case .FontCustomisation:
-            IFAHudView.appearance().textLabelFont = UIFont(name: "Chalkduster", size: 20)
-            IFAHudView.appearance().detailTextLabelFont = UIFont(name: "ChalkboardSE-Light", size: 14)
+            hudView.textLabelFont = UIFont(name: "Chalkduster", size: 20)
+            hudView.detailTextLabelFont = UIFont(name: "ChalkboardSE-Light", size: 14)
         case .PlainStyleOldSchool:
-            IFAHudView.appearance().style = IFAHudViewStyle.Plain
-            IFAHudView.appearance().chromeBackgroundColour = UIColor.blackColor().colorWithAlphaComponent(0.75)
+            hudView.style = IFAHudViewStyle.Plain
+            hudView.chromeBackgroundColour = UIColor.blackColor().colorWithAlphaComponent(0.75)
         case .PlainStyleCustomColours:
-            IFAHudView.appearance().style = IFAHudViewStyle.Plain
-            IFAHudView.appearance().overlayColour = UIColor.blueColor().colorWithAlphaComponent(0.2)
-            IFAHudView.appearance().chromeForegroundColour = UIColor.yellowColor()
-            IFAHudView.appearance().chromeBackgroundColour = UIColor.redColor().colorWithAlphaComponent(0.75)
+            hudView.style = IFAHudViewStyle.Plain
+            hudView.overlayColour = UIColor.blueColor().colorWithAlphaComponent(0.2)
+            hudView.chromeForegroundColour = UIColor.yellowColor()
+            hudView.chromeBackgroundColour = UIColor.redColor().colorWithAlphaComponent(0.75)
         default:
             break   // does nothing
         }
@@ -399,7 +397,6 @@ class MenuViewController: UITableViewController {
         // Content subview order
         switch tableViewRow {
         case .OrderCustomised:
-            let hudView = self.hudViewController.hudView
             hudView.contentSubviewVerticalOrder.removeAllObjects()
             hudView.contentSubviewVerticalOrder.addObject(IFAHudContentSubviewId.DetailTextLabel.rawValue)
             hudView.contentSubviewVerticalOrder.addObject(IFAHudContentSubviewId.TextLabel.rawValue)
@@ -469,10 +466,6 @@ class MenuViewController: UITableViewController {
             assert(false, "Unexpected text type")
         }
         return textType!;
-    }
-
-    private func resetAppearance() {
-        IFAHudView.resetAppearanceForHudView(IFAHudView.appearance())
     }
 
 }

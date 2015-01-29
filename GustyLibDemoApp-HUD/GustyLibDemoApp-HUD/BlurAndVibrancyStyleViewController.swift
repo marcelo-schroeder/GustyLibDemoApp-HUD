@@ -7,9 +7,11 @@ import Foundation
 
 class BlurAndVibrancyStyleViewController: UIViewController {
     
-    var style:IFAHudViewStyle = IFAHudViewStyle.Blur
-    var text:String?
-    var imageName:String = "windsurf"
+    var style: IFAHudViewStyle = IFAHudViewStyle.Blur
+    var text: String?
+    var imageName: String = "windsurf"
+    var chromeForegroundColour: UIColor?
+    var blurEffectStyle: UIBlurEffectStyle!
 
     var imageTitle: String!
     var imageAuthor: String!
@@ -30,11 +32,12 @@ class BlurAndVibrancyStyleViewController: UIViewController {
         
         if (segue.destinationViewController is IFAHudViewController) {
 
-            IFAHudView.appearance().style = self.style
-
             let viewController = segue.destinationViewController as IFAHudViewController
             viewController.text = self.text
             viewController.detailText = "Enjoy the view!"
+            viewController.hudView.style = self.style
+            viewController.hudView.chromeForegroundColour = self.chromeForegroundColour
+            viewController.hudView.blurEffectStyle = self.blurEffectStyle
             
         } else if (segue.destinationViewController is ImageCreditsViewController) {
 
