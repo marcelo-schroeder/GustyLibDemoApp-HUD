@@ -407,7 +407,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="View Controller Containment" id="QS6-G7-uCv">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="F7j-pe-FDD" style="IBUITableViewCellStyleDefault" id="tZM-bi-PbX" customClass="TableViewCell" customModule="GustyLibDemoApp_HUD" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="F7j-pe-FDD" style="IBUITableViewCellStyleDefault" id="tZM-bi-PbX" customClass="TableViewCell" customModule="GustyLibDemoApp_HUD" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tZM-bi-PbX" id="lVA-Xq-hsI">
                                             <autoresizingMask key="autoresizingMask"/>
