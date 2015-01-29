@@ -45,6 +45,8 @@ private enum TableViewRow: Int {
     case AnimationWith
     case AnimationWithout
     case AnimationCustomisedDuration
+    case CompletionPresentation
+    case CompletionDismissal
 }
 
 class MenuViewController: UITableViewController {
@@ -254,6 +256,10 @@ class MenuViewController: UITableViewController {
             text = "Without animation"
         case .AnimationCustomisedDuration:
             text = "Customised animation duration"
+        case .CompletionPresentation:
+            text = "Presentation completion block"
+        case .CompletionDismissal:
+            text = "Dismissal completion block"
         default:
             text = nil
         }
@@ -331,6 +337,8 @@ class MenuViewController: UITableViewController {
         case .DynamicLayoutWithoutAnimation:
             fallthrough
         case .DynamicLayoutWithAnimation:
+            fallthrough
+        case .CompletionDismissal:
             autoDismissalDelay = 0.0
         case .OrderDefault:
             fallthrough
@@ -439,6 +447,17 @@ class MenuViewController: UITableViewController {
         case .DynamicLayoutWithAnimation:
             presentationCompletion = { [unowned self] (a_finished: Bool) -> Void in
                 self.dynamicLayoutCompletion(hudViewController: self.hudViewController, textType: DynamicLayoutTextType(rawValue: DynamicLayoutTextType.Short.rawValue + 1)!)
+            }
+        case .CompletionPresentation:
+            presentationCompletion = { [unowned self] (a_finished: Bool) -> Void in
+                self.ifa_presentAlertControllerWithTitle(nil, message: "Alert shown by presentation completion block")
+            }
+        case .CompletionDismissal:
+            let dismissalCompletion = { (a_finished: Bool) -> Void in
+                self.ifa_presentAlertControllerWithTitle(nil, message: "Alert shown by dismissal completion block")
+            }
+            presentationCompletion = { [unowned self] (a_finished: Bool) -> Void in
+                self.hudViewController.dismissHudViewControllerWithAnimated(true, completion: dismissalCompletion)
             }
         default:
             presentationCompletion = nil
@@ -564,6 +583,10 @@ private extension NSIndexPath {
             return TableViewRow.AnimationWithout
         case (9, 2):
             return TableViewRow.AnimationCustomisedDuration
+        case (10, 0):
+            return TableViewRow.CompletionPresentation
+        case (10, 1):
+            return TableViewRow.CompletionDismissal
         default:
             assert(false, "Unexpected section and row")
             return TableViewRow.Text
