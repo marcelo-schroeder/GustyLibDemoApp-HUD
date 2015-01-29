@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 InfoAccent Pty Ltd. All rights reserved.
 //
 
+//wip: add completion blocks
+
 import UIKit
 
 private enum TableViewRow: Int {
@@ -40,6 +42,9 @@ private enum TableViewRow: Int {
     case ContainmentMultipleHuds
     case OrderDefault
     case OrderCustomised
+    case AnimationWith
+    case AnimationWithout
+    case AnimationCustomisedDuration
 }
 
 class MenuViewController: UITableViewController {
@@ -243,6 +248,12 @@ class MenuViewController: UITableViewController {
             text = "Text label at the top"
         case .OrderCustomised:
             text = "Text label is second"
+        case .AnimationWith:
+            text = "With animation"
+        case .AnimationWithout:
+            text = "Without animation"
+        case .AnimationCustomisedDuration:
+            text = "Customised animation duration"
         default:
             text = nil
         }
@@ -400,6 +411,21 @@ class MenuViewController: UITableViewController {
         default:
             break
         }
+        
+        // Animation
+        var shouldAnimate: Bool
+        switch tableViewRow {
+        case .AnimationWithout:
+            shouldAnimate = false
+        case .AnimationCustomisedDuration:
+            self.hudViewController.presentationAnimationDuration = 2
+            self.hudViewController.dismissalAnimationDuration = 3
+            fallthrough
+        case .AnimationWith:
+            fallthrough
+        default:
+            shouldAnimate = true
+        }
 
         // Presentation completion closure
         var presentationCompletion: ((a_finished: Bool) -> Void)?
@@ -419,7 +445,7 @@ class MenuViewController: UITableViewController {
         }
 
         // Present HUD in its own dedicated window
-        hudViewController.presentHudViewControllerWithParentViewController(nil, parentView: nil, animated: true, completion: presentationCompletion)
+        self.hudViewController.presentHudViewControllerWithParentViewController(nil, parentView: nil, animated: shouldAnimate, completion: presentationCompletion)
 
     }
 
@@ -532,6 +558,12 @@ private extension NSIndexPath {
             return TableViewRow.OrderDefault
         case (8, 1):
             return TableViewRow.OrderCustomised
+        case (9, 0):
+            return TableViewRow.AnimationWith
+        case (9, 1):
+            return TableViewRow.AnimationWithout
+        case (9, 2):
+            return TableViewRow.AnimationCustomisedDuration
         default:
             assert(false, "Unexpected section and row")
             return TableViewRow.Text
