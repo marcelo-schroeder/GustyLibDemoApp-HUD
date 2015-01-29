@@ -8,9 +8,6 @@
 
 import UIKit
 
-//wip: shorten the app's display name on the home screen
-//wip: need to do some Git merging
-
 private enum TableViewRow: Int {
     case Text
     case DetailText
