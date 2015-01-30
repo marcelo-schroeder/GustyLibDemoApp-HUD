@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 InfoAccent Pty Ltd. All rights reserved.
 //
 
-//wip: add completion blocks
-
 import UIKit
 
 private enum TableViewRow: Int {
