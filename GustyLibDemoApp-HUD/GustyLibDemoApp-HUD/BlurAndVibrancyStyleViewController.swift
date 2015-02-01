@@ -35,9 +35,10 @@ class BlurAndVibrancyStyleViewController: UIViewController {
             let viewController = segue.destinationViewController as IFAHudViewController
             viewController.text = self.text
             viewController.detailText = "Enjoy the view!"
-            viewController.hudView.style = self.style
-            viewController.hudView.chromeForegroundColour = self.chromeForegroundColour
-            viewController.hudView.blurEffectStyle = self.blurEffectStyle
+            viewController.modal = false
+            viewController.hudView.nonModalStyle = self.style
+            viewController.hudView.nonModalChromeForegroundColour = self.chromeForegroundColour
+            viewController.hudView.nonModalBlurEffectStyle = self.blurEffectStyle
             
         } else if (segue.destinationViewController is ImageCreditsViewController) {
 

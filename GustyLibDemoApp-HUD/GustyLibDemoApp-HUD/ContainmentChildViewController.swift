@@ -20,6 +20,7 @@ class ContainmentChildViewController: UIViewController {
         
         let hudViewController = IFAHudViewController()
         hudViewController.detailText = "In parent VC's subview"
+        hudViewController.modal = false
         hudViewController.presentHudViewControllerWithParentViewController(self, parentView: hudContainerView, animated: false, completion: nil)
         
     }

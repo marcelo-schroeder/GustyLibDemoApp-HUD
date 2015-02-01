@@ -109,7 +109,7 @@ class MenuViewController: UITableViewController {
                 viewController.text = "Blur style - light"
                 viewController.style = IFAHudViewStyle.Blur
                 viewController.imageName = "planet"
-                viewController.chromeForegroundColour = UIColor.blackColor()
+                viewController.chromeForegroundColour = UIColor.whiteColor()
                 viewController.blurEffectStyle = UIBlurEffectStyle.Light
             case .BlurAndVibrancyStyleDark:
                 viewController.text = "Blur and vibrancy style - dark"
@@ -185,14 +185,14 @@ class MenuViewController: UITableViewController {
         case .FontCustomisation:
             hudView.textLabelFont = UIFont(name: "Chalkduster", size: 20)
             hudView.detailTextLabelFont = UIFont(name: "ChalkboardSE-Light", size: 14)
-        case .PlainStyleOldSchool:
-            hudView.style = IFAHudViewStyle.Plain
-            hudView.chromeBackgroundColour = UIColor.blackColor().colorWithAlphaComponent(0.75)
-        case .PlainStyleCustomColours:
-            hudView.style = IFAHudViewStyle.Plain
-            hudView.overlayColour = UIColor.blueColor().colorWithAlphaComponent(0.2)
-            hudView.chromeForegroundColour = UIColor.yellowColor()
-            hudView.chromeBackgroundColour = UIColor.redColor().colorWithAlphaComponent(0.75)
+//        case .PlainStyleOldSchool:  //wip: need to review examples here re new colour thing
+//            hudView.style = IFAHudViewStyle.Plain
+//            hudView.nonModalChromeBackgroundColour = UIColor.blackColor().colorWithAlphaComponent(0.75)
+//        case .PlainStyleCustomColours:  //wip: need to review examples here re new colour thing
+//            hudView.style = IFAHudViewStyle.Plain
+//            hudView.modalOverlayColour = UIColor.blueColor().colorWithAlphaComponent(0.2)
+//            hudView.modalChromeForegroundColour = UIColor.yellowColor()
+//            hudView.modalChromeBackgroundColour = UIColor.redColor().colorWithAlphaComponent(0.75)
         default:
             break   // does nothing
         }
