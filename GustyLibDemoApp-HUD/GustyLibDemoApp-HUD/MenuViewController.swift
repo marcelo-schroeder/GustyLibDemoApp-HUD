@@ -583,13 +583,13 @@ private extension NSIndexPath {
             return TableViewRow.ColoursNonModal
         case (8, 0):
             return TableViewRow.PlainStyle
-        case (8, 2):
+        case (8, 1):
             return TableViewRow.BlurStyleDark
-        case (8, 3):
+        case (8, 2):
             return TableViewRow.BlurStyleLight
-        case (8, 4):
+        case (8, 3):
             return TableViewRow.BlurAndVibrancyStyleDark
-        case (8, 5):
+        case (8, 4):
             return TableViewRow.BlurAndVibrancyStyleLight
         case (9, 0):
             return TableViewRow.ContainmentDedicatedWindow
