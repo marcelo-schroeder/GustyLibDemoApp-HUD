@@ -16,6 +16,8 @@ private enum TableViewRow: Int {
     case VisualIndicatorSuccess
     case VisualIndicatorError
     case VisualIndicatorCustomView
+    case ModalityModal
+    case ModalityNonModal
     case ChromeTapWithAutoDismissal
     case ChromeTapWithAction
     case OverlayTapWithAutoDismissal
@@ -167,6 +169,15 @@ class MenuViewController: UITableViewController {
         // Initialise HUD
         self.hudViewController = IFAHudViewController()
         let hudView = self.hudViewController.hudView
+        
+        // Modality
+        var modal: Bool
+        switch tableViewRow {
+        case .ModalityNonModal:
+            modal = false
+        default:
+            modal = true
+        }
 
         // Appearance
         switch tableViewRow {
@@ -188,13 +199,13 @@ class MenuViewController: UITableViewController {
 //        case .PlainStyleOldSchool:  //wip: need to review examples here re new colour thing
 //            hudView.style = IFAHudViewStyle.Plain
 //            hudView.nonModalChromeBackgroundColour = UIColor.blackColor().colorWithAlphaComponent(0.75)
-//        case .PlainStyleCustomColours:  //wip: need to review examples here re new colour thing
+        case .PlainStyleCustomColours:  //wip: need to review examples here re new colour thing
 //            hudView.style = IFAHudViewStyle.Plain
-//            hudView.modalOverlayColour = UIColor.blueColor().colorWithAlphaComponent(0.2)
-//            hudView.modalChromeForegroundColour = UIColor.yellowColor()
-//            hudView.modalChromeBackgroundColour = UIColor.redColor().colorWithAlphaComponent(0.75)
+            hudView.modalOverlayColour = UIColor.blueColor().colorWithAlphaComponent(0.2)
+            hudView.modalChromeForegroundColour = UIColor.yellowColor()
+            hudView.modalChromeBackgroundColour = UIColor.redColor().colorWithAlphaComponent(0.75)
         default:
-            break   // does nothing
+            hudView.shouldAnimateLayoutChanges = false
         }
 
         // Text
@@ -214,6 +225,10 @@ class MenuViewController: UITableViewController {
             text = "Error"
         case .VisualIndicatorCustomView:
             text = "Custom view"
+        case .ModalityModal:
+            text = "Modal"
+        case .ModalityNonModal:
+            text = "Non-modal"
         case .ChromeTapWithAutoDismissal:
             text = "Tap inside to auto dismiss"
         case .ChromeTapWithAction:
@@ -397,6 +412,7 @@ class MenuViewController: UITableViewController {
         }
         
         // Configure HUD
+        self.hudViewController.modal = modal
         self.hudViewController.text = text
         self.hudViewController.detailText = detailText
         self.hudViewController.chromeTapActionBlock = chromeTapActionBlock
@@ -528,62 +544,66 @@ private extension NSIndexPath {
         case (1, 4):
             return TableViewRow.VisualIndicatorCustomView
         case (2, 0):
-            return TableViewRow.ChromeTapWithAutoDismissal
+            return TableViewRow.ModalityModal
         case (2, 1):
-            return TableViewRow.ChromeTapWithAction
-        case (2, 2):
-            return TableViewRow.OverlayTapWithAutoDismissal
-        case (2, 3):
-            return TableViewRow.OverlayTapWithAction
+            return TableViewRow.ModalityNonModal
         case (3, 0):
-            return TableViewRow.LayoutCompressed
+            return TableViewRow.ChromeTapWithAutoDismissal
         case (3, 1):
-            return TableViewRow.LayoutExpanded
+            return TableViewRow.ChromeTapWithAction
         case (3, 2):
-            return TableViewRow.LayoutPadding
+            return TableViewRow.OverlayTapWithAutoDismissal
         case (3, 3):
-            return TableViewRow.LayoutInteritemSpacing
+            return TableViewRow.OverlayTapWithAction
         case (4, 0):
-            return TableViewRow.DynamicLayoutWithoutAnimation
+            return TableViewRow.LayoutCompressed
         case (4, 1):
-            return TableViewRow.DynamicLayoutWithAnimation
+            return TableViewRow.LayoutExpanded
+        case (4, 2):
+            return TableViewRow.LayoutPadding
+        case (4, 3):
+            return TableViewRow.LayoutInteritemSpacing
         case (5, 0):
-            return TableViewRow.FontTextStyleCustomisation
+            return TableViewRow.DynamicLayoutWithoutAnimation
         case (5, 1):
-            return TableViewRow.FontCustomisation
+            return TableViewRow.DynamicLayoutWithAnimation
         case (6, 0):
-            return TableViewRow.PlainStyleOldSchool
+            return TableViewRow.FontTextStyleCustomisation
         case (6, 1):
-            return TableViewRow.PlainStyleCustomColours
-        case (6, 2):
-            return TableViewRow.BlurStyleDark
-        case (6, 3):
-            return TableViewRow.BlurStyleLight
-        case (6, 4):
-            return TableViewRow.BlurAndVibrancyStyleDark
-        case (6, 5):
-            return TableViewRow.BlurAndVibrancyStyleLight
+            return TableViewRow.FontCustomisation
         case (7, 0):
-            return TableViewRow.ContainmentDedicatedWindow
+            return TableViewRow.PlainStyleOldSchool
         case (7, 1):
-            return TableViewRow.ContainmentParentViewController
+            return TableViewRow.PlainStyleCustomColours
         case (7, 2):
-            return TableViewRow.ContainmentParentViewControllerSubview
+            return TableViewRow.BlurStyleDark
         case (7, 3):
-            return TableViewRow.ContainmentMultipleHuds
+            return TableViewRow.BlurStyleLight
+        case (7, 4):
+            return TableViewRow.BlurAndVibrancyStyleDark
+        case (7, 5):
+            return TableViewRow.BlurAndVibrancyStyleLight
         case (8, 0):
-            return TableViewRow.OrderDefault
+            return TableViewRow.ContainmentDedicatedWindow
         case (8, 1):
-            return TableViewRow.OrderCustomised
+            return TableViewRow.ContainmentParentViewController
+        case (8, 2):
+            return TableViewRow.ContainmentParentViewControllerSubview
+        case (8, 3):
+            return TableViewRow.ContainmentMultipleHuds
         case (9, 0):
-            return TableViewRow.AnimationWith
+            return TableViewRow.OrderDefault
         case (9, 1):
-            return TableViewRow.AnimationWithout
-        case (9, 2):
-            return TableViewRow.AnimationCustomisedDuration
+            return TableViewRow.OrderCustomised
         case (10, 0):
-            return TableViewRow.CompletionPresentation
+            return TableViewRow.AnimationWith
         case (10, 1):
+            return TableViewRow.AnimationWithout
+        case (10, 2):
+            return TableViewRow.AnimationCustomisedDuration
+        case (11, 0):
+            return TableViewRow.CompletionPresentation
+        case (11, 1):
             return TableViewRow.CompletionDismissal
         default:
             assert(false, "Unexpected section and row")
