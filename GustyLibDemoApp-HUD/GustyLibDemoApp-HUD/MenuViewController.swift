@@ -30,8 +30,9 @@ private enum TableViewRow: Int {
     case DynamicLayoutWithAnimation
     case FontTextStyleCustomisation
     case FontCustomisation
-    case PlainStyleOldSchool
-    case PlainStyleCustomColours
+    case ColoursModal
+    case ColoursNonModal
+    case PlainStyle
     case BlurStyleDark
     case BlurStyleLight
     case BlurAndVibrancyStyleDark
@@ -173,6 +174,8 @@ class MenuViewController: UITableViewController {
         // Modality
         var modal: Bool
         switch tableViewRow {
+        case .ColoursNonModal:
+            fallthrough
         case .ModalityNonModal:
             modal = false
         default:
@@ -196,14 +199,15 @@ class MenuViewController: UITableViewController {
         case .FontCustomisation:
             hudView.textLabelFont = UIFont(name: "Chalkduster", size: 20)
             hudView.detailTextLabelFont = UIFont(name: "ChalkboardSE-Light", size: 14)
-//        case .PlainStyleOldSchool:  //wip: need to review examples here re new colour thing
-//            hudView.style = IFAHudViewStyle.Plain
-//            hudView.nonModalChromeBackgroundColour = UIColor.blackColor().colorWithAlphaComponent(0.75)
-        case .PlainStyleCustomColours:  //wip: need to review examples here re new colour thing
-//            hudView.style = IFAHudViewStyle.Plain
+        case .ColoursModal:
+            hudView.modalStyle = IFAHudViewStyle.Plain
             hudView.modalOverlayColour = UIColor.blueColor().colorWithAlphaComponent(0.2)
             hudView.modalChromeForegroundColour = UIColor.yellowColor()
             hudView.modalChromeBackgroundColour = UIColor.redColor().colorWithAlphaComponent(0.75)
+        case .ColoursNonModal:
+            hudView.nonModalStyle = IFAHudViewStyle.Plain
+            hudView.nonModalChromeForegroundColour = UIColor.orangeColor()
+            hudView.nonModalChromeBackgroundColour = UIColor.blueColor().colorWithAlphaComponent(0.75)
         default:
             hudView.shouldAnimateLayoutChanges = false
         }
@@ -249,10 +253,12 @@ class MenuViewController: UITableViewController {
             text = "Text style customisation"
         case .FontCustomisation:
             text = "Font customisation"
-        case .PlainStyleOldSchool:
-            text = "Plain - old school"
-        case .PlainStyleCustomColours:
-            text = "Plain - custom colours"
+        case .ColoursModal:
+            text = "Modal - custom colours"
+        case .ColoursNonModal:
+            text = "Non-modal - custom colours"
+        case .PlainStyle:
+            text = "Plain"
         case .DynamicLayoutWithoutAnimation:
             fallthrough
         case .DynamicLayoutWithAnimation:
@@ -572,38 +578,40 @@ private extension NSIndexPath {
         case (6, 1):
             return TableViewRow.FontCustomisation
         case (7, 0):
-            return TableViewRow.PlainStyleOldSchool
+            return TableViewRow.ColoursModal
         case (7, 1):
-            return TableViewRow.PlainStyleCustomColours
-        case (7, 2):
-            return TableViewRow.BlurStyleDark
-        case (7, 3):
-            return TableViewRow.BlurStyleLight
-        case (7, 4):
-            return TableViewRow.BlurAndVibrancyStyleDark
-        case (7, 5):
-            return TableViewRow.BlurAndVibrancyStyleLight
+            return TableViewRow.ColoursNonModal
         case (8, 0):
-            return TableViewRow.ContainmentDedicatedWindow
-        case (8, 1):
-            return TableViewRow.ContainmentParentViewController
+            return TableViewRow.PlainStyle
         case (8, 2):
-            return TableViewRow.ContainmentParentViewControllerSubview
+            return TableViewRow.BlurStyleDark
         case (8, 3):
-            return TableViewRow.ContainmentMultipleHuds
+            return TableViewRow.BlurStyleLight
+        case (8, 4):
+            return TableViewRow.BlurAndVibrancyStyleDark
+        case (8, 5):
+            return TableViewRow.BlurAndVibrancyStyleLight
         case (9, 0):
-            return TableViewRow.OrderDefault
+            return TableViewRow.ContainmentDedicatedWindow
         case (9, 1):
-            return TableViewRow.OrderCustomised
+            return TableViewRow.ContainmentParentViewController
+        case (9, 2):
+            return TableViewRow.ContainmentParentViewControllerSubview
+        case (9, 3):
+            return TableViewRow.ContainmentMultipleHuds
         case (10, 0):
-            return TableViewRow.AnimationWith
+            return TableViewRow.OrderDefault
         case (10, 1):
-            return TableViewRow.AnimationWithout
-        case (10, 2):
-            return TableViewRow.AnimationCustomisedDuration
+            return TableViewRow.OrderCustomised
         case (11, 0):
-            return TableViewRow.CompletionPresentation
+            return TableViewRow.AnimationWith
         case (11, 1):
+            return TableViewRow.AnimationWithout
+        case (11, 2):
+            return TableViewRow.AnimationCustomisedDuration
+        case (12, 0):
+            return TableViewRow.CompletionPresentation
+        case (12, 1):
             return TableViewRow.CompletionDismissal
         default:
             assert(false, "Unexpected section and row")
