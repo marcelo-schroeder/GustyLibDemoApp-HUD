@@ -1,1 +1,1 @@
-../../../../../GustyLib/GustyLib_development/GustyLib/GustyLib/CoreUI/classes/IFALongTextEditorViewController.h
+../../../GustyLib/GustyLib/GustyLib/CoreUI/classes/IFALongTextEditorViewController.h

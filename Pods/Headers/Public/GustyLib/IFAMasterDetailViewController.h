@@ -1,1 +1,1 @@
-../../../../../GustyLib/GustyLib_development/GustyLib/GustyLib/CoreUI/classes/IFAMasterDetailViewController.h
+../../../GustyLib/GustyLib/GustyLib/CoreUI/classes/IFAMasterDetailViewController.h

@@ -4,9 +4,6 @@
     <content url="file://$MODULE_DIR$/../GustyLib/GustyLib_LegalAidNSW">
       <sourceFolder url="file://$MODULE_DIR$/../GustyLib/GustyLib_LegalAidNSW" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/../GustyLib/GustyLib_development">
-      <sourceFolder url="file://$MODULE_DIR$/../GustyLib/GustyLib_development" isTestSource="false" />
-    </content>
     <content url="file://$MODULE_DIR$/.idea">
       <sourceFolder url="file://$MODULE_DIR$/.idea" isTestSource="false" />
     </content>
