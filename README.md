@@ -51,6 +51,8 @@ GustyLib HUD is part of the [GustyLib project](https://github.com/marcelo-schroe
 
 Simply open `GustyLibDemoApp-HUD.xcworkspace` in Xcode and run it.
 
-## How to use GustyLib HUD ##
+## How to install GustyLib HUD ##
 
-Please refer to the [GustyLib project](https://github.com/marcelo-schroeder/GustyLib).
+Simply add GustyLib to your project via Cocoapods.
+
+For further details, please refer to the [GustyLib project](https://github.com/marcelo-schroeder/GustyLib) on GitHub.
