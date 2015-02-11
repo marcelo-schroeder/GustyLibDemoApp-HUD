@@ -4,6 +4,10 @@ Finally a modern HUD implementation for iOS!
 
 This GitHub project delivers a demo app that demonstrates the features and usage of GustyLib HUD.
 
+<img src="http://marcelo-schroeder.github.io/GustyLibHudDemoApp.png" alt="Screenshot" width="300" height="auto">
+
+Make sure to check the demo app [video](https://www.youtube.com/embed/RAEn9zqvI14) out!
+
 GustyLib HUD is part of the [GustyLib project](https://github.com/marcelo-schroeder/GustyLib).
 
 ## Features ##
@@ -43,9 +47,9 @@ GustyLib HUD is part of the [GustyLib project](https://github.com/marcelo-schroe
   * Dynamic font type
   * Device rotation
 
-## Video ##
-
 ## How to run the demo app ##
+
+Simply open `GustyLibDemoApp-HUD.xcworkspace` in Xcode and run it.
 
 ## How to use GustyLib HUD ##
 
