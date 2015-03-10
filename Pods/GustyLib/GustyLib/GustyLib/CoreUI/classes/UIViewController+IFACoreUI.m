@@ -1355,8 +1355,14 @@ typedef NS_ENUM(NSUInteger, IFANavigationBarButtonItemsSide) {
     }
 }
 
-- (BOOL)ifa_isVisibleTopViewController {
-    return self.navigationController.topViewController==self && self.navigationController.viewControllers[0]==self;
+- (BOOL)ifa_isVisibleTopChildViewController {
+    return self.navigationController.topViewController == self
+            && self.navigationController.viewControllers[0] == self
+            &&
+            (
+                    self.navigationController.tabBarController == nil
+                            || self.navigationController.tabBarController.selectedViewController == self.navigationController
+            );
 }
 
 - (UIPopoverArrowDirection)ifa_permittedPopoverArrowDirectionForViewController:(UIViewController *)a_viewController {
@@ -1400,14 +1406,12 @@ typedef NS_ENUM(NSUInteger, IFANavigationBarButtonItemsSide) {
                         completion:(void (^)(BOOL a_finished))a_completion {
 
     BOOL animated = a_animationDuration > 0;
-    [a_childViewController beginAppearanceTransition:YES animated:animated];
     [self addChildViewController:a_childViewController];
     [a_parentView addSubview:a_childViewController.view];
     if (a_shouldFillParentView) {
         [a_childViewController.view ifa_addLayoutConstraintsToFillSuperview];
     }
     [a_childViewController didMoveToParentViewController:self];
-    [a_childViewController endAppearanceTransition];
 
     if (animated) {
 
@@ -1436,7 +1440,6 @@ typedef NS_ENUM(NSUInteger, IFANavigationBarButtonItemsSide) {
 - (void)ifa_removeFromParentViewControllerWithAnimationDuration:(NSTimeInterval)a_animationDuration completion:(void (^)(BOOL a_finished))a_completion {
 
     BOOL animated = a_animationDuration > 0;
-    [self beginAppearanceTransition:NO animated:animated];
 
     __weak __typeof(self) weakSelf = self;
 
@@ -1444,7 +1447,6 @@ typedef NS_ENUM(NSUInteger, IFANavigationBarButtonItemsSide) {
         [weakSelf willMoveToParentViewController:nil];
         [weakSelf.view removeFromSuperview];
         [weakSelf removeFromParentViewController];
-        [weakSelf endAppearanceTransition];
         if (a_completion) {
             a_completion(finished);
         }
@@ -1533,8 +1535,8 @@ typedef NS_ENUM(NSUInteger, IFANavigationBarButtonItemsSide) {
     for (UIAlertAction *action in a_actions) {
         [alertController addAction:action];
     }
-    [self presentViewController:alertController
-                       animated:YES completion:a_completion];
+    UIViewController *presenterViewController = self.parentViewController ? : self;
+    [presenterViewController presentViewController:alertController animated:YES completion:a_completion];
 }
 
 - (void)ifa_presentAlertControllerWithTitle:(NSString *)a_title message:(NSString *)a_message {

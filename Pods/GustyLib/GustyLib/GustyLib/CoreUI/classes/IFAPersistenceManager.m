@@ -33,7 +33,6 @@ static NSString *METADATA_KEY_SYSTEM_DB_TABLES_VERSION = @"systemDbTablesVersion
 @property (strong) NSManagedObjectContext *privateQueueManagedObjectContext;
 //@property BOOL p_isPrivateQueueManagedObjectContextStale;
 @property (strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (strong) NSURL *IFA_storeUrl;
 @property (strong) NSMutableDictionary *IFA_managedObjectChangedValuesDictionary;
 @property (strong) NSMutableDictionary *IFA_managedObjectCommittedValuesDictionary;
 @property (strong) IFAEntityConfig *entityConfig;
@@ -597,7 +596,7 @@ static NSString *METADATA_KEY_SYSTEM_DB_TABLES_VERSION = @"systemDbTablesVersion
         [aManagedObject ifa_willDelete];
         //        NSLog(@"Done");
 		
-		NSManagedObjectContext *moc = [aManagedObject managedObjectContext];
+		NSManagedObjectContext *moc = self.currentManagedObjectContext;
 		[moc deleteObject:aManagedObject];
         
         // Run post-delete method
@@ -625,7 +624,7 @@ static NSString *METADATA_KEY_SYSTEM_DB_TABLES_VERSION = @"systemDbTablesVersion
         [aManagedObject ifa_willDelete];
         //        NSLog(@"Done");
 		
-		NSManagedObjectContext *moc = [aManagedObject managedObjectContext];
+		NSManagedObjectContext *moc = self.currentManagedObjectContext;
 		[moc deleteObject:aManagedObject];
 		NSError *error;
 		if([moc save:&error]){
@@ -673,7 +672,9 @@ static NSString *METADATA_KEY_SYSTEM_DB_TABLES_VERSION = @"systemDbTablesVersion
 - (NSManagedObject *)instantiate:(NSString *)entityName{
     NSManagedObject *l_mo = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:[self currentManagedObjectContext]];
     NSError *l_error;
-    if(![[[IFAPersistenceManager sharedInstance] currentManagedObjectContext] obtainPermanentIDsForObjects:@[l_mo] error:&l_error]){
+    NSManagedObjectContext *l_moc = [[IFAPersistenceManager sharedInstance] currentManagedObjectContext];
+    if(![l_moc obtainPermanentIDsForObjects:@[l_mo]
+                                      error:&l_error]){
         [IFAUIUtils handleUnrecoverableError:l_error];
     };
 	return l_mo;
@@ -936,7 +937,9 @@ static NSString *METADATA_KEY_SYSTEM_DB_TABLES_VERSION = @"systemDbTablesVersion
 }
 
 - (NSPersistentStore*) persistentStore{
-	return [self.persistentStoreCoordinator persistentStoreForURL:self.IFA_storeUrl];
+    NSArray *persistentStores = self.persistentStoreCoordinator.persistentStores;
+    NSAssert(persistentStores.count==1, @"Unexpected persistent store count: %lu", (unsigned long)persistentStores.count);
+    return persistentStores[0];
 }
 
 - (BOOL)isSystemEntityForEntity:(NSString*)anEntityName{
@@ -1015,26 +1018,32 @@ static NSString *METADATA_KEY_SYSTEM_DB_TABLES_VERSION = @"systemDbTablesVersion
     return l_objects;
 }
 
-- (void)configureWithDatabaseResourceName:(NSString*)a_databaseFileName managedObjectModelResourceName:(NSString*)a_managedObjectModelResourceName{
-    
+- (void)configureWithDatabaseResourceName:(NSString*)a_databaseResourceName managedObjectModelResourceName:(NSString*)a_managedObjectModelResourceName{
+
+    // SQLite or InMemory store type?
+    NSURL *storeUrl;
+    NSString *persistentStoreType;
+    if (a_databaseResourceName) {
+        storeUrl = [NSURL fileURLWithPath:[[self applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.sqlite",
+                                                                                                                                          a_databaseResourceName]]];
+        persistentStoreType = NSSQLiteStoreType;
+    } else {
+        storeUrl = nil;
+        persistentStoreType = NSInMemoryStoreType;
+    }
+
     // Configure managedObjectModel
     NSString *path = [[NSBundle mainBundle] pathForResource:a_managedObjectModelResourceName ofType:@"momd"];
     NSURL *momURL = [NSURL fileURLWithPath:path];
     self.managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:momURL];
-    
-    self.IFA_storeUrl = [NSURL fileURLWithPath:[[self applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.sqlite", a_databaseFileName]]];
-    
-    //	#ifdef DEBUG
-    //	[self resetTestDatabase:IFA_storeUrl];
-    //	#endif
-    
+
     // Configure persistentStoreCoordinator
     NSError *error;
     self.persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
     NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption: @(YES),
                              NSInferMappingModelAutomaticallyOption: @(YES)};
-    if (![self.persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil
-                                                                 URL:self.IFA_storeUrl options:options error:&error]) {
+    if (![self.persistentStoreCoordinator addPersistentStoreWithType:persistentStoreType configuration:nil
+                                                                 URL:storeUrl options:options error:&error]) {
         [IFAUIUtils handleUnrecoverableError:error];
     }    
     

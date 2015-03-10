@@ -10,19 +10,19 @@
 #define COCOAPODS_POD_AVAILABLE_GustyLib
 #define COCOAPODS_VERSION_MAJOR_GustyLib 1
 #define COCOAPODS_VERSION_MINOR_GustyLib 0
-#define COCOAPODS_VERSION_PATCH_GustyLib 0
+#define COCOAPODS_VERSION_PATCH_GustyLib 1
 
 // GustyLib/CoreUI
 #define COCOAPODS_POD_AVAILABLE_GustyLib_CoreUI
 #define COCOAPODS_VERSION_MAJOR_GustyLib_CoreUI 1
 #define COCOAPODS_VERSION_MINOR_GustyLib_CoreUI 0
-#define COCOAPODS_VERSION_PATCH_GustyLib_CoreUI 0
+#define COCOAPODS_VERSION_PATCH_GustyLib_CoreUI 1
 
 // GustyLib/Foundation
 #define COCOAPODS_POD_AVAILABLE_GustyLib_Foundation
 #define COCOAPODS_VERSION_MAJOR_GustyLib_Foundation 1
 #define COCOAPODS_VERSION_MINOR_GustyLib_Foundation 0
-#define COCOAPODS_VERSION_PATCH_GustyLib_Foundation 0
+#define COCOAPODS_VERSION_PATCH_GustyLib_Foundation 1
 
 // ODRefreshControl
 #define COCOAPODS_POD_AVAILABLE_ODRefreshControl
