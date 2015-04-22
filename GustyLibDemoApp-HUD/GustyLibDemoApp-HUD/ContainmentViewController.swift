@@ -20,7 +20,7 @@ class ContainmentViewController: UIViewController {
 
         if (!self.shouldTargetSubview) {
             
-            let childViewController = self.childViewControllers[0] as ContainmentChildViewController
+            let childViewController = self.childViewControllers[0] as! ContainmentChildViewController
             
             let hudViewController = IFAHudViewController()
             hudViewController.text = "In parent VC"

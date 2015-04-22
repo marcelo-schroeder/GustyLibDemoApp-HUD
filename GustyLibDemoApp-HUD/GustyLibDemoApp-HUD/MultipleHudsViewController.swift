@@ -16,7 +16,7 @@ class MultipleHudsViewController: UIViewController {
 
         if (segue.destinationViewController is IFAHudViewController) {
 
-            let viewController = segue.destinationViewController as IFAHudViewController
+            let viewController = segue.destinationViewController as! IFAHudViewController
             viewController.text = segue.identifier
             viewController.modal = false
             viewController.visualIndicatorMode = IFAHudViewVisualIndicatorMode.ProgressIndeterminate

@@ -32,7 +32,7 @@ class BlurAndVibrancyStyleViewController: UIViewController {
         
         if (segue.destinationViewController is IFAHudViewController) {
 
-            let viewController = segue.destinationViewController as IFAHudViewController
+            let viewController = segue.destinationViewController as! IFAHudViewController
             viewController.text = self.text
             viewController.detailText = "Enjoy the view!"
             viewController.modal = false
@@ -42,7 +42,7 @@ class BlurAndVibrancyStyleViewController: UIViewController {
             
         } else if (segue.destinationViewController is ImageCreditsViewController) {
 
-            let viewController = segue.destinationViewController as ImageCreditsViewController
+            let viewController = segue.destinationViewController as! ImageCreditsViewController
             viewController.imageTitle = self.imageTitle
             viewController.imageAuthor = self.imageAuthor
             viewController.imageUrl = self.imageUrl

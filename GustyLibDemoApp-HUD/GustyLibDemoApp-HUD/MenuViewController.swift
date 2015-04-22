@@ -99,7 +99,7 @@ class MenuViewController: UITableViewController {
 
         if (segue.destinationViewController is BlurAndVibrancyStyleViewController) {
             
-            let viewController = segue.destinationViewController as BlurAndVibrancyStyleViewController
+            let viewController = segue.destinationViewController as! BlurAndVibrancyStyleViewController
 
             switch selectedRowIndexPath.tableViewRow() {
             case .BlurStyleDark:
@@ -148,7 +148,7 @@ class MenuViewController: UITableViewController {
             
         } else if (segue.destinationViewController is ContainmentViewController) {
             
-            let viewController = segue.destinationViewController as ContainmentViewController
+            let viewController = segue.destinationViewController as! ContainmentViewController
 
             switch selectedRowIndexPath.tableViewRow() {
             case .ContainmentParentViewController:
