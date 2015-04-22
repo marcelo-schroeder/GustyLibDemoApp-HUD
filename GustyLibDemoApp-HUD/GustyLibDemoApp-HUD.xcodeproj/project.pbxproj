@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		107387C712DB081348241728 /* BlurAndVibrancyStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10738EDB1D5FD501BBDAFFC1 /* BlurAndVibrancyStyleViewController.swift */; };
-		B6DCFF71E1AEDDE13A3194B7 /* libPods-GustyLibDemoApp-HUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71F2390A0A5D6E62A872CFB6 /* libPods-GustyLibDemoApp-HUD.a */; };
+		5F7E2ED0ED3354BA5D01858B /* Pods_GustyLibDemoApp_HUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028877F4BDEA86CCDA7E1115 /* Pods_GustyLibDemoApp_HUD.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F7206CA61A78954E00294C58 /* ImageCreditsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7206CA51A78954E00294C58 /* ImageCreditsViewController.swift */; };
 		F732C9E81A71C0AF00F20C44 /* MultipleHudsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F732C9E71A71C0AF00F20C44 /* MultipleHudsViewController.swift */; };
 		F76588AA1A7709E800E95B69 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76588A91A7709E800E95B69 /* TableViewCell.swift */; };
@@ -33,9 +33,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		028877F4BDEA86CCDA7E1115 /* Pods_GustyLibDemoApp_HUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GustyLibDemoApp_HUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		10738EDB1D5FD501BBDAFFC1 /* BlurAndVibrancyStyleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurAndVibrancyStyleViewController.swift; sourceTree = "<group>"; };
 		5977A1646394E0B52BADF53E /* Pods-GustyLibDemoApp-HUD.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GustyLibDemoApp-HUD.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-GustyLibDemoApp-HUD/Pods-GustyLibDemoApp-HUD.debug.xcconfig"; sourceTree = "<group>"; };
-		71F2390A0A5D6E62A872CFB6 /* libPods-GustyLibDemoApp-HUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GustyLibDemoApp-HUD.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3D39E40922E41F71D027336 /* Pods-GustyLibDemoApp-HUD.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GustyLibDemoApp-HUD.release.xcconfig"; path = "../Pods/Target Support Files/Pods-GustyLibDemoApp-HUD/Pods-GustyLibDemoApp-HUD.release.xcconfig"; sourceTree = "<group>"; };
 		F7206CA51A78954E00294C58 /* ImageCreditsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCreditsViewController.swift; sourceTree = "<group>"; };
 		F732C9E71A71C0AF00F20C44 /* MultipleHudsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipleHudsViewController.swift; sourceTree = "<group>"; };
@@ -60,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6DCFF71E1AEDDE13A3194B7 /* libPods-GustyLibDemoApp-HUD.a in Frameworks */,
+				5F7E2ED0ED3354BA5D01858B /* Pods_GustyLibDemoApp_HUD.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,7 +77,7 @@
 		8154C6D2DECAE5F77D2E6D52 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				71F2390A0A5D6E62A872CFB6 /* libPods-GustyLibDemoApp-HUD.a */,
+				028877F4BDEA86CCDA7E1115 /* Pods_GustyLibDemoApp_HUD.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -168,6 +168,7 @@
 				F7944FFE1A6CBAB300E059A3 /* Frameworks */,
 				F7944FFF1A6CBAB300E059A3 /* Resources */,
 				4DAD4151B4420CD956449E7D /* Copy Pods Resources */,
+				840D5C7CA8CFA0AC0B980E80 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -267,6 +268,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-GustyLibDemoApp-HUD/Pods-GustyLibDemoApp-HUD-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		840D5C7CA8CFA0AC0B980E80 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-GustyLibDemoApp-HUD/Pods-GustyLibDemoApp-HUD-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E0AB4F296845AD8BC8497430 /* Check Pods Manifest.lock */ = {

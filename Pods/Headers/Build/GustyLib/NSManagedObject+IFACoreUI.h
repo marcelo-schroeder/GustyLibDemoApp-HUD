@@ -1,1 +1,0 @@
-../../../GustyLib/GustyLib/GustyLib/CoreUI/classes/NSManagedObject+IFACoreUI.h

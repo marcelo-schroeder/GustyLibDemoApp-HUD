@@ -2,4 +2,4 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
-#import "GustyLib.h"
+#import <GustyLib/Pods-GustyLibDemoApp-HUD-GustyLib-umbrella.h>

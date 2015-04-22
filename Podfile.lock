@@ -8,10 +8,14 @@ PODS:
   - ODRefreshControl (1.1.0)
 
 DEPENDENCIES:
-  - GustyLib
+  - GustyLib (from `/Users/mschroeder/myfiles/projects/Xcode6/GustyLib/GustyLib_development`)
+
+EXTERNAL SOURCES:
+  GustyLib:
+    :path: /Users/mschroeder/myfiles/projects/Xcode6/GustyLib/GustyLib_development
 
 SPEC CHECKSUMS:
-  GustyLib: 32e224cbd77bc66c1b402d45c77c6849ba8266ce
-  ODRefreshControl: 7bc75258d9dba1f93c4e34654d1e4b5aa39529f0
+  GustyLib: a6ac7dbda0f20a572dcbc127c1cb4a5effb27323
+  ODRefreshControl: 4c4c413bf70d2ea0c02a28ac0a0b3b4bf4dbfdea
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.36.4
