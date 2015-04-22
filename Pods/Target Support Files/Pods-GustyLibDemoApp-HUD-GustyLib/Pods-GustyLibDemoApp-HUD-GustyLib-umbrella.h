@@ -61,6 +61,7 @@
 #import "IFAFormTextFieldTableViewCell.h"
 #import "IFAFormViewController.h"
 #import "IFAGridViewController.h"
+#import "IFAHtmlDocument.h"
 #import "IFAHudView.h"
 #import "IFAHudViewController.h"
 #import "IFAInternalWebBrowserActivity.h"

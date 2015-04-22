@@ -93,9 +93,6 @@
       "dependencies": {
         "GustyLib/CoreUI": [
 
-        ],
-        "GustyLib/Html": [
-
         ]
       }
     }

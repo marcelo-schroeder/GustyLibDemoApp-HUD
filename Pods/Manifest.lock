@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
     :path: /Users/mschroeder/myfiles/projects/Xcode6/GustyLib/GustyLib_development
 
 SPEC CHECKSUMS:
-  GustyLib: a6ac7dbda0f20a572dcbc127c1cb4a5effb27323
+  GustyLib: a7bb200b22e4bbf3fee5be246647c953b65b9085
   ODRefreshControl: 4c4c413bf70d2ea0c02a28ac0a0b3b4bf4dbfdea
 
 COCOAPODS: 0.36.4
